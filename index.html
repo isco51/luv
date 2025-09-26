@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Diamonds Generator</title>
+    <title>Roblox Diamonds Generator - Free Diamonds & Items</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         @keyframes pulse {
             0% { transform: scale(1); }
@@ -14,282 +13,243 @@
             100% { transform: scale(1); }
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
         @keyframes shine {
-            0% { filter: brightness(1); }
-            50% { filter: brightness(1.3); }
-            100% { filter: brightness(1); }
+            0% { filter: brightness(1) drop-shadow(0 0 5px rgba(207, 255, 4, 0.3)); }
+            50% { filter: brightness(1.3) drop-shadow(0 0 15px rgba(207, 255, 4, 0.7)); }
+            100% { filter: brightness(1) drop-shadow(0 0 5px rgba(207, 255, 4, 0.3)); }
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        @keyframes countUp {
+            from { content: "0"; }
+            to { content: attr(data-count); }
         }
         .fade-in {
-            animation: fadeIn 0.5s ease-out;
+            animation: fadeIn 0.8s ease-out;
         }
         .pulse-animation {
             animation: pulse 2s infinite;
         }
-        .loading-spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #6C00FF;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            margin-right: 10px;
+        .shine-animation {
+            animation: shine 3s infinite;
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
         }
         .selected-option {
             border: 2px solid #6C00FF;
-            box-shadow: 0 0 10px rgba(108, 0, 255, 0.5);
+            box-shadow: 0 0 20px rgba(108, 0, 255, 0.5);
+            transform: scale(1.05);
         }
         .step-indicator {
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
-            background-color: #6C00FF;
-            color: white;
+            background: linear-gradient(135deg, #6C00FF, #CFFF04);
+            color: black;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            margin-right: 10px;
-        }
-        .step-indicator.active {
-            background-color: #CFFF04;
-            color: black;
-        }
-        .progress-bar {
-            height: 6px;
-            background-color: #374151;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #6C00FF, #CFFF04);
-            width: 0%;
-            transition: width 0.5s ease;
+            margin-right: 12px;
+            font-size: 18px;
         }
         .option-card {
             transition: all 0.3s ease;
             cursor: pointer;
+            border: 2px solid transparent;
         }
         .option-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #6C00FF;
         }
         .verification-badge {
             background: linear-gradient(90deg, #6C00FF, #CFFF04);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: bold;
+            font-weight: 800;
         }
         .diamond-image {
             animation: shine 3s infinite;
-            filter: drop-shadow(0 0 5px rgba(207, 255, 4, 0.5));
         }
         .grid-line {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #6C00FF, transparent);
-            margin: 20px 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #6C00FF, #CFFF04, transparent);
+            margin: 25px 0;
+            border-radius: 2px;
         }
-        .ad-container {
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
+        .trust-badge {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 12px;
+            display: inline-flex;
             align-items: center;
-            min-height: 100px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            padding: 10px;
+            gap: 6px;
         }
-        .ad-label {
-            position: absolute;
-            top: -10px;
-            left: 10px;
-            background: #6C00FF;
-            color: white;
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 4px;
+        .counter-animation {
+            font-variant-numeric: tabular-nums;
         }
-        .browser-warning {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            flex-direction: column;
+        .game-animation {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            border-radius: 15px;
             padding: 20px;
+            border: 1px solid #6C00FF;
+            box-shadow: 0 10px 30px rgba(108, 0, 255, 0.2);
         }
-        .browser-warning-content {
-            background: #1F2937;
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        .progress-ring {
+            transform: rotate(-90deg);
         }
-        .warning-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-        .browser-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .browser-btn {
-            padding: 12px;
-            border-radius: 8px;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.3s;
-        }
-        .browser-btn-primary {
-            background: linear-gradient(90deg, #6C00FF, #CFFF04);
-            color: black;
-        }
-        .browser-btn-secondary {
-            background: #374151;
-            color: white;
-        }
-        .browser-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.5s ease;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans min-h-screen" style="font-family: 'Poppins', sans-serif;">
-    <!-- Browser Warning Modal -->
-    <div id="browserWarning" class="browser-warning hidden">
-        <div class="browser-warning-content">
-            <div class="warning-icon">⚠️</div>
-            <h2 class="text-2xl font-bold mb-4">External Website</h2>
-            <p class="text-gray-300 mb-4">You're about to open an external website. Be cautious and keep your personal information safe.</p>
-            <p class="text-sm text-gray-400 mb-6">For the best experience, we recommend opening this page in your default browser.</p>
-            
-            <div class="browser-options">
-                <button id="openExternal" class="browser-btn browser-btn-primary">
-                    <span>🌐</span> Open in Browser
-                </button>
-                <button id="openInApp" class="browser-btn browser-btn-secondary">
-                    <span>📱</span> Continue in App
-                </button>
-            </div>
-            
-            <div class="mt-6 flex justify-between text-sm text-gray-500">
-                <button id="reportLink" class="flex items-center gap-1">
-                    <span>📌</span> Report
-                </button>
-                <button id="copyLink" class="flex items-center gap-1">
-                    <span>📋</span> Copy Link
-                </button>
+<body class="bg-gradient-to-br from-gray-900 to-gray-800 text-gray-100 font-sans min-h-screen" style="font-family: 'Poppins', sans-serif;">
+    <!-- Trust Header -->
+    <div class="bg-gradient-to-r from-purple-900/30 to-green-900/30 border-b border-purple-500/30 py-3">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center items-center gap-4 text-sm">
+                <div class="trust-badge">
+                    <span>🔒</span> Secure Connection
+                </div>
+                <div class="trust-badge">
+                    <span>⏱️</span> Instant Delivery
+                </div>
+                <div class="trust-badge">
+                    <span>👥</span> <span id="onlineUsers">12,847</span> Online
+                </div>
+                <div class="trust-badge">
+                    <span>⭐</span> 4.9/5 Rating
+                </div>
             </div>
         </div>
     </div>
 
-    <div id="mainContent" class="container mx-auto px-4 py-8 max-w-2xl">
-        <!-- Progress Bar -->
-        <div class="mb-8">
-            <div class="flex justify-between items-center mb-2">
-                <div class="flex items-center">
-                    <div class="step-indicator active">1</div>
-                    <span>Selection</span>
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <!-- Hero Section -->
+        <div class="text-center mb-10 fade-in">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-purple-400 to-green-400 bg-clip-text text-transparent">
+                Free Roblox Diamonds Generator
+            </h1>
+            <p class="text-xl text-gray-300 mb-6">Watch as your chosen amount is processed and added before your eyes!</p>
+            
+            <div class="game-animation mb-8">
+                <div class="flex justify-center mb-4">
+                    <div class="relative">
+                        <svg width="120" height="120" class="progress-ring">
+                            <circle cx="60" cy="60" r="50" stroke="#374151" stroke-width="8" fill="transparent"/>
+                            <circle id="progressCircle" cx="60" cy="60" r="50" stroke="#CFFF04" stroke-width="8" fill="transparent" 
+                                    stroke-dasharray="314" stroke-dashoffset="314" class="progress-ring-circle"/>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="text-3xl font-bold" id="diamondCount">0</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex items-center">
-                    <div class="step-indicator">2</div>
-                    <span>Verification</span>
-                </div>
-                <div class="flex items-center">
-                    <div class="step-indicator">3</div>
-                    <span>Complete</span>
-                </div>
+                <p class="text-green-400 font-semibold mb-2">Diamonds Generating...</p>
+                <button id="startNow" class="w-full bg-gradient-to-r from-purple-600 to-green-500 text-black font-bold py-4 px-6 rounded-xl text-lg pulse-animation hover:from-purple-700 hover:to-green-600 transition-all">
+                    🎮 Start Now
+                </button>
             </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+
+            <div class="flex items-center justify-center gap-2 text-gray-400 cursor-pointer" id="howItWorks">
+                <span>How it works</span>
+                <span>▼</span>
+            </div>
+        </div>
+
+        <!-- How It Works (Collapsible) -->
+        <div id="howItWorksContent" class="hidden bg-gray-800/50 rounded-xl p-6 mb-8 fade-in">
+            <h3 class="text-xl font-bold mb-4 text-center">How Our Generator Works</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="text-center p-4 bg-gray-700/30 rounded-lg">
+                    <div class="text-3xl mb-2">1</div>
+                    <h4 class="font-bold mb-2">Select Your Items</h4>
+                    <p class="text-sm text-gray-400">Choose diamonds, class, and item you want</p>
+                </div>
+                <div class="text-center p-4 bg-gray-700/30 rounded-lg">
+                    <div class="text-3xl mb-2">2</div>
+                    <h4 class="font-bold mb-2">Verify Account</h4>
+                    <p class="text-sm text-gray-400">Quick human verification for security</p>
+                </div>
+                <div class="text-center p-4 bg-gray-700/30 rounded-lg">
+                    <div class="text-3xl mb-2">3</div>
+                    <h4 class="font-bold mb-2">Receive Rewards</h4>
+                    <p class="text-sm text-gray-400">Get your diamonds instantly in-game</p>
+                </div>
             </div>
         </div>
 
         <!-- Step 1: Selection -->
-        <div id="step1" class="fade-in">
-            <h1 class="text-3xl font-bold text-center mb-2">Roblox Diamonds & Items Generator</h1>
-            <p class="text-center text-gray-400 mb-8">Select your diamonds, class, and item to generate</p>
-
+        <div id="step1" class="hidden fade-in">
             <!-- Diamonds Selection -->
-            <div class="bg-gray-800 rounded-xl p-6 mb-6">
+            <div class="bg-gray-800/70 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700">
                 <h2 class="text-xl font-bold mb-4 flex items-center">
-                    <span class="step-indicator active">1</span>
+                    <span class="step-indicator">1</span>
                     Select Your Diamonds
                 </h2>
                 <p class="text-gray-400 mb-4">Choose one amount</p>
                 
-                <!-- Grid layout with 3 diamonds per row -->
                 <div class="grid grid-cols-3 gap-4 mb-4">
-                    <!-- Row 1 -->
-                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="2500">
-                        <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="Diamonds" class="w-full h-16 object-contain mb-2 diamond-image">
-                        <div class="font-bold">2,500 Diamonds</div>
-                        <div class="text-xs text-gray-400 mt-1">Standard</div>
+                    <div class="option-card bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl p-4 text-center" data-value="2500">
+                        <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="Diamonds" class="w-full h-16 object-contain mb-2 diamond-image float-animation">
+                        <div class="font-bold text-lg">2,500</div>
+                        <div class="text-gray-400">Diamonds</div>
+                        <div class="text-xs text-gray-500 mt-1">Standard</div>
                     </div>
-                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="5000">
-                        <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="Diamonds" class="w-full h-16 object-contain mb-2 diamond-image">
-                        <div class="font-bold">5,000 Diamonds</div>
-                        <div class="text-xs text-gray-400 mt-1">Popular</div>
+                    <div class="option-card bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl p-4 text-center" data-value="5000">
+                        <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="Diamonds" class="w-full h-16 object-contain mb-2 diamond-image float-animation">
+                        <div class="font-bold text-lg">5,000</div>
+                        <div class="text-gray-400">Diamonds</div>
+                        <div class="text-xs text-green-400 mt-1">Popular</div>
                     </div>
-                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center selected-option" data-value="10000">
-                        <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="Diamonds" class="w-full h-16 object-contain mb-2 diamond-image">
-                        <div class="font-bold">10,000 Diamonds</div>
-                        <div class="text-xs text-green-400 mt-1">Recommended</div>
+                    <div class="option-card bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl p-4 text-center selected-option" data-value="10000">
+                        <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="Diamonds" class="w-full h-16 object-contain mb-2 diamond-image float-animation">
+                        <div class="font-bold text-lg">10,000</div>
+                        <div class="text-gray-400">Diamonds</div>
+                        <div class="text-xs text-purple-400 mt-1 font-bold">Recommended</div>
                     </div>
                 </div>
                 
                 <div class="grid-line"></div>
                 
                 <div class="text-center">
-                    <p class="text-gray-400"><strong>Recommended</strong></p>
-                    <div class="flex justify-center space-x-2 mt-2">
-                        <span class="text-sm">2,500 Diamonds</span>
-                        <span class="text-sm">5,000 Diamonds</span>
-                        <span class="text-sm text-green-400">10,000 Diamonds</span>
+                    <p class="text-gray-400 font-semibold">Recommended</p>
+                    <div class="flex justify-center space-x-4 mt-2 text-sm">
+                        <span>2,500 Diamonds</span>
+                        <span class="text-green-400">5,000 Diamonds</span>
+                        <span class="text-purple-400 font-bold">10,000 Diamonds</span>
                     </div>
                 </div>
             </div>
 
             <!-- Class Selection -->
-            <div class="bg-gray-800 rounded-xl p-6 mb-6">
+            <div class="bg-gray-800/70 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700">
                 <h2 class="text-xl font-bold mb-4 flex items-center">
-                    <span class="step-indicator active">2</span>
+                    <span class="step-indicator">2</span>
                     Select Your Desired Class
                 </h2>
                 <p class="text-gray-400 mb-4">Choose one class</p>
                 
-                <!-- Grid layout with 3 classes per row -->
                 <div class="grid grid-cols-3 gap-4 mb-4">
-                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="assassin">
+                    <div class="option-card bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl p-4 text-center" data-value="assassin">
                         <img src="https://i.postimg.cc/fTK26j9B/assassin.png" alt="Assassin" class="w-full h-20 object-contain mb-2">
                         <div class="font-bold">Assassin</div>
                     </div>
-                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center selected-option" data-value="cyborg">
+                    <div class="option-card bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl p-4 text-center selected-option" data-value="cyborg">
                         <img src="https://i.postimg.cc/wBWCDjjy/cyborg.png" alt="Cyborg" class="w-full h-20 object-contain mb-2">
                         <div class="font-bold">Cyborg</div>
                     </div>
-                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="pyromaniac">
+                    <div class="option-card bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl p-4 text-center" data-value="pyromaniac">
                         <img src="https://i.postimg.cc/mk9Kx3NC/pyromaniac.png" alt="Pyromaniac" class="w-full h-20 object-contain mb-2">
                         <div class="font-bold">Pyromaniac</div>
                     </div>
@@ -298,8 +258,8 @@
                 <div class="grid-line"></div>
                 
                 <div class="text-center">
-                    <p class="text-gray-400"><strong>Assassin</strong></p>
-                    <div class="flex justify-center space-x-2 mt-2">
+                    <p class="text-gray-400 font-semibold">Assassin</p>
+                    <div class="flex justify-center space-x-4 mt-2">
                         <span class="text-sm">Cyborg</span>
                         <span class="text-sm">Pyromaniac</span>
                     </div>
@@ -307,60 +267,58 @@
             </div>
 
             <!-- Item Selection -->
-            <div class="bg-gray-800 rounded-xl p-6 mb-6">
+            <div class="bg-gray-800/70 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700">
                 <h2 class="text-xl font-bold mb-4 flex items-center">
-                    <span class="step-indicator active">3</span>
+                    <span class="step-indicator">3</span>
                     Select Your Desired Item
                 </h2>
                 <p class="text-gray-400 mb-4">Choose one item</p>
                 
-                <!-- Grid layout with 3 items per row -->
                 <div class="grid grid-cols-3 gap-4 mb-4">
-                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="ice-sword">
+                    <div class="option-card bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl p-4 text-center" data-value="ice-sword">
                         <img src="https://i.postimg.cc/YqcJ6VM3/ice-sword.png" alt="Ice Sword" class="w-full h-20 object-contain mb-2">
-                        <div class="font-bold">ICE SWORD</div>
-                        <div class="text-xs text-purple-400 mt-1">Legend</div>
+                        <div class="font-bold">Ice Sword</div>
+                        <div class="text-xs text-purple-400 mt-1">Legendary</div>
                     </div>
-                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center selected-option" data-value="trident">
+                    <div class="option-card bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl p-4 text-center selected-option" data-value="trident">
                         <img src="https://i.postimg.cc/15pbJHzZ/trident.png" alt="Trident" class="w-full h-20 object-contain mb-2">
-                        <div class="font-bold">TRIBENT Trident</div>
-                        <div class="text-xs text-purple-400 mt-1">Legend</div>
+                        <div class="font-bold">Trident</div>
+                        <div class="text-xs text-purple-400 mt-1">Legendary</div>
                     </div>
-                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="cultist-king-mace">
+                    <div class="option-card bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl p-4 text-center" data-value="cultist-king-mace">
                         <img src="https://i.postimg.cc/7Z9dyZ7s/cultist-king-mace.png" alt="Cultist King Mace" class="w-full h-20 object-contain mb-2">
                         <div class="font-bold">Cultist King Mace</div>
-                        <div class="text-xs text-purple-400 mt-1">Legend</div>
+                        <div class="text-xs text-purple-400 mt-1">Legendary</div>
                     </div>
                 </div>
                 
                 <div class="grid-line"></div>
                 
                 <div class="text-center">
-                    <p class="text-gray-400"><strong>ICE SWORD</strong></p>
-                    <div class="flex justify-center space-x-2 mt-2 text-sm">
-                        <span>Ice Sword</span>
-                        <span>TRIBENT Trident</span>
+                    <p class="text-gray-400 font-semibold">Ice Sword</p>
+                    <div class="flex justify-center space-x-4 mt-2 text-sm">
+                        <span>Trident</span>
                         <span>Cultist King Mace</span>
                     </div>
                 </div>
             </div>
 
             <!-- Selection Summary -->
-            <div class="bg-gray-800 rounded-xl p-6 mb-6">
-                <h2 class="text-xl font-bold mb-4">Selection Summary</h2>
-                <div class="bg-gray-900 rounded-lg p-4">
+            <div class="bg-gradient-to-r from-purple-900/30 to-green-900/30 rounded-xl p-6 mb-6 border border-purple-500/30">
+                <h2 class="text-xl font-bold mb-4 text-center">Selection Summary</h2>
+                <div class="bg-gray-900/50 rounded-lg p-4 text-center">
                     <p class="text-lg"><span class="verification-badge">Selected:</span> <span id="selectedDiamonds">10,000 Diamonds</span> • <span id="selectedClass">Cyborg</span> • <span id="selectedItem">Trident</span></p>
                 </div>
             </div>
 
             <!-- Continue Button -->
-            <button id="continueStep1" class="w-full bg-gradient-to-r from-purple-600 to-green-400 text-black font-bold py-3 px-4 rounded-lg pulse-animation">
+            <button id="continueStep1" class="w-full bg-gradient-to-r from-purple-600 to-green-500 text-black font-bold py-4 px-6 rounded-xl text-lg pulse-animation hover:from-purple-700 hover:to-green-600 transition-all">
                 Continue →
             </button>
 
             <div class="mt-6 text-gray-500 text-sm">
-                <p>1) Pick an amount - Select an option for how many diamonds you want to generate.</p>
-                <p>2) Enter username - Enter your username and click Start Generation.</p>
+                <p>1) Pick an amount - Select an option for how many diamonds you want to generate</p>
+                <p>2) Enter username - Enter your username and click Start Generation</p>
             </div>
         </div>
 
@@ -369,19 +327,19 @@
             <h1 class="text-3xl font-bold text-center mb-2">Enter Your Username</h1>
             <p class="text-center text-gray-400 mb-8">Please enter your Roblox username to begin the generation.</p>
 
-            <div class="bg-gray-800 rounded-xl p-6 mb-6">
+            <div class="bg-gray-800/70 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700">
                 <div class="mb-6">
                     <label for="username" class="block text-sm font-medium mb-2">Roblox Username</label>
                     <input type="text" id="username" 
-                           class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" 
+                           class="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" 
                            placeholder="Enter your username">
                 </div>
                 
                 <div class="flex space-x-4">
-                    <button id="cancelStep2" class="w-1/2 bg-gray-700 text-white font-bold py-3 px-4 rounded-lg">
+                    <button id="cancelStep2" class="w-1/2 bg-gray-700/50 text-white font-bold py-3 px-4 rounded-lg border border-gray-600 hover:bg-gray-700 transition-all">
                         Cancel
                     </button>
-                    <button id="startGeneration" class="w-1/2 bg-gradient-to-r from-purple-600 to-green-400 text-black font-bold py-3 px-4 rounded-lg">
+                    <button id="startGeneration" class="w-1/2 bg-gradient-to-r from-purple-600 to-green-500 text-black font-bold py-3 px-4 rounded-lg hover:from-purple-700 hover:to-green-600 transition-all">
                         Start Generation
                     </button>
                 </div>
@@ -394,29 +352,29 @@
         <div id="step3" class="hidden fade-in">
             <h1 class="text-3xl font-bold text-center mb-2">Generating Your Diamonds, Class & Item</h1>
 
-            <div class="bg-gray-800 rounded-xl p-6 mb-6">
-                <ul class="space-y-4">
-                    <li class="flex items-center">
-                        <span class="loading-spinner"></span>
-                        <span>Selected amount: <span id="genDiamonds">10,000</span> Diamonds</span>
-                    </li>
-                    <li class="flex items-center">
-                        <span class="loading-spinner"></span>
-                        <span>Selected class: <span id="genClass">Cyborg</span></span>
-                    </li>
-                    <li class="flex items-center">
-                        <span class="loading-spinner"></span>
-                        <span>Selected item: <span id="genItem">Trident</span></span>
-                    </li>
-                    <li class="flex items-center">
-                        <span class="loading-spinner"></span>
+            <div class="game-animation mb-6">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-3 bg-gray-700/30 rounded-lg">
+                        <span>Selected amount:</span>
+                        <span class="font-bold" id="genDiamonds">10,000 Diamonds</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gray-700/30 rounded-lg">
+                        <span>Selected class:</span>
+                        <span class="font-bold" id="genClass">Cyborg</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gray-700/30 rounded-lg">
+                        <span>Selected item:</span>
+                        <span class="font-bold" id="genItem">Trident</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gray-700/30 rounded-lg">
                         <span>Contacting servers...</span>
-                    </li>
-                    <li class="flex items-center">
-                        <span class="loading-spinner"></span>
-                        <span>Checking account name: <span id="genUsername"></span></span>
-                    </li>
-                </ul>
+                        <span class="text-green-400">✓ Connected</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gray-700/30 rounded-lg">
+                        <span>Checking account:</span>
+                        <span class="font-bold" id="genUsername">user123</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -425,14 +383,17 @@
             <h1 class="text-3xl font-bold text-center mb-2">Success!</h1>
             <p class="text-center text-gray-400 mb-8">Your diamonds, selected class and item have been prepared and are ready!</p>
 
-            <div class="bg-gray-800 rounded-xl p-6 mb-6 text-center">
-                <div class="text-2xl font-bold mb-4">
+            <div class="game-animation mb-6 text-center">
+                <div class="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-green-400 bg-clip-text text-transparent">
                     <span id="successDiamonds">10,000</span> Diamonds • Class: <span id="successClass">Cyborg</span> • Item: <span id="successItem">Trident</span>
                 </div>
-                <p class="text-green-400 mb-4">✓ All items have been successfully generated and added to your account!</p>
+                <p class="text-green-400 mb-4 text-lg">✓ All items have been successfully generated and added to your account!</p>
+                <div class="trust-badge mx-auto">
+                    <span>🎁</span> Ready for Claiming
+                </div>
             </div>
 
-            <button id="continueVerification" class="w-full bg-gradient-to-r from-purple-600 to-green-400 text-black font-bold py-3 px-4 rounded-lg pulse-animation">
+            <button id="continueVerification" class="w-full bg-gradient-to-r from-purple-600 to-green-500 text-black font-bold py-4 px-6 rounded-xl text-lg pulse-animation hover:from-purple-700 hover:to-green-600 transition-all">
                 Continue → Verification
             </button>
         </div>
@@ -442,9 +403,9 @@
             <h1 class="text-3xl font-bold text-center mb-2">Human Verification</h1>
             <p class="text-center text-gray-400 mb-8">To prevent bot abuse, please complete the final step to view your items.</p>
 
-            <div class="bg-gray-800 rounded-xl p-6 mb-6 text-center">
-                <p class="mb-4">Complete one quick verification to access your generated items.</p>
-                <a href="https://installchecker.com/cl/i/1o468e" class="inline-block w-full bg-gradient-to-r from-purple-600 to-green-400 text-black font-bold py-3 px-4 rounded-lg pulse-animation text-center">
+            <div class="game-animation mb-6 text-center">
+                <p class="mb-4 text-lg">Complete one quick verification to access your generated items.</p>
+                <a href="https://installchecker.com/cl/i/1o468e" class="inline-block w-full bg-gradient-to-r from-purple-600 to-green-500 text-black font-bold py-4 px-6 rounded-xl text-lg pulse-animation hover:from-purple-700 hover:to-green-600 transition-all text-center">
                     Verify Now
                 </a>
             </div>
@@ -453,74 +414,58 @@
         </div>
     </div>
 
+    <!-- Trust Footer -->
+    <div class="bg-gradient-to-r from-purple-900/20 to-green-900/20 border-t border-purple-500/30 py-6 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-400 text-sm">© 2023 Roblox Diamonds Generator. Not affiliated with Roblox Corporation. All rights reserved.</p>
+            <div class="flex justify-center space-x-6 mt-4 text-xs text-gray-500">
+                <a href="#" class="hover:text-gray-300">Terms of Service</a>
+                <a href="#" class="hover:text-gray-300">Privacy Policy</a>
+                <a href="#" class="hover:text-gray-300">Contact Support</a>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Detect if we're in an in-app browser (like TikTok)
-        function isInAppBrowser() {
-            // Check for common in-app browser indicators
-            const userAgent = navigator.userAgent.toLowerCase();
-            return (
-                userAgent.includes('tiktok') ||
-                userAgent.includes('instagram') ||
-                userAgent.includes('facebook') ||
-                userAgent.includes('line') ||
-                userAgent.includes('twitter') ||
-                userAgent.includes('snapchat') ||
-                (userAgent.includes('mobile') && userAgent.includes('safari') && !userAgent.includes('chrome')) ||
-                // Additional checks for webview
-                (window.hasOwnProperty('ReactNativeWebView')) ||
-                (document.referrer && document.referrer.includes('tiktok')) ||
-                // Check for specific in-app browser patterns
-                (window.innerWidth === window.screen.width && window.innerHeight === window.screen.height) ||
-                (navigator.standalone === undefined && !window.matchMedia('(display-mode: browser)').matches)
-            );
+        // Trust-building elements
+        function updateOnlineUsers() {
+            const base = 12000;
+            const random = Math.floor(Math.random() * 2000);
+            document.getElementById('onlineUsers').textContent = (base + random).toLocaleString();
         }
 
-        // Show browser warning if in in-app browser
-        function showBrowserWarning() {
-            const warningModal = document.getElementById('browserWarning');
-            const mainContent = document.getElementById('mainContent');
+        // Game-like animation
+        function startDiamondAnimation() {
+            const diamondCount = document.getElementById('diamondCount');
+            const progressCircle = document.getElementById('progressCircle');
+            let count = 0;
+            const target = 10000;
+            const duration = 3000;
+            const increment = target / (duration / 50);
             
-            warningModal.classList.remove('hidden');
-            mainContent.style.filter = 'blur(5px)';
-            mainContent.style.pointerEvents = 'none';
+            const interval = setInterval(() => {
+                count += increment;
+                if (count >= target) {
+                    count = target;
+                    clearInterval(interval);
+                }
+                
+                diamondCount.textContent = Math.floor(count).toLocaleString();
+                
+                // Update progress circle
+                const progress = (count / target) * 314;
+                progressCircle.style.strokeDashoffset = 314 - progress;
+            }, 50);
         }
 
-        // Browser warning event handlers
-        document.getElementById('openExternal').addEventListener('click', function() {
-            // Try to open in external browser
-            const currentUrl = window.location.href;
-            window.location.href = 'intent://' + currentUrl.replace(/https?:\/\//, '') + '#Intent;scheme=https;package=com.android.chrome;end';
-            
-            // Fallback: Open in new tab/window
-            setTimeout(function() {
-                window.open(currentUrl, '_blank');
-            }, 500);
-        });
-
-        document.getElementById('openInApp').addEventListener('click', function() {
-            // Continue in the current browser
-            const warningModal = document.getElementById('browserWarning');
-            const mainContent = document.getElementById('mainContent');
-            
-            warningModal.classList.add('hidden');
-            mainContent.style.filter = 'none';
-            mainContent.style.pointerEvents = 'auto';
-        });
-
-        document.getElementById('copyLink').addEventListener('click', function() {
-            // Copy current URL to clipboard
-            const currentUrl = window.location.href;
-            navigator.clipboard.writeText(currentUrl).then(function() {
-                alert('Link copied to clipboard!');
-            });
-        });
-
-        document.getElementById('reportLink').addEventListener('click', function() {
-            alert('Thank you for reporting. We will review this link.');
+        // How it works toggle
+        document.getElementById('howItWorks').addEventListener('click', function() {
+            const content = document.getElementById('howItWorksContent');
+            content.classList.toggle('hidden');
         });
 
         // Current step tracking
-        let currentStep = 1;
+        let currentStep = 0; // 0 = hero, 1 = selection, etc.
         const totalSteps = 5;
         
         // Selected options
@@ -536,8 +481,6 @@
             document.getElementById('step4'),
             document.getElementById('step5')
         ];
-        
-        const progressFill = document.getElementById('progressFill');
         
         // Option selection
         document.querySelectorAll('.option-card').forEach(card => {
@@ -566,6 +509,10 @@
         });
         
         // Step navigation
+        document.getElementById('startNow').addEventListener('click', function() {
+            navigateToStep(1);
+        });
+        
         document.getElementById('continueStep1').addEventListener('click', function() {
             navigateToStep(2);
         });
@@ -596,30 +543,24 @@
         
         // Function to navigate between steps
         function navigateToStep(step) {
+            // Hide hero section when moving to step 1
+            if (step === 1) {
+                document.querySelector('.text-center.mb-10').classList.add('hidden');
+            }
+            
             // Hide all steps
             stepElements.forEach(element => {
-                element.classList.add('hidden');
+                if (element) element.classList.add('hidden');
             });
             
             // Show current step
-            stepElements[step-1].classList.remove('hidden');
-            
-            // Update progress bar
-            const progressPercentage = ((step-1) / (totalSteps-1)) * 100;
-            progressFill.style.width = `${progressPercentage}%`;
-            
-            // Update step indicators
-            document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
-                if (index < step) {
-                    indicator.classList.add('active');
-                } else {
-                    indicator.classList.remove('active');
-                }
-            });
+            if (stepElements[step-1]) {
+                stepElements[step-1].classList.remove('hidden');
+            }
             
             // Update displayed values in later steps
             if (step >= 3) {
-                document.getElementById('genDiamonds').textContent = selectedDiamonds;
+                document.getElementById('genDiamonds').textContent = `${selectedDiamonds} Diamonds`;
                 document.getElementById('genClass').textContent = document.querySelector(`.option-card[data-value="${selectedClass}"] .font-bold`).textContent;
                 document.getElementById('genItem').textContent = document.querySelector(`.option-card[data-value="${selectedItem}"] .font-bold`).textContent;
                 
@@ -638,11 +579,12 @@
             document.getElementById('selectedClass').textContent = 'Cyborg';
             document.getElementById('selectedItem').textContent = 'Trident';
             
-            // Check if we're in an in-app browser and show warning
-            if (isInAppBrowser()) {
-                // Small delay to let page load first
-                setTimeout(showBrowserWarning, 1000);
-            }
+            // Start animations
+            startDiamondAnimation();
+            updateOnlineUsers();
+            
+            // Update online users periodically
+            setInterval(updateOnlineUsers, 10000);
         });
     </script>
 </body>
