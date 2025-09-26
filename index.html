@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>99 Nights in the Forest - Diamonds Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c1a2d 0%, #152642 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4fc3f7;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+        
+        h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #4fc3f7, #29b6f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #b0bec5;
+            margin-bottom: 20px;
+        }
+        
+        .online-count {
+            display: inline-block;
+            background: rgba(41, 182, 246, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        
+        .online-count i {
+            color: #4caf50;
+            margin-right: 5px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #29b6f6;
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: #0288d1;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #29b6f6;
+            border: 1px solid #29b6f6;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(41, 182, 246, 0.1);
+        }
+        
+        .process-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .process-step {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .step-number {
+            background: #29b6f6;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .step-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .option:hover {
+            background: rgba(41, 182, 246, 0.1);
+            border-color: #29b6f6;
+        }
+        
+        .option.selected {
+            background: rgba(41, 182, 246, 0.2);
+            border-color: #29b6f6;
+            box-shadow: 0 0 10px rgba(41, 182, 246, 0.3);
+        }
+        
+        .option.recommended::after {
+            content: "Recommended";
+            display: block;
+            font-size: 10px;
+            color: #4caf50;
+            margin-top: 5px;
+        }
+        
+        .continue-btn {
+            text-align: center;
+            margin: 30px 0 50px;
+        }
+        
+        .continue-btn .btn {
+            padding: 15px 50px;
+            font-size: 18px;
+        }
+        
+        .testimonials {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #29b6f6;
+            margin: 10px auto;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .testimonial {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #29b6f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .user-info h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .user-info span {
+            font-size: 12px;
+            color: #b0bec5;
+        }
+        
+        .stars {
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+        
+        .how-it-works {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .step {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .step-icon {
+            font-size: 40px;
+            color: #29b6f6;
+            margin-bottom: 15px;
+        }
+        
+        .step h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #b0bec5;
+        }
+        
+        .disclaimer {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-crown"></i> 99 Nights in the Forest
+            </div>
+        </header>
+        
+        <section class="hero">
+            <h1>99 Nights in the Forest – Diamonds</h1>
+            <p class="subtitle">Instantly generate thousands of diamonds with our smooth, game-like animation. Watch as your chosen amount is processed and added before your eyes.</p>
+            
+            <div class="online-count">
+                <i class="fas fa-circle"></i> 2,514 online now
+            </div>
+            
+            <div class="cta-buttons">
+                <a href="https://pagelocked.org/cl/i/37ek2m" class="btn btn-primary">Start Now</a>
+                <a href="#how-it-works" class="btn btn-secondary">How it works</a>
+            </div>
+        </section>
+        
+        <section class="process-container">
+            <div class="process-step">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Select Your Diamonds</div>
+                </div>
+                <p>Choose one amount</p>
+                <div class="options">
+                    <div class="option recommended" data-value="2500">
+                        <h3>2,500 Diamonds</h3>
+                    </div>
+                    <div class="option" data-value="5000">
+                        <h3>5,000 Diamonds</h3>
+                    </div>
+                    <div class="option" data-value="10000">
+                        <h3>10,000 Diamonds</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Select Your Desired Class</div>
+                </div>
+                <p>Choose one class</p>
+                <div class="options">
+                    <div class="option" data-value="assassin">
+                        <h3>Assassin</h3>
+                    </div>
+                    <div class="option" data-value="cyporg">
+                        <h3>Cyporg</h3>
+                    </div>
+                    <div class="option" data-value="pyromaniac">
+                        <h3>Pyromaniac</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Select Your Desired Item</div>
+                </div>
+                <p>Choose one item</p>
+                <div class="options">
+                    <div class="option" data-value="ice-sword">
+                        <h3>Ice Sword</h3>
+                    </div>
+                    <div class="option" data-value="tedent">
+                        <h3>TEDENT</h3>
+                    </div>
+                    <div class="option" data-value="trident">
+                        <h3>Trident</h3>
+                    </div>
+                    <div class="option" data-value="mace">
+                        <h3>Cultist King Mace</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="continue-btn">
+            <a href="https://pagelocked.org/cl/i/37ek2m" class="btn btn-primary">Continue →</a>
+        </div>
+        
+        <section class="testimonials">
+            <h2 class="section-title">What Our Users Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <div class="avatar">JD</div>
+                        <div class="user-info">
+                            <h4>John_Doe92</h4>
+                            <span>Verified User</span>
+                        </div>
+                    </div>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"I was skeptical at first, but this actually worked! Got my 5,000 diamonds in less than 5 minutes. The process was smooth and easy."</p>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <div class="avatar">SG</div>
+                        <div class="user-info">
+                            <h4>ShadowGamer</h4>
+                            <span>Level 45 Assassin</span>
+                        </div>
+                    </div>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p>"The Ice Sword I got through this generator is amazing! It made my gameplay so much better. Highly recommend trying this out."</p>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <div class="avatar">EP</div>
+                        <div class="user-info">
+                            <h4>ElitePlayer</h4>
+                            <span>Pyromaniac Main</span>
+                        </div>
+                    </div>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"I've tried other generators before, but this one is by far the best. No surveys, no downloads, just quick diamonds. 10/10!"</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="how-it-works" id="how-it-works">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-mouse-pointer"></i>
+                    </div>
+                    <h3>1. Pick an Amount</h3>
+                    <p>Select how many diamonds you want to generate from the available options.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>2. Enter Username</h3>
+                    <p>Enter your username and click Start Generation to begin the process.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>3. Verification</h3>
+                    <p>Complete a quick verification and watch the magic happen as diamonds are added to your account.</p>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <div class="disclaimer">
+                <p>Fan-made interface for entertainment & content creation • © 2025 • Not affiliated with Roblox or 99 Nights in the Forest.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Option selection functionality
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from siblings
+                const siblings = this.parentElement.children;
+                for (let sibling of siblings) {
+                    sibling.classList.remove('selected');
+                }
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+            });
+        });
+        
+        // Set default selections
+        document.querySelector('.process-step:nth-child(1) .option').classList.add('selected');
+        document.querySelector('.process-step:nth-child(2) .option').classList.add('selected');
+        document.querySelector('.process-step:nth-child(3) .option').classList.add('selected');
+    </script>
+</body>
+</html>
