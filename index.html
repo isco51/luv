@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,10 @@
     <title>Roblox Diamonds Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Popunder Ad - Placed right before closing </head> tag -->
+    <script type='text/javascript' src='//pl27285803.revenuecpmgate.com/23/b4/dd/23b4ddbea7394381a1dba0632e4f41b3.js'></script>
+    
     <style>
         @keyframes pulse {
             0% { transform: scale(1); }
@@ -96,10 +101,114 @@
             background: linear-gradient(90deg, transparent, #6C00FF, transparent);
             margin: 20px 0;
         }
+        .ad-container {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .ad-label {
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: #6C00FF;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .browser-warning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .browser-warning-content {
+            background: #1F2937;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .warning-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .browser-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .browser-btn {
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        .browser-btn-primary {
+            background: linear-gradient(90deg, #6C00FF, #CFFF04);
+            color: black;
+        }
+        .browser-btn-secondary {
+            background: #374151;
+            color: white;
+        }
+        .browser-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans min-h-screen" style="font-family: 'Poppins', sans-serif;">
-    <div class="container mx-auto px-4 py-8 max-w-2xl">
+    <!-- Browser Warning Modal -->
+    <div id="browserWarning" class="browser-warning hidden">
+        <div class="browser-warning-content">
+            <div class="warning-icon">⚠️</div>
+            <h2 class="text-2xl font-bold mb-4">External Website</h2>
+            <p class="text-gray-300 mb-4">You're about to open an external website. Be cautious and keep your personal information safe.</p>
+            <p class="text-sm text-gray-400 mb-6">For the best experience, we recommend opening this page in your default browser.</p>
+            
+            <div class="browser-options">
+                <button id="openExternal" class="browser-btn browser-btn-primary">
+                    <span>🌐</span> Open in Browser
+                </button>
+                <button id="openInApp" class="browser-btn browser-btn-secondary">
+                    <span>📱</span> Continue in App
+                </button>
+            </div>
+            
+            <div class="mt-6 flex justify-between text-sm text-gray-500">
+                <button id="reportLink" class="flex items-center gap-1">
+                    <span>📌</span> Report
+                </button>
+                <button id="copyLink" class="flex items-center gap-1">
+                    <span>📋</span> Copy Link
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainContent" class="container mx-auto px-4 py-8 max-w-2xl">
         <!-- Progress Bar -->
         <div class="mb-8">
             <div class="flex justify-between items-center mb-2">
@@ -125,6 +234,21 @@
         <div id="step1" class="fade-in">
             <h1 class="text-3xl font-bold text-center mb-2">Roblox Diamonds & Items Generator</h1>
             <p class="text-center text-gray-400 mb-8">Select your diamonds, class, and item to generate</p>
+
+            <!-- Banner Ad 468x60 - Top of page -->
+            <div class="ad-container relative my-6">
+                <span class="ad-label">Advertisement</span>
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c45d3a0c35e12489dc8d91b96aa092b7',
+                        'format' : 'iframe',
+                        'height' : 60,
+                        'width' : 468,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c45d3a0c35e12489dc8d91b96aa092b7/invoke.js"></script>
+            </div>
 
             <!-- Diamonds Selection -->
             <div class="bg-gray-800 rounded-xl p-6 mb-6">
@@ -166,6 +290,23 @@
                 </div>
             </div>
 
+            <!-- Banner Ad 160x300 - Sidebar style -->
+            <div class="flex justify-center my-6">
+                <div class="ad-container relative">
+                    <span class="ad-label">Sponsored</span>
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : '441d899b30db04b8f12b3f3b48aa86bb',
+                            'format' : 'iframe',
+                            'height' : 300,
+                            'width' : 160,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="//www.highperformanceformat.com/441d899b30db04b8f12b3f3b48aa86bb/invoke.js"></script>
+                </div>
+            </div>
+
             <!-- Class Selection -->
             <div class="bg-gray-800 rounded-xl p-6 mb-6">
                 <h2 class="text-xl font-bold mb-4 flex items-center">
@@ -199,6 +340,13 @@
                         <span class="text-sm">Pyromaniac</span>
                     </div>
                 </div>
+            </div>
+
+            <!-- Native Banner Ad - Between sections -->
+            <div class="ad-container relative my-6">
+                <span class="ad-label">Recommended</span>
+                <script async="async" data-cfasync="false" src="//pl27285812.revenuecpmgate.com/f6a986e6acf0eca41b887888e0a0e4d4/invoke.js"></script>
+                <div id="container-f6a986e6acf0eca41b887888e0a0e4d4"></div>
             </div>
 
             <!-- Item Selection -->
@@ -264,6 +412,21 @@
             <h1 class="text-3xl font-bold text-center mb-2">Enter Your Username</h1>
             <p class="text-center text-gray-400 mb-8">Please enter your Roblox username to begin the generation.</p>
 
+            <!-- Banner Ad 468x60 - Middle of page -->
+            <div class="ad-container relative my-6">
+                <span class="ad-label">Advertisement</span>
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c45d3a0c35e12489dc8d91b96aa092b7',
+                        'format' : 'iframe',
+                        'height' : 60,
+                        'width' : 468,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c45d3a0c35e12489dc8d91b96aa092b7/invoke.js"></script>
+            </div>
+
             <div class="bg-gray-800 rounded-xl p-6 mb-6">
                 <div class="mb-6">
                     <label for="username" class="block text-sm font-medium mb-2">Roblox Username</label>
@@ -288,6 +451,13 @@
         <!-- Step 3: Generating -->
         <div id="step3" class="hidden fade-in">
             <h1 class="text-3xl font-bold text-center mb-2">Generating Your Diamonds, Class & Item</h1>
+
+            <!-- Native Banner Ad - During loading -->
+            <div class="ad-container relative my-6">
+                <span class="ad-label">While You Wait</span>
+                <script async="async" data-cfasync="false" src="//pl27285812.revenuecpmgate.com/f6a986e6acf0eca41b887888e0a0e4d4/invoke.js"></script>
+                <div id="container-f6a986e6acf0eca41b887888e0a0e4d4"></div>
+            </div>
 
             <div class="bg-gray-800 rounded-xl p-6 mb-6">
                 <ul class="space-y-4">
@@ -320,6 +490,23 @@
             <h1 class="text-3xl font-bold text-center mb-2">Success!</h1>
             <p class="text-center text-gray-400 mb-8">Your diamonds, selected class and item have been prepared and are ready!</p>
 
+            <!-- Banner Ad 160x300 - After success message -->
+            <div class="flex justify-center my-6">
+                <div class="ad-container relative">
+                    <span class="ad-label">Sponsored</span>
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : '441d899b30db04b8f12b3f3b48aa86bb',
+                            'format' : 'iframe',
+                            'height' : 300,
+                            'width' : 160,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="//www.highperformanceformat.com/441d899b30db04b8f12b3f3b48aa86bb/invoke.js"></script>
+                </div>
+            </div>
+
             <div class="bg-gray-800 rounded-xl p-6 mb-6 text-center">
                 <div class="text-2xl font-bold mb-4">
                     <span id="successDiamonds">10,000</span> Diamonds • Class: <span id="successClass">Cyborg</span> • Item: <span id="successItem">Trident</span>
@@ -337,6 +524,13 @@
             <h1 class="text-3xl font-bold text-center mb-2">Human Verification</h1>
             <p class="text-center text-gray-400 mb-8">To prevent bot abuse, please complete the final step to view your items.</p>
 
+            <!-- Native Banner Ad - Before verification -->
+            <div class="ad-container relative my-6">
+                <span class="ad-label">Recommended</span>
+                <script async="async" data-cfasync="false" src="//pl27285812.revenuecpmgate.com/f6a986e6acf0eca41b887888e0a0e4d4/invoke.js"></script>
+                <div id="container-f6a986e6acf0eca41b887888e0a0e4d4"></div>
+            </div>
+
             <div class="bg-gray-800 rounded-xl p-6 mb-6 text-center">
                 <p class="mb-4">Complete one quick verification to access your generated items.</p>
                 <a href="https://installchecker.com/cl/i/1o468e" class="inline-block w-full bg-gradient-to-r from-purple-600 to-green-400 text-black font-bold py-3 px-4 rounded-lg pulse-animation text-center">
@@ -348,7 +542,75 @@
         </div>
     </div>
 
+    <!-- Social Bar Ad - Placed right before closing </body> tag -->
+    <script type='text/javascript' src='//pl27285769.revenuecpmgate.com/03/17/bd/0317bdd4f2bc8171d8bc9a0518b4b5f6.js'></script>
+
     <script>
+        // Detect if we're in an in-app browser (like TikTok)
+        function isInAppBrowser() {
+            // Check for common in-app browser indicators
+            const userAgent = navigator.userAgent.toLowerCase();
+            return (
+                userAgent.includes('tiktok') ||
+                userAgent.includes('instagram') ||
+                userAgent.includes('facebook') ||
+                userAgent.includes('line') ||
+                userAgent.includes('twitter') ||
+                userAgent.includes('snapchat') ||
+                (userAgent.includes('mobile') && userAgent.includes('safari') && !userAgent.includes('chrome')) ||
+                // Additional checks for webview
+                (window.hasOwnProperty('ReactNativeWebView')) ||
+                (document.referrer && document.referrer.includes('tiktok')) ||
+                // Check for specific in-app browser patterns
+                (window.innerWidth === window.screen.width && window.innerHeight === window.screen.height) ||
+                (navigator.standalone === undefined && !window.matchMedia('(display-mode: browser)').matches)
+            );
+        }
+
+        // Show browser warning if in in-app browser
+        function showBrowserWarning() {
+            const warningModal = document.getElementById('browserWarning');
+            const mainContent = document.getElementById('mainContent');
+            
+            warningModal.classList.remove('hidden');
+            mainContent.style.filter = 'blur(5px)';
+            mainContent.style.pointerEvents = 'none';
+        }
+
+        // Browser warning event handlers
+        document.getElementById('openExternal').addEventListener('click', function() {
+            // Try to open in external browser
+            const currentUrl = window.location.href;
+            window.location.href = 'intent://' + currentUrl.replace(/https?:\/\//, '') + '#Intent;scheme=https;package=com.android.chrome;end';
+            
+            // Fallback: Open in new tab/window
+            setTimeout(function() {
+                window.open(currentUrl, '_blank');
+            }, 500);
+        });
+
+        document.getElementById('openInApp').addEventListener('click', function() {
+            // Continue in the current browser
+            const warningModal = document.getElementById('browserWarning');
+            const mainContent = document.getElementById('mainContent');
+            
+            warningModal.classList.add('hidden');
+            mainContent.style.filter = 'none';
+            mainContent.style.pointerEvents = 'auto';
+        });
+
+        document.getElementById('copyLink').addEventListener('click', function() {
+            // Copy current URL to clipboard
+            const currentUrl = window.location.href;
+            navigator.clipboard.writeText(currentUrl).then(function() {
+                alert('Link copied to clipboard!');
+            });
+        });
+
+        document.getElementById('reportLink').addEventListener('click', function() {
+            alert('Thank you for reporting. We will review this link.');
+        });
+
         // Current step tracking
         let currentStep = 1;
         const totalSteps = 5;
@@ -467,6 +729,12 @@
             document.getElementById('selectedDiamonds').textContent = '10,000 Diamonds';
             document.getElementById('selectedClass').textContent = 'Cyborg';
             document.getElementById('selectedItem').textContent = 'Trident';
+            
+            // Check if we're in an in-app browser and show warning
+            if (isInAppBrowser()) {
+                // Small delay to let page load first
+                setTimeout(showBrowserWarning, 1000);
+            }
         });
     </script>
 </body>
