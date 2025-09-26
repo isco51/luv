@@ -26,10 +26,6 @@
             50% { transform: translateY(-10px); }
             100% { transform: translateY(0px); }
         }
-        @keyframes countUp {
-            from { content: "0"; }
-            to { content: attr(data-count); }
-        }
         .fade-in {
             animation: fadeIn 0.8s ease-out;
         }
@@ -95,9 +91,6 @@
             align-items: center;
             gap: 6px;
         }
-        .counter-animation {
-            font-variant-numeric: tabular-nums;
-        }
         .game-animation {
             background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
             border-radius: 15px;
@@ -110,6 +103,48 @@
         }
         .progress-ring-circle {
             transition: stroke-dashoffset 0.5s ease;
+        }
+        .ad-container {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .ad-label {
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: #6C00FF;
+            color: white;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            z-index: 10;
+        }
+        .ad-wrapper {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .mobile-ad {
+            display: block;
+        }
+        .desktop-ad {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .mobile-ad {
+                display: none;
+            }
+            .desktop-ad {
+                display: block;
+            }
         }
     </style>
 </head>
@@ -135,6 +170,40 @@
     </div>
 
     <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <!-- Banner Ad 320x50 - Top of page (Mobile) -->
+        <div class="ad-wrapper mobile-ad mb-6">
+            <span class="ad-label">Advertisement</span>
+            <div class="ad-container">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c2eeb681983f8c361d48d3ac8d014ac0',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c2eeb681983f8c361d48d3ac8d014ac0/invoke.js"></script>
+            </div>
+        </div>
+
+        <!-- Banner Ad 468x60 - Top of page (Desktop) -->
+        <div class="ad-wrapper desktop-ad mb-6">
+            <span class="ad-label">Sponsored</span>
+            <div class="ad-container">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c45d3a0c35e12489dc8d91b96aa092b7',
+                        'format' : 'iframe',
+                        'height' : 60,
+                        'width' : 468,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c45d3a0c35e12489dc8d91b96aa092b7/invoke.js"></script>
+            </div>
+        </div>
+
         <!-- Hero Section -->
         <div class="text-center mb-10 fade-in">
             <h1 class="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-purple-400 to-green-400 bg-clip-text text-transparent">
@@ -189,6 +258,15 @@
             </div>
         </div>
 
+        <!-- Native Banner Ad - After hero section -->
+        <div class="ad-wrapper my-8">
+            <span class="ad-label">Recommended</span>
+            <div class="ad-container">
+                <script async="async" data-cfasync="false" src="//pl27285812.revenuecpmgate.com/f6a986e6acf0eca41b887888e0a0e4d4/invoke.js"></script>
+                <div id="container-f6a986e6acf0eca41b887888e0a0e4d4"></div>
+            </div>
+        </div>
+
         <!-- Step 1: Selection -->
         <div id="step1" class="hidden fade-in">
             <!-- Diamonds Selection -->
@@ -229,6 +307,23 @@
                         <span class="text-green-400">5,000 Diamonds</span>
                         <span class="text-purple-400 font-bold">10,000 Diamonds</span>
                     </div>
+                </div>
+            </div>
+
+            <!-- Banner Ad 300x250 - Between sections -->
+            <div class="ad-wrapper my-8">
+                <span class="ad-label">Sponsored</span>
+                <div class="ad-container">
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : 'bbbc4c740249940684290c4c616c2066',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="//www.highperformanceformat.com/bbbc4c740249940684290c4c616c2066/invoke.js"></script>
                 </div>
             </div>
 
@@ -327,6 +422,23 @@
             <h1 class="text-3xl font-bold text-center mb-2">Enter Your Username</h1>
             <p class="text-center text-gray-400 mb-8">Please enter your Roblox username to begin the generation.</p>
 
+            <!-- Banner Ad 320x50 - Middle of page (Mobile) -->
+            <div class="ad-wrapper mobile-ad my-6">
+                <span class="ad-label">Advertisement</span>
+                <div class="ad-container">
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : 'c2eeb681983f8c361d48d3ac8d014ac0',
+                            'format' : 'iframe',
+                            'height' : 50,
+                            'width' : 320,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="//www.highperformanceformat.com/c2eeb681983f8c361d48d3ac8d014ac0/invoke.js"></script>
+                </div>
+            </div>
+
             <div class="bg-gray-800/70 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700">
                 <div class="mb-6">
                     <label for="username" class="block text-sm font-medium mb-2">Roblox Username</label>
@@ -351,6 +463,15 @@
         <!-- Step 3: Generating -->
         <div id="step3" class="hidden fade-in">
             <h1 class="text-3xl font-bold text-center mb-2">Generating Your Diamonds, Class & Item</h1>
+
+            <!-- Native Banner Ad - During loading -->
+            <div class="ad-wrapper my-6">
+                <span class="ad-label">While You Wait</span>
+                <div class="ad-container">
+                    <script async="async" data-cfasync="false" src="//pl27285812.revenuecpmgate.com/f6a986e6acf0eca41b887888e0a0e4d4/invoke.js"></script>
+                    <div id="container-f6a986e6acf0eca41b887888e0a0e4d4"></div>
+                </div>
+            </div>
 
             <div class="game-animation mb-6">
                 <div class="space-y-4">
@@ -383,6 +504,23 @@
             <h1 class="text-3xl font-bold text-center mb-2">Success!</h1>
             <p class="text-center text-gray-400 mb-8">Your diamonds, selected class and item have been prepared and are ready!</p>
 
+            <!-- Banner Ad 300x250 - After success message -->
+            <div class="ad-wrapper my-6">
+                <span class="ad-label">Sponsored</span>
+                <div class="ad-container">
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : 'bbbc4c740249940684290c4c616c2066',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="//www.highperformanceformat.com/bbbc4c740249940684290c4c616c2066/invoke.js"></script>
+                </div>
+            </div>
+
             <div class="game-animation mb-6 text-center">
                 <div class="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-green-400 bg-clip-text text-transparent">
                     <span id="successDiamonds">10,000</span> Diamonds • Class: <span id="successClass">Cyborg</span> • Item: <span id="successItem">Trident</span>
@@ -402,6 +540,15 @@
         <div id="step5" class="hidden fade-in">
             <h1 class="text-3xl font-bold text-center mb-2">Human Verification</h1>
             <p class="text-center text-gray-400 mb-8">To prevent bot abuse, please complete the final step to view your items.</p>
+
+            <!-- Native Banner Ad - Before verification -->
+            <div class="ad-wrapper my-6">
+                <span class="ad-label">Recommended</span>
+                <div class="ad-container">
+                    <script async="async" data-cfasync="false" src="//pl27285812.revenuecpmgate.com/f6a986e6acf0eca41b887888e0a0e4d4/invoke.js"></script>
+                    <div id="container-f6a986e6acf0eca41b887888e0a0e4d4"></div>
+                </div>
+            </div>
 
             <div class="game-animation mb-6 text-center">
                 <p class="mb-4 text-lg">Complete one quick verification to access your generated items.</p>
