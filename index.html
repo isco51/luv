@@ -20,6 +20,10 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        @keyframes shine {
+            0% { background-position: -100px; }
+            100% { background-position: 200px; }
+        }
         .fade-in {
             animation: fadeIn 0.5s ease-out;
         }
@@ -38,7 +42,25 @@
         }
         .selected-option {
             border: 2px solid #6C00FF;
-            box-shadow: 0 0 10px rgba(108, 0, 255, 0.5);
+            box-shadow: 0 0 15px rgba(108, 0, 255, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+        .selected-option::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.8) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
         }
         .step-indicator {
             width: 30px;
@@ -71,10 +93,12 @@
         .option-card {
             transition: all 0.3s ease;
             cursor: pointer;
+            border: 2px solid transparent;
         }
         .option-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: #6C00FF;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
         .verification-badge {
             background: linear-gradient(90deg, #6C00FF, #CFFF04);
@@ -82,10 +106,22 @@
             -webkit-text-fill-color: transparent;
             font-weight: bold;
         }
+        .diamond-icon {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6C00FF, #CFFF04, transparent);
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans min-h-screen" style="font-family: 'Poppins', sans-serif;">
-    <div class="container mx-auto px-4 py-8 max-w-2xl">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
         <!-- Progress Bar -->
         <div class="mb-8">
             <div class="flex justify-between items-center mb-2">
@@ -122,19 +158,24 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="2500">
+                        <img src="https://i.postimg.cc/fLSYvpTg/IMG-20250925-232517.jpg" alt="2,500 Diamonds" class="w-full h-24 object-contain mb-2 rounded">
                         <div class="font-bold text-lg">2,500 Diamonds</div>
-                        <div class="text-xs text-green-400 mt-1">Standard</div>
+                        <div class="text-xs text-gray-400 mt-1">Standard Reward</div>
                     </div>
                     <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="5000">
+                        <img src="https://i.postimg.cc/fLSYvpTg/IMG-20250925-232517.jpg" alt="5,000 Diamonds" class="w-full h-24 object-contain mb-2 rounded">
                         <div class="font-bold text-lg">5,000 Diamonds</div>
-                        <div class="text-xs text-green-400 mt-1">Popular</div>
+                        <div class="text-xs text-green-400 mt-1">Popular Choice</div>
                     </div>
                     <div class="option-card bg-gray-700 rounded-lg p-4 text-center selected-option" data-value="10000">
+                        <img src="https://i.postimg.cc/fLSYvpTg/IMG-20250925-232517.jpg" alt="10,000 Diamonds" class="w-full h-24 object-contain mb-2 rounded">
                         <div class="font-bold text-lg">10,000 Diamonds</div>
-                        <div class="text-xs text-green-400 mt-1">Recommended</div>
+                        <div class="text-xs text-yellow-400 mt-1">Recommended</div>
                     </div>
                 </div>
             </div>
+
+            <div class="section-divider"></div>
 
             <!-- Class Selection -->
             <div class="bg-gray-800 rounded-xl p-6 mb-6">
@@ -148,17 +189,22 @@
                     <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="assassin">
                         <img src="https://i.postimg.cc/fTK26j9B/assassin.png" alt="Assassin" class="w-full h-32 object-contain mb-2">
                         <div class="font-bold">Assassin</div>
+                        <div class="text-xs text-red-400 mt-1">Stealth Specialist</div>
                     </div>
                     <div class="option-card bg-gray-700 rounded-lg p-4 text-center selected-option" data-value="cyborg">
                         <img src="https://i.postimg.cc/wBWCDjjy/cyborg.png" alt="Cyborg" class="w-full h-32 object-contain mb-2">
                         <div class="font-bold">Cyborg</div>
+                        <div class="text-xs text-blue-400 mt-1">Tech Enhanced</div>
                     </div>
                     <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="pyromaniac">
                         <img src="https://i.postimg.cc/mk9Kx3NC/pyromaniac.png" alt="Pyromaniac" class="w-full h-32 object-contain mb-2">
                         <div class="font-bold">Pyromaniac</div>
+                        <div class="text-xs text-orange-400 mt-1">Fire Master</div>
                     </div>
                 </div>
             </div>
+
+            <div class="section-divider"></div>
 
             <!-- Item Selection -->
             <div class="bg-gray-800 rounded-xl p-6 mb-6">
@@ -171,18 +217,36 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="ice-sword">
                         <img src="https://i.postimg.cc/YqcJ6VM3/ice-sword.png" alt="Ice Sword" class="w-full h-32 object-contain mb-2">
+                        <div class="font-bold">ICE SWORD</div>
+                        <div class="text-xs text-purple-400 mt-1">Legendary Weapon</div>
+                    </div>
+                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="ice-sword2">
+                        <img src="https://i.postimg.cc/YqcJ6VM3/ice-sword.png" alt="Ice Sword" class="w-full h-32 object-contain mb-2">
                         <div class="font-bold">Ice Sword</div>
-                        <div class="text-xs text-purple-400 mt-1">Legend</div>
+                        <div class="text-xs text-blue-400 mt-1">Rare Weapon</div>
                     </div>
                     <div class="option-card bg-gray-700 rounded-lg p-4 text-center selected-option" data-value="trident">
                         <img src="https://i.postimg.cc/15pbJHzZ/trident.png" alt="Trident" class="w-full h-32 object-contain mb-2">
+                        <div class="font-bold">TRIBENT Trident</div>
+                        <div class="text-xs text-purple-400 mt-1">Mythical Weapon</div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="trident2">
+                        <img src="https://i.postimg.cc/15pbJHzZ/trident.png" alt="Trident" class="w-full h-32 object-contain mb-2">
                         <div class="font-bold">Trident</div>
-                        <div class="text-xs text-purple-400 mt-1">Legend</div>
+                        <div class="text-xs text-blue-400 mt-1">Epic Weapon</div>
+                    </div>
+                    <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="trident3">
+                        <img src="https://i.postimg.cc/15pbJHzZ/trident.png" alt="Trident" class="w-full h-32 object-contain mb-2">
+                        <div class="font-bold">TRIDENT</div>
+                        <div class="text-xs text-purple-400 mt-1">Legendary Weapon</div>
                     </div>
                     <div class="option-card bg-gray-700 rounded-lg p-4 text-center" data-value="cultist-king-mace">
                         <img src="https://i.postimg.cc/7Z9dyZ7s/cultist-king-mace.png" alt="Cultist King Mace" class="w-full h-32 object-contain mb-2">
                         <div class="font-bold">Cultist King Mace</div>
-                        <div class="text-xs text-purple-400 mt-1">Legend</div>
+                        <div class="text-xs text-purple-400 mt-1">Mythical Weapon</div>
                     </div>
                 </div>
             </div>
@@ -191,7 +255,7 @@
             <div class="bg-gray-800 rounded-xl p-6 mb-6">
                 <h2 class="text-xl font-bold mb-4">Selection Summary</h2>
                 <div class="bg-gray-900 rounded-lg p-4">
-                    <p class="text-lg"><span class="verification-badge">Selected:</span> <span id="selectedDiamonds">10,000 Diamonds</span> • <span id="selectedClass">Cyborg</span> • <span id="selectedItem">Trident</span></p>
+                    <p class="text-lg"><span class="verification-badge">Selected:</span> <span id="selectedDiamonds">10,000 Diamonds</span> • <span id="selectedClass">Cyborg</span> • <span id="selectedItem">TRIBENT Trident</span></p>
                 </div>
             </div>
 
@@ -200,7 +264,10 @@
                 Continue →
             </button>
 
-            <p class="text-center text-gray-500 text-xs mt-4">1) Pick an amount - Select an option for how many diamonds you want to generate.</p>
+            <div class="mt-6 text-gray-500 text-sm">
+                <p>1) Pick an amount - Select an option for how many diamonds you want to generate.</p>
+                <p>2) Enter username - Enter your username and click Start Generation.</p>
+            </div>
         </div>
 
         <!-- Step 2: Username Input -->
@@ -245,7 +312,7 @@
                     </li>
                     <li class="flex items-center">
                         <span class="loading-spinner"></span>
-                        <span>Selected item: <span id="genItem">Trident</span></span>
+                        <span>Selected item: <span id="genItem">TRIBENT Trident</span></span>
                     </li>
                     <li class="flex items-center">
                         <span class="loading-spinner"></span>
@@ -266,7 +333,7 @@
 
             <div class="bg-gray-800 rounded-xl p-6 mb-6 text-center">
                 <div class="text-2xl font-bold mb-4">
-                    <span id="successDiamonds">10,000</span> Diamonds • Class: <span id="successClass">Cyborg</span> • Item: <span id="successItem">Trident</span>
+                    <span id="successDiamonds">10,000</span> Diamonds • Class: <span id="successClass">Cyborg</span> • Item: <span id="successItem">TRIBENT Trident</span>
                 </div>
                 <p class="text-green-400 mb-4">✓ All items have been successfully generated and added to your account!</p>
             </div>
@@ -410,7 +477,7 @@
             // Set initial values
             document.getElementById('selectedDiamonds').textContent = '10,000 Diamonds';
             document.getElementById('selectedClass').textContent = 'Cyborg';
-            document.getElementById('selectedItem').textContent = 'Trident';
+            document.getElementById('selectedItem').textContent = 'TRIBENT Trident';
         });
     </script>
 </body>
