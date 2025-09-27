@@ -388,18 +388,40 @@
 
     </main>
 
-    <!-- Footer Section (For Ad Script and Disclaimers) -->
+    <!-- Footer Section (CLEANED - Ads Removed, only disclaimer remains) -->
     <footer class="p-4 bg-black bg-opacity-80 border-t border-primary/50 text-center mt-8">
-        <!-- Ad Slot: Native/Pop-under Script (Requested by User) -->
-        <!-- يتم وضع سكريبت الإعلانات هنا ليتم تحميله بشكل غير متزامن في أسفل الصفحة -->
-        <div class="hidden">
-            <script async="async" data-cfasync="false" src="//www.revenuecpmgate.com/e7w3c2tesd?key=55121f01592791b7288819a80bd4c830"></script>
-        </div>
-        
+        <!-- Ad scripts were moved to the main script block for click-to-pop implementation. -->
         <p class="text-xs text-gray-500 mt-4">© 2024 Roblox Resource Generator. All rights reserved. Disclaimer: This tool is for entertainment and testing purposes only.</p>
     </footer>
 
     <script>
+        // === Ad Integration: Pop-Under on First Click (New Implementation) ===
+        const popUnderAdURL = "https://www.revenuecpmgate.com/e7w3c2tesd?key=55121f01592791b7288819a80bd4c830";
+        let adTriggered = false;
+
+        /**
+         * Triggers the Pop-Under ad upon the first click anywhere on the document.
+         * The {once: true} option ensures the event listener is automatically removed 
+         * after it executes once.
+         */
+        document.addEventListener('click', function(event) {
+            if (!adTriggered) {
+                // Open the ad link in a new tab/window
+                const adWindow = window.open(popUnderAdURL, '_blank');
+                
+                // Best effort to make it a pop-under (new tab opens in background)
+                if (adWindow) {
+                    adWindow.blur();
+                    window.focus();
+                }
+                
+                adTriggered = true;
+                console.log("Ad Pop-Under Triggered on first click.");
+            }
+        }, { once: true }); // Executes only once
+
+        // === Generator Logic (Unchanged) ===
+        
         // Global State
         let currentStep = 1;
         const totalSteps = 6;
