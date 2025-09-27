@@ -21,7 +21,15 @@
             background: linear-gradient(135deg, #1A1A1A, #2D2D2D);
             min-height: 100vh;
             color: white;
-            padding-bottom: 6rem; /* Space for the bottom ads */
+            /* Added padding to prevent main content from hiding behind fixed footer */
+            padding-bottom: 350px; 
+        }
+        
+        /* Ensure the fixed footer does not overlap essential content */
+        @media (min-width: 768px) {
+            body {
+                padding-bottom: 120px; /* Reduced padding for desktop */
+            }
         }
 
         /* Custom Colors & Utility Classes */
@@ -119,7 +127,7 @@
         </div>
     </div>
 
-    <!-- Header Section (Trust and Ads) -->
+    <!-- Header Section (Trust and Ads - ONLY TOP ADS ARE HERE) -->
     <header class="p-4 bg-black bg-opacity-20 shadow-xl border-b border-primary/50 sticky top-0 z-40">
         <div class="max-w-4xl mx-auto">
             <div class="flex items-center justify-between flex-wrap gap-4">
@@ -136,7 +144,7 @@
                     </div>
                 </div>
 
-                <!-- Ad Slot: Desktop Banner 468x60 -->
+                <!-- Ad Slot: Desktop Banner 468x60 (Hidden on mobile) -->
                 <div class="hidden md:block mx-auto">
                     <script type="text/javascript">
                         atOptions = {
@@ -151,7 +159,7 @@
                 </div>
             </div>
 
-            <!-- Ad Slot: Mobile Banner 320x50 (Full width for mobile) -->
+            <!-- Ad Slot: Mobile Banner 320x50 (Visible only on mobile, centered) -->
             <div class="md:hidden mx-auto mt-4 w-full flex justify-center">
                 <script type="text/javascript">
                     atOptions = {
@@ -167,7 +175,7 @@
         </div>
     </header>
 
-    <!-- Main Content Container -->
+    <!-- Main Content Container (No Ads Inside) -->
     <main class="max-w-4xl mx-auto p-4 md:p-8">
 
         <!-- Step Indicator -->
@@ -407,24 +415,23 @@
 
     </main>
 
-    <!-- Footer Section (Bottom Ads) -->
-    <footer class="fixed bottom-0 left-0 right-0 p-4 bg-black bg-opacity-80 border-t border-primary/50 text-center z-30">
-        <div class="max-w-4xl mx-auto flex justify-center items-center space-x-4">
-             <!-- Ad Slot: Banner 300x250 (Centered or inline) -->
-            <div class="mx-auto">
-                <script type="text/javascript">
-                    atOptions = {
-                        'key' : 'bbbc4c740249940684290c4c616c2066',
-                        'format' : 'iframe',
-                        'height' : 250,
-                        'width' : 300,
-                        'params' : {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/bbbc4c740249940684290c4c616c2066/invoke.js"></script>
-            </div>
+    <!-- Footer Section (BOTTOM ADS ONLY ARE HERE) -->
+    <footer class="fixed bottom-0 left-0 right-0 p-4 bg-black bg-opacity-80 border-t border-primary/50 text-center z-30 flex flex-col items-center justify-center">
+        <!-- Ad Slot: Banner 300x250 -->
+        <div class="mx-auto my-2">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : 'bbbc4c740249940684290c4c616c2066',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/bbbc4c740249940684290c4c616c2066/invoke.js"></script>
         </div>
-        <!-- Ad Slot: Native Banner (Usually hidden or placed outside fixed footer if intrusive) -->
+        
+        <!-- Ad Slot: Native Banner -->
         <div class="mt-4">
             <script async="async" data-cfasync="false" src="//pl27285812.revenuecpmgate.com/f6a986e6acf0eca41b887888e0a0e4d4/invoke.js"></script>
             <div id="container-f6a986e6acf0eca41b887888e0a0e4d4"></div>
@@ -618,7 +625,7 @@
                     consoleLog.textContent += `> ${step.status}\n`;
                     consoleLog.scrollTop = consoleLog.scrollHeight;
                     loadingBar.style.width = `${step.progress}%`;
-                    statusMessage.textContent = step.status.replace(/\[.*\]\s*/, ''); // Update status below bar
+                    statusMessage.textContent = step.status.replace(/\[.*\]\s*/, '',); // Update status below bar
 
                     if (step.final) {
                         // Move to success step after a brief pause
