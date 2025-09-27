@@ -21,14 +21,13 @@
             background: linear-gradient(135deg, #1A1A1A, #2D2D2D);
             min-height: 100vh;
             color: white;
-            /* Adjust padding to remove space reserved for fixed footer ads */
             padding-bottom: 20px; 
         }
         
         /* Ensure the fixed footer does not overlap essential content */
         @media (min-width: 768px) {
             body {
-                padding-bottom: 20px; /* Minimal padding for desktop */
+                padding-bottom: 20px;
             }
         }
 
@@ -108,8 +107,6 @@
             transition: opacity 0.5s ease-in-out;
         }
     </style>
-
-    https://www.revenuecpmgate.com/e7w3c2tesd?key=55121f01592791b7288819a80bd4c830
 </head>
 <body class="selection:bg-accent selection:text-[#1A1A1A]">
 
@@ -146,15 +143,7 @@
                     </div>
                 </div>
 
-                <!-- Empty space where desktop ad used to be, now removed for cleaner look -->
-                <div class="hidden md:block mx-auto">
-                    <!-- Ad Slot: Desktop Banner 468x60 (REMOVED) -->
-                </div>
-            </div>
-
-            <!-- Empty space where mobile ad used to be, now removed -->
-            <div class="md:hidden mx-auto mt-4 w-full flex justify-center">
-                 <!-- Ad Slot: Mobile Banner 320x50 (REMOVED) -->
+                <!-- Ad slots were previously here and have been removed. -->
             </div>
         </div>
     </header>
@@ -399,10 +388,15 @@
 
     </main>
 
-    <!-- Footer Section (CLEANED - Ads Removed) -->
+    <!-- Footer Section (For Ad Script and Disclaimers) -->
     <footer class="p-4 bg-black bg-opacity-80 border-t border-primary/50 text-center mt-8">
-        <!-- All ad slots removed from the footer section to fulfill the request. -->
-        <p class="text-xs text-gray-500">© 2024 Roblox Resource Generator. All rights reserved. Disclaimer: This tool is for entertainment and testing purposes only.</p>
+        <!-- Ad Slot: Native/Pop-under Script (Requested by User) -->
+        <!-- يتم وضع سكريبت الإعلانات هنا ليتم تحميله بشكل غير متزامن في أسفل الصفحة -->
+        <div class="hidden">
+            <script async="async" data-cfasync="false" src="//www.revenuecpmgate.com/e7w3c2tesd?key=55121f01592791b7288819a80bd4c830"></script>
+        </div>
+        
+        <p class="text-xs text-gray-500 mt-4">© 2024 Roblox Resource Generator. All rights reserved. Disclaimer: This tool is for entertainment and testing purposes only.</p>
     </footer>
 
     <script>
