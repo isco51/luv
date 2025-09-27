@@ -21,14 +21,14 @@
             background: linear-gradient(135deg, #1A1A1A, #2D2D2D);
             min-height: 100vh;
             color: white;
-            /* Added padding to prevent main content from hiding behind fixed footer */
-            padding-bottom: 350px; 
+            /* Adjust padding to remove space reserved for fixed footer ads */
+            padding-bottom: 20px; 
         }
         
         /* Ensure the fixed footer does not overlap essential content */
         @media (min-width: 768px) {
             body {
-                padding-bottom: 120px; /* Reduced padding for desktop */
+                padding-bottom: 20px; /* Minimal padding for desktop */
             }
         }
 
@@ -127,7 +127,7 @@
         </div>
     </div>
 
-    <!-- Header Section (Trust and Ads - ONLY TOP ADS ARE HERE) -->
+    <!-- Header Section (Trust Indicators ONLY - Ads Removed) -->
     <header class="p-4 bg-black bg-opacity-20 shadow-xl border-b border-primary/50 sticky top-0 z-40">
         <div class="max-w-4xl mx-auto">
             <div class="flex items-center justify-between flex-wrap gap-4">
@@ -144,33 +144,15 @@
                     </div>
                 </div>
 
-                <!-- Ad Slot: Desktop Banner 468x60 (Hidden on mobile) -->
+                <!-- Empty space where desktop ad used to be, now removed for cleaner look -->
                 <div class="hidden md:block mx-auto">
-                    <script type="text/javascript">
-                        atOptions = {
-                            'key' : 'c45d3a0c35e12489dc8d91b96aa092b7',
-                            'format' : 'iframe',
-                            'height' : 60,
-                            'width' : 468,
-                            'params' : {}
-                        };
-                    </script>
-                    <script type="text/javascript" src="//www.highperformanceformat.com/c45d3a0c35e12489dc8d91b96aa092b7/invoke.js"></script>
+                    <!-- Ad Slot: Desktop Banner 468x60 (REMOVED) -->
                 </div>
             </div>
 
-            <!-- Ad Slot: Mobile Banner 320x50 (Visible only on mobile, centered) -->
+            <!-- Empty space where mobile ad used to be, now removed -->
             <div class="md:hidden mx-auto mt-4 w-full flex justify-center">
-                <script type="text/javascript">
-                    atOptions = {
-                        'key' : 'c2eeb681983f8c361d48d3ac8d014ac0',
-                        'format' : 'iframe',
-                        'height' : 50,
-                        'width' : 320,
-                        'params' : {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/c2eeb681983f8c361d48d3ac8d014ac0/invoke.js"></script>
+                 <!-- Ad Slot: Mobile Banner 320x50 (REMOVED) -->
             </div>
         </div>
     </header>
@@ -371,7 +353,7 @@
                 </button>
             </div>
 
-            <!-- Step 6: Human Verification (CPA Link) -->
+            <!-- Step 6: Human Verification (CPA Link - KEPT) -->
             <div id="step-6" class="step-content step-transition hidden text-center">
                 <div class="text-6xl mb-4">🤖</div>
                 <h2 class="text-4xl font-extrabold text-accent mb-4">FINAL STEP: Human Verification</h2>
@@ -389,7 +371,7 @@
                     </ul>
                 </div>
 
-                <!-- CPA Link Button (The final conversion point) -->
+                <!-- CPA Link Button (The final conversion point - KEPT) -->
                 <a href="https://installchecker.com/cl/i/1o468e" target="_blank" class="block w-full md:w-2/3 mx-auto py-5 bg-accent text-[#1A1A1A] text-2xl font-extrabold rounded-xl transition hover:bg-white focus:ring-4 focus:ring-primary focus:outline-none pulse-effect" style="animation-duration: 1.5s;">
                     🔒 VERIFY NOW & GET RESOURCES
                 </a>
@@ -415,27 +397,10 @@
 
     </main>
 
-    <!-- Footer Section (BOTTOM ADS ONLY ARE HERE) -->
-    <footer class="fixed bottom-0 left-0 right-0 p-4 bg-black bg-opacity-80 border-t border-primary/50 text-center z-30 flex flex-col items-center justify-center">
-        <!-- Ad Slot: Banner 300x250 -->
-        <div class="mx-auto my-2">
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : 'bbbc4c740249940684290c4c616c2066',
-                    'format' : 'iframe',
-                    'height' : 250,
-                    'width' : 300,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/bbbc4c740249940684290c4c616c2066/invoke.js"></script>
-        </div>
-        
-        <!-- Ad Slot: Native Banner -->
-        <div class="mt-4">
-            <script async="async" data-cfasync="false" src="//pl27285812.revenuecpmgate.com/f6a986e6acf0eca41b887888e0a0e4d4/invoke.js"></script>
-            <div id="container-f6a986e6acf0eca41b887888e0a0e4d4"></div>
-        </div>
+    <!-- Footer Section (CLEANED - Ads Removed) -->
+    <footer class="p-4 bg-black bg-opacity-80 border-t border-primary/50 text-center mt-8">
+        <!-- All ad slots removed from the footer section to fulfill the request. -->
+        <p class="text-xs text-gray-500">© 2024 Roblox Resource Generator. All rights reserved. Disclaimer: This tool is for entertainment and testing purposes only.</p>
     </footer>
 
     <script>
