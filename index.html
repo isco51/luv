@@ -3,458 +3,625 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Diamond Generator - Secure Access</title>
-    <!-- Load Tailwind CSS CDN -->
+    <title>RobloxGenerator - Free Resources</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Inter Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Font (Poppins) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom Tailwind Configuration */
         :root {
-            --color-primary: #1E40FF; /* Strong Blue for action (Deep Blue) */
-            --color-accent: #10B981; /* Accent Green for success/trust */
-            --color-light-blue-body: #F0F9FF; /* Very Pale Blue for page body (off-white blue) */
-            --color-light-blue-card: #E0F7FA; /* Slightly deeper pale blue for generator box */
+            --purple-main: #6C00FF;
+            --neon-green: #CFFF04;
+            --dark-bg-start: #1A1A1A;
+            --dark-bg-end: #0F0F0F;
         }
 
-        /* Applying the requested light blue background gradient */
         body {
-            font-family: 'Inter', sans-serif;
-            /* Very light blue gradient (not pure white) */
-            background: linear-gradient(135deg, var(--color-light-blue-body), #CBE7F5); 
+            font-family: 'Poppins', sans-serif;
+            /* Dark gradient background */
+            background: linear-gradient(135deg, var(--dark-bg-start), var(--dark-bg-end));
             min-height: 100vh;
-            color: #1F2937; /* Dark text on light background */
-            padding-bottom: 20px; 
+            color: #E0E0E0;
             overflow-x: hidden;
         }
-        
-        /* Custom Colors & Utility Classes */
-        .bg-primary { background-color: var(--color-primary); }
-        .text-accent { color: var(--color-accent); }
-        .bg-accent { background-color: var(--color-accent); }
-        .border-primary { border-color: var(--color-primary); }
-        .shadow-primary-lg { box-shadow: 0 10px 20px rgba(30, 64, 255, 0.4); }
-        .shadow-accent-lg { box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4); }
 
-        /* Keyframe for button pulse effect */
-        @keyframes pulse-ring {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(30, 64, 255, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(30, 64, 255, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(30, 64, 255, 0); }
+        /* Custom scrollbar for a dark theme */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--purple-main); border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: var(--dark-bg-end); }
+
+        /* Keyframes for the Floating Animation */
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
-        .pulse-effect {
-            animation: pulse-ring 2s infinite;
+        .float-animation {
+            animation: floating 3s ease-in-out infinite;
         }
 
-        /* Custom styles for selection cards - Tighter for mobile */
-        .selection-card {
-            transition: all 0.2s ease-in-out;
-            cursor: pointer;
-            border: 2px solid transparent;
-            padding: 8px; /* Reduced padding */
-            background-color: var(--color-light-blue-body); /* Pale blue card background */
+        /* Keyframes for Pulse Animation */
+        @keyframes pulse-neon {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(207, 255, 4, 0.5); }
+            70% { box-shadow: 0 0 8px 10px rgba(207, 255, 4, 0); }
         }
 
-        .selection-card:hover {
-            transform: translateY(-2px) scale(1.02);
-            border-color: var(--color-primary);
+        .btn-pulse-neon {
+            animation: pulse-neon 2s infinite;
         }
 
-        .selection-card.selected {
-            border-color: var(--color-accent);
-            background-color: rgba(16, 185, 129, 0.1);
+        /* Custom Gradients */
+        .gradient-purple-blue {
+            background: linear-gradient(90deg, #6C00FF, #4F46E5); /* Purple to Indigo/Blue */
+        }
+        .gradient-green {
+            background: linear-gradient(90deg, #CFFF04, #4CAF50); /* Neon Green to Standard Green */
+        }
+        .gradient-yellow-orange {
+            background: linear-gradient(90deg, #FFC107, #FF9800); /* Yellow to Orange */
+        }
+
+        /* Selection Glow Effect */
+        .selection-glow {
+            box-shadow: 0 0 10px 2px var(--neon-green);
+            border: 2px solid var(--neon-green);
             transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
         }
 
-        .resource-grid {
-            /* Tighter gap for mobile */
-            gap: 0.5rem; 
+        /* Live Counter Animation */
+        .live-counter-dot {
+            animation: blink 1s infinite alternate;
+        }
+        @keyframes blink {
+            0% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+        
+        /* Ticker Animation */
+        .ticker-container {
+            height: 24px;
+            overflow: hidden;
         }
 
-        /* Ensure images and text are small enough */
-        .selection-card img {
-            width: 3rem; 
-            height: 3rem; 
-        }
-        .selection-card p {
-            font-size: 0.8rem;
+        /* Mobile optimization: make things tight */
+        .mobile-tight {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
         }
 
-        /* Dark console box for contrast */
-        .console-box {
-            background-color: #1F2937; 
-            color: #A7F3D0; /* Light green text on dark console */
+        /* Console styling */
+        .console {
+            background-color: #000000;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            font-family: 'Consolas', 'Monospace';
+            white-space: pre-wrap;
+            height: 200px;
+            overflow-y: scroll;
+            padding: 1rem;
         }
+
+        .console-error { color: #FF4444; }
+        .console-success { color: #00FF00; }
+        .console-info { color: #8888FF; }
+
+        /* Hide specific steps until they are active */
+        .step-content { display: none; }
+
     </style>
 </head>
-<body class="selection:bg-accent selection:text-[#1A1A1A]">
+<body>
 
-    <!-- Header Section (Trust Indicators) -->
-    <header class="p-4 bg-white/70 shadow-xl border-b border-primary/20 sticky top-0 z-40 text-gray-900">
-        <div class="max-w-4xl mx-auto">
-            <div class="flex items-center justify-between flex-wrap gap-4">
-                <h1 class="text-2xl font-extrabold text-primary">ROBLOX GENERATOR</h1>
-                <!-- Trust Indicators -->
-                <div class="flex items-center space-x-4 text-sm">
-                    <div class="text-center">
-                        <span id="user-counter" class="block text-xl font-extrabold text-accent">987+</span>
-                        <span class="text-xs text-gray-500">USERS ONLINE</span>
-                    </div>
-                    <div class="h-6 w-px bg-gray-300"></div>
-                    <div>
-                        <div class="text-accent text-lg">★★★★★</div>
-                        <span class="text-xs text-gray-500">SECURE & FAST</span>
-                    </div>
+    <!-- Header Section -->
+    <header class="p-4 mobile-tight bg-black bg-opacity-30 border-b border-gray-800 sticky top-0 z-10">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center text-2xl font-bold text-white">
+                <i class="fas fa-gem text-[var(--neon-green)] mr-2 text-xl"></i>
+                <span class="text-[var(--purple-main)]">Roblox</span><span class="text-white">Generator</span>
+            </div>
+
+            <!-- Live User Counter & Trust -->
+            <div class="text-right text-xs">
+                <p id="live-users" class="font-semibold text-[var(--neon-green)] mb-0.5 mobile-tight">
+                    <span class="live-counter-dot inline-block w-2 h-2 rounded-full bg-red-500 mr-1"></span>
+                    <span id="user-count">12,000</span>+ Users Online
+                </p>
+                <div class="flex items-center space-x-2">
+                    <span class="flex items-center text-gray-400">
+                        <i class="fas fa-lock text-xs text-green-500 mr-1"></i> SSL Secured
+                    </span>
+                    <span class="flex items-center text-gray-400">
+                        <i class="fas fa-shipping-fast text-xs text-blue-400 mr-1"></i> Instant
+                    </span>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="max-w-4xl mx-auto p-4 md:p-8">
+    <!-- BANNER AD: Header Banner Placement (https://www.revenuecpmgate.com/banner/1) -->
+    <div class="w-full h-auto bg-gray-900 border-b border-gray-800 py-1">
+        <iframe src="https://www.revenuecpmgate.com/banner/1" width="100%" height="80" scrolling="no" frameborder="0" class="mx-auto block" style="max-width: 728px; width: 100%;"></iframe>
+    </div>
 
-        <!-- Generator Steps Container -->
-        <div id="generator-steps" class="bg-color-light-blue-card p-4 md:p-8 rounded-2xl shadow-2xl border-2 border-primary/20">
+    <!-- Main Content Area -->
+    <main class="max-w-4xl mx-auto p-4 pt-1 mobile-tight">
+        
+        <!-- Headline -->
+        <h1 class="text-3xl font-extrabold text-center mt-2 mb-1 mobile-tight leading-tight">
+            Get <span class="text-[var(--neon-green)]">FREE</span> Roblox Resources
+        </h1>
+        <p class="text-center text-gray-400 mb-4 text-sm mobile-tight">
+            Generate Diamonds, exclusive Classes, and rare Items instantly!
+        </p>
 
-            <!-- Step 1: Selection & Input (Combined) -->
-            <div id="step-select" class="step-content text-gray-900">
-                <h2 class="text-3xl font-extrabold mb-2 text-center text-gray-900">
-                    Acquire Resources in <span class="text-primary">3 Steps</span>
-                </h2>
-                <p class="text-gray-600 mb-6 text-center text-sm">Select your desired bundle and start the secure injection process.</p>
+        <!-- Application Container -->
+        <div id="generator-app" class="bg-black bg-opacity-40 p-3 rounded-xl shadow-2xl border border-gray-700">
 
-                <!-- Resource Selection Grid -->
-                <div class="space-y-6">
-                    <!-- Diamonds Selection -->
-                    <div>
-                        <h3 class="text-base font-semibold mb-2 flex items-center text-primary">
-                            💎 1. Choose Diamond Amount
-                        </h3>
-                        <div class="resource-grid grid grid-cols-3">
-                            <div class="selection-card rounded-lg" data-resource="diamonds" data-value="2500" onclick="selectResource(this, 'diamonds')">
-                                <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="Diamond" class="mx-auto mb-1 rounded-full p-0.5 bg-gray-100 border border-accent/50">
-                                <p class="font-bold text-center text-gray-800">2,500</p>
-                            </div>
-                            <div class="selection-card rounded-lg" data-resource="diamonds" data-value="5000" onclick="selectResource(this, 'diamonds')">
-                                <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="Diamond" class="mx-auto mb-1 rounded-full p-0.5 bg-gray-100 border border-accent/50">
-                                <p class="font-bold text-center text-gray-800">5,000</p>
-                            </div>
-                            <div class="selection-card rounded-lg" data-resource="diamonds" data-value="10000" onclick="selectResource(this, 'diamonds')">
-                                <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="Diamond" class="mx-auto mb-1 rounded-full p-0.5 bg-gray-100 border border-accent/50">
-                                <p class="font-bold text-center text-gray-800">10,000</p>
-                            </div>
-                        </div>
+            <!-- STEP 1: Username Input -->
+            <div id="step-1" class="step-content">
+                <h2 class="text-xl font-bold mb-3 text-center text-[var(--purple-main)]">Step 1: Enter Username</h2>
+                <div class="bg-gray-800 p-4 rounded-lg mb-4 shadow-inner">
+                    <div class="flex items-center border-b-2 border-[var(--purple-main)] focus-within:border-[var(--neon-green)] transition-colors">
+                        <i class="fas fa-user text-gray-400 mr-3"></i>
+                        <input type="text" id="username-input" placeholder="Your Roblox Username" class="w-full bg-transparent text-white p-2 focus:outline-none placeholder-gray-500" required>
                     </div>
-
-                    <!-- Class Selection -->
-                    <div>
-                        <h3 class="text-base font-semibold mb-2 flex items-center text-primary">
-                            ⚔️ 2. Select Exclusive Class
-                        </h3>
-                        <div class="resource-grid grid grid-cols-3">
-                            <div class="selection-card rounded-lg" data-resource="class" data-value="Assassin" onclick="selectResource(this, 'class')">
-                                <img src="https://i.postimg.cc/fTK26j9B/assassin.png" alt="Assassin" class="mx-auto mb-1 p-0.5">
-                                <p class="font-semibold text-center text-gray-800">Assassin</p>
-                            </div>
-                            <div class="selection-card rounded-lg" data-resource="class" data-value="Cyborg" onclick="selectResource(this, 'class')">
-                                <img src="https://i.postimg.cc/wBWCDjjy/cyborg.png" alt="Cyborg" class="mx-auto mb-1 p-0.5">
-                                <p class="font-semibold text-center text-gray-800">Cyborg</p>
-                            </div>
-                            <div class="selection-card rounded-lg" data-resource="class" data-value="Pyromaniac" onclick="selectResource(this, 'class')">
-                                <img src="https://i.postimg.cc/mk9Kx3NC/pyromaniac.png" alt="Pyromaniac" class="mx-auto mb-1 p-0.5">
-                                <p class="font-semibold text-center text-gray-800">Pyromaniac</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Item Selection -->
-                    <div>
-                        <h3 class="text-base font-semibold mb-2 flex items-center text-primary">
-                            ✨ 3. Select Rare Item
-                        </h3>
-                        <div class="resource-grid grid grid-cols-3">
-                            <div class="selection-card rounded-lg" data-resource="item" data-value="Ice Sword" onclick="selectResource(this, 'item')">
-                                <img src="https://i.postimg.cc/YqcJ6VM3/ice-sword.png" alt="Ice Sword" class="mx-auto mb-1 p-0.5">
-                                <p class="font-semibold text-center text-gray-800">Ice Sword</p>
-                            </div>
-                            <div class="selection-card rounded-lg" data-resource="item" data-value="Trident" onclick="selectResource(this, 'item')">
-                                <img src="https://i.postimg.cc/15pbJHzZ/trident.png" alt="Trident" class="mx-auto mb-1 p-0.5">
-                                <p class="font-semibold text-center text-gray-800">Trident</p>
-                            </div>
-                            <div class="selection-card rounded-lg" data-resource="item" data-value="Cultist King Mace" onclick="selectResource(this, 'item')">
-                                <img src="https://i.postimg.cc/7Z9dyZ7s/cultist-king-mace.png" alt="Mace" class="mx-auto mb-1 p-0.5">
-                                <p class="font-semibold text-center text-gray-800">King Mace</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Username Input -->
-                    <div class="pt-4">
-                        <h3 class="text-base font-semibold mb-2 flex items-center text-primary">
-                            👤 4. Enter Roblox Username
-                        </h3>
-                        <input type="text" id="roblox-username" placeholder="Your Roblox Username (No Password Required)" 
-                               class="w-full p-3 text-lg bg-gray-200 border-2 border-primary/50 rounded-xl text-gray-900 placeholder-gray-500 focus:border-accent focus:ring-2 focus:ring-accent/50 outline-none transition" required>
-                        <p id="username-error" class="text-red-600 text-sm mt-2 hidden">Please enter a valid username.</p>
-                    </div>
-
                 </div>
-
-                <!-- Generate Button -->
-                <button id="generate-button" onclick="handleStartGeneration()" 
-                        class="w-full mt-6 py-4 bg-primary text-white text-xl font-bold rounded-xl transition hover:bg-opacity-80 focus:ring-4 focus:ring-accent focus:outline-none pulse-effect disabled:opacity-50" disabled>
-                    ⚡ START INJECTION
+                <button id="start-generator-btn" class="w-full py-3 px-4 rounded-lg font-bold text-white gradient-purple-blue transition-all hover:shadow-lg hover:scale-[1.01] btn-pulse-neon mobile-tight">
+                    START GENERATOR
                 </button>
-                <p id="selection-error" class="text-red-600 text-center text-sm mt-3 hidden">Please make a selection in all categories.</p>
-                <p class="text-xs text-gray-500 mt-3 text-center">🔒 Secure connection. We never ask for your password.</p>
             </div>
 
-            <!-- Step 2: Generation Simulation -->
-            <div id="step-generate" class="step-content hidden text-center text-gray-900">
-                <h2 class="text-3xl font-bold text-accent mb-6">Processing Request...</h2>
+            <!-- STEP 2: Resource Selection (Hidden initially) -->
+            <div id="step-2" class="step-content">
+                <h2 class="text-xl font-bold mb-3 text-center text-[var(--neon-green)]">Step 2: Select Resources</h2>
+                <div class="space-y-4">
+                    
+                    <!-- Diamonds Section -->
+                    <div class="bg-gray-800 p-3 rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold flex items-center mb-2 text-white">
+                            <i class="fas fa-gem text-[var(--neon-green)] mr-2"></i> Diamonds
+                        </h3>
+                        <div class="grid grid-cols-3 gap-2 text-center">
+                            <!-- Diamond Options -->
+                            <div class="resource-card" data-category="Diamonds" data-value="2,500">
+                                <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" onerror="this.onerror=null;this.src='https://placehold.co/100x100/6C00FF/FFFFFF?text=2.5K'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="2,500 Diamonds">
+                                <span class="text-xs">2,500 Diamonds</span>
+                            </div>
+                            <div class="resource-card" data-category="Diamonds" data-value="5,000">
+                                <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" onerror="this.onerror=null;this.src='https://placehold.co/100x100/6C00FF/FFFFFF?text=5K'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="5,000 Diamonds">
+                                <span class="text-xs">5,000 Diamonds</span>
+                            </div>
+                            <div class="resource-card" data-category="Diamonds" data-value="10,000">
+                                <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" onerror="this.onerror=null;this.src='https://placehold.co/100x100/6C00FF/FFFFFF?text=10K'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="10,000 Diamonds">
+                                <span class="text-xs">10,000 Diamonds</span>
+                            </div>
+                        </div>
+                    </div>
 
-                <!-- Animated Console Log -->
-                <div class="console-box p-6 rounded-lg border border-accent/50 max-h-80 overflow-y-auto mb-6">
-                    <pre id="console-log" class="text-left text-sm font-mono whitespace-pre-wrap"></pre>
+                    <!-- Classes Section -->
+                    <div class="bg-gray-800 p-3 rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold flex items-center mb-2 text-white">
+                            <i class="fas fa-user-ninja text-purple-400 mr-2"></i> Exclusive Class
+                        </h3>
+                        <div class="grid grid-cols-3 gap-2 text-center">
+                            <!-- Class Options -->
+                            <div class="resource-card" data-category="Class" data-value="Assassin">
+                                <img src="https://i.postimg.cc/fTK26j9B/assassin.png" onerror="this.onerror=null;this.src='https://placehold.co/100x100/800080/FFFFFF?text=ASSASSIN'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="Assassin Class">
+                                <span class="text-xs">Assassin</span>
+                            </div>
+                            <div class="resource-card" data-category="Class" data-value="Cyborg">
+                                <img src="https://i.postimg.cc/wBWCDjjy/cyborg.png" onerror="this.onerror=null;this.src='https://placehold.co/100x100/4169E1/FFFFFF?text=CYBORG'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="Cyborg Class">
+                                <span class="text-xs">Cyborg</span>
+                            </div>
+                            <div class="resource-card" data-category="Class" data-value="Pyromaniac">
+                                <img src="https://i.postimg.cc/mk9Kx3NC/pyromaniac.png" onerror="this.onerror=null;this.src='https://placehold.co/100x100/FF4500/FFFFFF?text=PYRO'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="Pyromaniac Class">
+                                <span class="text-xs">Pyromaniac</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Items Section -->
+                    <div class="bg-gray-800 p-3 rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold flex items-center mb-2 text-white">
+                            <i class="fas fa-shield-alt text-blue-400 mr-2"></i> Rare Item
+                        </h3>
+                        <div class="grid grid-cols-3 gap-2 text-center">
+                            <!-- Item Options -->
+                            <div class="resource-card" data-category="Item" data-value="Ice Sword">
+                                <img src="https://i.postimg.cc/YqcJ6VM3/ice-sword.png" onerror="this.onerror=null;this.src='https://placehold.co/100x100/00FFFF/000000?text=SWORD'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="Ice Sword">
+                                <span class="text-xs">Ice Sword</span>
+                            </div>
+                            <div class="resource-card" data-category="Item" data-value="Trident">
+                                <img src="https://i.postimg.cc/15pbJHzZ/trident.png" onerror="this.onerror=null;this.src='https://placehold.co/100x100/0000FF/FFFFFF?text=TRIDENT'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="Trident">
+                                <span class="text-xs">Trident</span>
+                            </div>
+                            <div class="resource-card" data-category="Item" data-value="Cultist King Mace">
+                                <img src="https://i.postimg.cc/7Z9dyZ7s/cultist-king-mace.png" onerror="this.onerror=null;this.src='https://placehold.co/100x100/FFA500/000000?text=MACE'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="Cultist King Mace">
+                                <span class="text-xs">Cultist King Mace</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Animated Loading Bar -->
-                <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
-                    <div id="loading-bar" class="bg-primary h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                <!-- Selection Summary & Buttons -->
+                <div class="mt-4 mobile-tight p-2 bg-gray-900 rounded-lg">
+                    <p class="text-sm font-semibold text-gray-400 mb-1">Current Selection:</p>
+                    <div id="selection-summary" class="flex flex-wrap gap-2 text-xs font-medium min-h-[20px]">
+                        <!-- Selections will appear here -->
+                        <span class="text-gray-500 italic">Select at least one item above.</span>
+                    </div>
+                    <div class="flex space-x-2 mt-3">
+                        <button id="back-to-username-btn" class="w-1/3 py-2 rounded-lg font-bold text-white bg-gray-600 transition-colors hover:bg-gray-500">
+                            BACK
+                        </button>
+                        <button id="generate-resources-btn" class="w-2/3 py-2 rounded-lg font-bold text-black gradient-green transition-all hover:shadow-lg hover:scale-[1.01] btn-pulse-neon" disabled>
+                            GENERATE RESOURCES
+                        </button>
+                    </div>
                 </div>
-
-                <p id="status-message" class="text-lg font-semibold text-gray-800">Initializing server connection...</p>
             </div>
 
-            <!-- Step 3: Human Verification (CPA Link) -->
-            <div id="step-verify" class="step-content hidden text-center text-gray-900">
-                <div class="text-6xl mb-4 text-accent">✅</div>
-                <h2 class="text-4xl font-extrabold text-primary mb-4">INJECTION COMPLETE!</h2>
-                <p class="text-gray-700 mb-8 max-w-lg mx-auto">
-                    Your **<span id="verify-diamonds" class="text-primary font-bold">10,000</span> Diamonds** and items are ready for transfer. Complete a quick verification to finalize the injection.
-                </p>
-
-                <!-- Security/Verification Block -->
-                <div class="bg-red-100 p-5 rounded-xl border border-red-500 mb-8 max-w-sm mx-auto">
-                    <h4 class="font-bold text-xl mb-3 text-red-600">🚨 Required: Human Verification</h4>
-                    <p class="text-sm text-gray-800">
-                        This is necessary to protect our servers from automated bots. Click the button below and complete one quick task to prove you are human.
-                    </p>
+            <!-- STEP 3: Generation Console (Hidden initially) -->
+            <div id="step-3" class="step-content">
+                <h2 class="text-xl font-bold mb-3 text-center text-red-500">Step 3: Processing Request</h2>
+                <div class="bg-gray-900 p-4 rounded-lg">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-bold text-white">Status for <span id="console-username"></span>:</span>
+                        <i class="fas fa-spinner fa-spin text-[var(--neon-green)]"></i>
+                    </div>
+                    <div id="console-output" class="console">
+                        > Initiating connection...
+                    </div>
                 </div>
-
-                <!-- CPA Link Button (The final conversion point - KEPT) -->
-                <!-- The CPA Link: https://installchecker.com/cl/i/1o468e -->
-                <a href="https://installchecker.com/cl/i/1o468e" target="_blank" 
-                   class="block w-full md:w-3/4 mx-auto py-5 bg-accent text-white text-2xl font-extrabold rounded-xl transition hover:bg-opacity-80 shadow-accent-lg focus:ring-4 focus:ring-primary focus:outline-none pulse-effect" 
-                   style="animation-duration: 1.5s;">
-                    🔒 FINALIZE & GET RESOURCES NOW
-                </a>
-
-                <p class="text-xs text-gray-600 mt-6">
-                    (Your resources will be automatically added to account **<span id="verify-username"></span>** after verification.)
-                </p>
             </div>
 
+            <!-- STEP 4: Human Verification (Hidden initially) -->
+            <div id="step-4" class="step-content">
+                <h2 class="text-2xl font-bold mb-4 text-center text-[var(--purple-main)]">Verification Required</h2>
+                <div class="bg-red-900 bg-opacity-30 p-4 rounded-lg text-center border border-red-500">
+                    <i class="fas fa-exclamation-triangle text-red-400 text-4xl mb-3"></i>
+                    <p class="text-white font-semibold mb-2">Security Breach Detected!</p>
+                    <p class="text-sm text-gray-300 mb-4">Our system detected too many requests from your IP. To prevent bot abuse, you must complete a quick Human Verification step.</p>
+                    
+                    <ul id="final-selection-list" class="text-left text-sm list-disc list-inside space-y-1 mx-auto w-fit mb-4">
+                        <!-- Final selections displayed here -->
+                    </ul>
+
+                    <button id="verify-now-btn" class="w-full py-3 px-4 rounded-lg font-bold text-black gradient-yellow-orange transition-all hover:shadow-xl hover:scale-[1.02] btn-pulse-neon">
+                        COMPLETE VERIFICATION NOW
+                    </button>
+                </div>
+            </div>
         </div>
 
+        <!-- Trust and Security Elements -->
+        <div class="mt-4 p-2 text-center border-t border-gray-800 mobile-tight">
+            <p class="text-xs text-gray-500 mb-2">
+                <i class="fas fa-shield-alt text-green-500 mr-1"></i> Your connection is secured with 256-bit SSL encryption. <span class="text-[var(--neon-green)] font-semibold">We never ask for your password.</span>
+            </p>
+            <div class="flex justify-center space-x-4 mb-2">
+                <span class="text-sm font-semibold text-gray-400 flex items-center">
+                    <i class="fas fa-star text-yellow-500 mr-1"></i> Trusted Platform 4.9/5
+                </span>
+                <span class="text-sm font-semibold text-gray-400 flex items-center">
+                    <i class="fas fa-key text-blue-500 mr-1"></i> No Password Required
+                </span>
+            </div>
+        </div>
+
+        <!-- Live Winners Ticker -->
+        <div class="bg-gray-900 p-3 rounded-xl mt-4 mobile-tight">
+            <h3 class="text-lg font-bold mb-2 text-center text-[var(--purple-main)]">Recent Winners</h3>
+            <div id="live-winners-ticker" class="ticker-container text-sm">
+                <!-- Ticker content inserted here by JS -->
+            </div>
+        </div>
+
+        <!-- Fake Testimonials (Simplified for single-screen) -->
+        <div class="mt-4 p-2 text-center text-sm text-gray-500 italic">
+            "Works perfectly, got my Diamonds in 5 minutes! Thank you!" - A**xR**b*x
+        </div>
     </main>
 
-    <!-- Footer Section -->
-    <footer class="p-4 bg-white/70 border-t border-primary/20 text-center mt-8 text-gray-600">
-        <div class="flex justify-center space-x-6 text-sm mb-2">
-            <span>High Success Rate</span>
-            <span>|</span>
-            <span>24/7 Support</span>
-            <span>|</span>
-            <span>No Root/Jailbreak Needed</span>
-        </div>
-        <p class="text-xs text-gray-500 mt-4">Disclaimer: This tool is for entertainment and testing purposes only. We are not affiliated with the game creators.</p>
-    </footer>
+    <!-- BANNER AD: Footer Banner Placement (https://www.revenuecpmgate.com/banner/2) -->
+    <div class="w-full h-auto bg-gray-900 border-t border-gray-800 py-1 mb-4">
+        <iframe src="https://www.revenuecpmgate.com/banner/2" width="100%" height="80" scrolling="no" frameborder="0" class="mx-auto block" style="max-width: 728px; width: 100%;"></iframe>
+    </div>
 
     <script>
-        // === Ad Integration: Pop-Under on First Click (Ad URL Provided by User) ===
-        const popUnderAdURL = "https://www.revenuecpmgate.com/e7w3c2tesd?key=55121f01592791b7288819a80bd4c830";
-        let adTriggered = false;
+        // --- Configuration ---
+        const FINAL_REDIRECT_LINK = 'https://www.revenuecpmgate.com/redirect/1';
+        const POP_UNDER_URL = 'https://www.revenuecpmgate.com/e7w3c2tesd?key=55121f01592791b7288819a80bd4c830';
+        const EXIT_POP_UP_URL = 'https://www.revenuecpmgate.com/exit/1';
+
+        // --- Ad Integration Functions (As requested) ---
 
         /**
-         * Triggers the Pop-Under ad upon the first click anywhere on the document.
-         * The {once: true} option ensures the event listener is automatically removed 
-         * after it executes once.
+         * Triggers the pop-under ad on the first user interaction (click).
          */
-        document.addEventListener('click', function(event) {
-            if (!adTriggered) {
-                // Open the ad link in a new tab/window
-                const adWindow = window.open(popUnderAdURL, '_blank');
-                
-                // Best effort to make it a pop-under (new tab opens in background)
-                if (adWindow) {
-                    adWindow.blur();
-                    window.focus();
-                }
-                
-                adTriggered = true;
-                console.log("Ad Pop-Under Triggered on first click.");
-            }
-        }, { once: true }); // Executes only once
+        document.addEventListener('click', function triggerPopUnder() {
+            window.open(POP_UNDER_URL, '_blank');
+            // Remove the listener after the first click
+            document.removeEventListener('click', triggerPopUnder);
+        });
 
-        // === Generator Logic (Simplified for 3 Steps) ===
-        
-        // Global State
-        let currentStep = 'step-select';
-        let selectedResources = {
-            diamonds: null,
-            class: null,
-            item: null,
-            username: null
+        /**
+         * Triggers the exit pop-up when the user attempts to leave the page.
+         */
+        window.onbeforeunload = function() {
+            window.open(EXIT_POP_UP_URL, '_blank');
         };
-        const steps = ['step-select', 'step-generate', 'step-verify'];
+
+        // --- Global State ---
+        let appState = {
+            step: 1,
+            username: '',
+            selection: {}, // {Category: Value, Category2: Value2}
+        };
+
+        // --- DOM Elements ---
+        const $steps = [
+            document.getElementById('step-1'),
+            document.getElementById('step-2'),
+            document.getElementById('step-3'),
+            document.getElementById('step-4')
+        ];
+        const $usernameInput = document.getElementById('username-input');
+        const $startBtn = document.getElementById('start-generator-btn');
+        const $generateBtn = document.getElementById('generate-resources-btn');
+        const $backBtn = document.getElementById('back-to-username-btn');
+        const $verifyBtn = document.getElementById('verify-now-btn');
+        const $resourceCards = document.querySelectorAll('.resource-card');
+        const $selectionSummary = document.getElementById('selection-summary');
+        const $consoleOutput = document.getElementById('console-output');
+        const $consoleUsername = document.getElementById('console-username');
+        const $finalSelectionList = document.getElementById('final-selection-list');
+        const $userCount = document.getElementById('user-count');
+        const $tickerContainer = document.getElementById('live-winners-ticker');
+
+        // --- Utility Functions ---
 
         /**
-         * Utility function to hide all steps and show only the current one.
+         * Handles the step change and updates the UI.
+         * @param {number} newStep 
          */
-        function showStep(stepId) {
-            steps.forEach((id) => {
-                const stepElement = document.getElementById(id);
-                if (stepElement) {
-                    if (id === stepId) {
-                        stepElement.classList.remove('hidden');
-                    } else {
-                        stepElement.classList.add('hidden');
-                    }
+        const goToStep = (newStep) => {
+            appState.step = newStep;
+            $steps.forEach(($step, index) => {
+                $step.style.display = (index + 1 === newStep) ? 'block' : 'none';
+            });
+            // Scroll to top of the app container for better mobile view
+            document.getElementById('generator-app').scrollIntoView({ behavior: 'smooth' });
+        };
+
+        /**
+         * Updates the UI to reflect current resource selections.
+         */
+        const updateSelectionUI = () => {
+            let summaryHTML = '';
+            let count = 0;
+            const selectionKeys = Object.keys(appState.selection);
+
+            if (selectionKeys.length === 0) {
+                summaryHTML = '<span class="text-gray-500 italic">Select at least one item above.</span>';
+                $generateBtn.disabled = true;
+                $generateBtn.classList.remove('btn-pulse-neon');
+            } else {
+                selectionKeys.forEach(category => {
+                    const value = appState.selection[category];
+                    summaryHTML += `<span class="bg-[var(--purple-main)] px-2 py-0.5 rounded-full text-white font-medium whitespace-nowrap">${category}: ${value}</span>`;
+                    count++;
+                });
+                $generateBtn.disabled = false;
+                $generateBtn.classList.add('btn-pulse-neon');
+            }
+            $selectionSummary.innerHTML = summaryHTML;
+
+            // Update card glow
+            $resourceCards.forEach(card => {
+                const category = card.dataset.category;
+                const value = card.dataset.value;
+                if (appState.selection[category] === value) {
+                    card.classList.add('selection-glow');
+                } else {
+                    card.classList.remove('selection-glow');
                 }
             });
-            currentStep = stepId;
-        }
+        };
 
         /**
-         * Handles resource selection in Step 1.
+         * Simulates the resource generation process in a console.
          */
-        function selectResource(element, type) {
-            const value = element.getAttribute('data-value');
-            const container = element.parentElement;
+        const startGenerationProcess = () => {
+            goToStep(3);
+            $consoleUsername.textContent = appState.username;
+            $consoleOutput.innerHTML = '';
 
-            // Clear previous selection visually within the resource group
-            container.querySelectorAll('.selection-card').forEach(card => {
-                card.classList.remove('selected', 'shadow-accent-lg');
-            });
+            const selectionArray = Object.keys(appState.selection).map(key => `${appState.selection[key]} ${key}`);
+            let stepDelay = 1500; // Initial delay
 
-            // Set new selection visually
-            element.classList.add('selected', 'shadow-accent-lg');
-            selectedResources[type] = value;
+            const appendLog = (message, type = 'info') => {
+                const typeClass = type === 'error' ? 'console-error' : type === 'success' ? 'console-success' : 'console-info';
+                $consoleOutput.innerHTML += `<div class="${typeClass}">> ${message}</div>`;
+                $consoleOutput.scrollTop = $consoleOutput.scrollHeight; // Auto-scroll
+            };
 
-            // Check if all resources are selected and username is valid to enable generate button
-            checkStartButtonReadiness();
-        }
-
-        /**
-         * Checks if all required inputs are ready to enable the generation button.
-         */
-        function checkStartButtonReadiness() {
-            const username = document.getElementById('roblox-username').value.trim();
-            const allSelected = selectedResources.diamonds && selectedResources.class && selectedResources.item && (username.length >= 3);
-            const button = document.getElementById('generate-button');
-            const errorText = document.getElementById('selection-error');
-            
-            if (allSelected) {
-                button.disabled = false;
-                errorText.classList.add('hidden');
-            } else {
-                button.disabled = true;
-            }
-        }
-
-        /**
-         * Handles the main click on the "START INJECTION" button.
-         */
-        function handleStartGeneration() {
-            const usernameInput = document.getElementById('roblox-username');
-            const username = usernameInput.value.trim();
-            const errorElement = document.getElementById('username-error');
-            const selectionError = document.getElementById('selection-error');
-            
-            // 1. Validate Selection
-            if (!(selectedResources.diamonds && selectedResources.class && selectedResources.item)) {
-                selectionError.textContent = "Please make a selection in all categories.";
-                selectionError.classList.remove('hidden');
-                return;
-            } else {
-                selectionError.classList.add('hidden');
-            }
-
-            // 2. Validate Username
-            if (username.length < 3) {
-                errorElement.classList.remove('hidden');
-                usernameInput.focus();
-                return;
-            } else {
-                errorElement.classList.add('hidden');
-            }
-
-            // 3. Update state and move to Step 2
-            selectedResources.username = username;
-            startGenerationSimulation();
-            showStep('step-generate');
-        }
-
-        /**
-         * Runs the generation simulation in Step 2.
-         */
-        function startGenerationSimulation() {
-            const consoleLog = document.getElementById('console-log');
-            const loadingBar = document.getElementById('loading-bar');
-            const statusMessage = document.getElementById('status-message');
-            consoleLog.textContent = ''; // Clear previous log
-            loadingBar.style.width = '0%';
-
-            const steps = [
-                { status: `[INFO] Connecting to high-speed injection server...`, delay: 800, progress: 15 },
-                { status: `[VERIFY] Validating account: ${selectedResources.username}`, delay: 1000, progress: 30 },
-                { status: `[TRANSFER] Injecting ${selectedResources.diamonds.toLocaleString()} Diamonds...`, delay: 1200, progress: 50 },
-                { status: `[TRANSFER] Unlocking exclusive Class: ${selectedResources.class}...`, delay: 1000, progress: 70 },
-                { status: `[TRANSFER] Delivering Rare Item: ${selectedResources.item}...`, delay: 1000, progress: 85 },
-                { status: `[SERVER] Finalizing connection and preparing for sync...`, delay: 1200, progress: 95 },
-                { status: `[SUCCESS] Resources generated successfully. Awaiting final user sync.`, delay: 1000, progress: 100, final: true }
+            const sequence = [
+                { msg: `Attempting connection to remote Roblox server...`, delay: stepDelay },
+                { msg: `Connection established. Target user: ${appState.username}`, type: 'success', delay: stepDelay },
+                { msg: `Searching for unverified transaction protocols...`, delay: 1000 },
+                { msg: `Found ${selectionArray.join(' and ')} to inject.`, type: 'info', delay: stepDelay },
+                { msg: `Injecting Diamonds: ${appState.selection['Diamonds'] || 'N/A'}...`, delay: 1200 },
+                { msg: `Injecting Class: ${appState.selection['Class'] || 'N/A'}...`, delay: 1000 },
+                { msg: `Injecting Item: ${appState.selection['Item'] || 'N/A'}...`, delay: 1000 },
+                { msg: `Database injection complete. Verifying integrity...`, type: 'success', delay: 1500 },
+                { msg: `ERROR: Automated bot detection trigger!`, type: 'error', delay: 2000 },
+                { msg: `FINAL STEP: HUMAN VERIFICATION REQUIRED.`, type: 'error', delay: 1000 }
             ];
 
-            let totalDelay = 0;
-
-            steps.forEach((step) => {
-                totalDelay += step.delay;
-
-                setTimeout(() => {
-                    consoleLog.textContent += `> ${step.status}\n`;
-                    consoleLog.scrollTop = consoleLog.scrollHeight;
-                    loadingBar.style.width = `${step.progress}%`;
-                    statusMessage.textContent = step.status.replace(/\[.*\]\s*/, '',); 
-
-                    if (step.final) {
-                        // Move to verification step after a brief pause
-                        setTimeout(() => {
-                            updateVerificationStep();
-                            showStep('step-verify');
-                        }, 500);
-                    }
-                }, totalDelay);
-            });
-        }
+            let i = 0;
+            const executeStep = () => {
+                if (i < sequence.length) {
+                    const item = sequence[i];
+                    appendLog(item.msg, item.type);
+                    i++;
+                    setTimeout(executeStep, item.delay);
+                } else {
+                    // Final transition to verification step
+                    setTimeout(() => {
+                        goToStep(4);
+                        renderFinalSelectionList();
+                    }, 500);
+                }
+            };
+            executeStep();
+        };
 
         /**
-         * Updates the content of Step 3 (Verification message).
+         * Renders the selections in the final verification step.
          */
-        function updateVerificationStep() {
-            document.getElementById('verify-username').textContent = selectedResources.username;
-            document.getElementById('verify-diamonds').textContent = selectedResources.diamonds.toLocaleString();
+        const renderFinalSelectionList = () => {
+            let listHTML = '';
+            Object.keys(appState.selection).forEach(category => {
+                listHTML += `<li>${appState.selection[category]} <span class="text-[var(--neon-green)] font-bold">${category}</span></li>`;
+            });
+            $finalSelectionList.innerHTML = listHTML;
         }
 
-        // --- Initial Setup ---
-        window.onload = function() {
-            showStep('step-select');
-            
-            // Listen for input changes to enable the button
-            document.getElementById('roblox-username').addEventListener('input', checkStartButtonReadiness);
+        // --- Event Handlers ---
+
+        /**
+         * Handles all resource card clicks.
+         */
+        const handleResourceClick = (event) => {
+            const card = event.currentTarget;
+            const category = card.dataset.category;
+            const value = card.dataset.value;
+
+            // Toggle selection logic:
+            if (appState.selection[category] === value) {
+                // Deselect if already selected
+                delete appState.selection[category];
+            } else {
+                // Select new item
+                appState.selection[category] = value;
+            }
+            updateSelectionUI();
         };
+
+        /**
+         * Handles Start button click (Step 1 -> Step 2).
+         */
+        const handleStartClick = () => {
+            const username = $usernameInput.value.trim();
+            if (username.length < 3) {
+                // Use a subtle console or UI message instead of alert()
+                console.error('Please enter a valid Roblox Username (at least 3 characters).');
+                // Could implement a small temporary message in the UI here for better UX
+                return;
+            }
+            appState.username = username;
+            goToStep(2);
+        };
+
+        /**
+         * Handles Back button click (Step 2 -> Step 1).
+         */
+        const handleBackClick = () => {
+            goToStep(1);
+        };
+
+        /**
+         * Handles Generate button click (Step 2 -> Step 3).
+         */
+        const handleGenerateClick = () => {
+            if (Object.keys(appState.selection).length > 0) {
+                startGenerationProcess();
+            }
+        };
+
+        /**
+         * Handles Verify button click (Step 4 -> Final Redirect).
+         */
+        const handleVerifyClick = () => {
+            // Redirect to the final CPA offer link
+            window.location.href = FINAL_REDIRECT_LINK;
+        };
+
+        // --- Animation & Ticker Functions ---
+
+        /**
+         * Animates the live user counter.
+         */
+        const animateUserCount = () => {
+            let currentCount = 12000;
+            const targetCount = 12500;
+            const interval = setInterval(() => {
+                if (currentCount < targetCount) {
+                    currentCount += Math.floor(Math.random() * 10) + 1; // Increase by 1-10
+                    $userCount.textContent = currentCount.toLocaleString();
+                } else {
+                    clearInterval(interval);
+                    // Start over after a long pause
+                    setTimeout(animateUserCount, 15000);
+                }
+            }, 100);
+        };
+
+        /**
+         * Initializes and runs the live winners ticker.
+         */
+        const initializeWinnersTicker = () => {
+            const winners = [
+                { user: 'xXGamerPro07', prize: '10,000 Diamonds' },
+                { user: 'SavageSocks', prize: 'Assassin Class' },
+                { user: 'EpicDolphin33', prize: 'Ice Sword & 5,000 Diamonds' },
+                { user: 'NoobMaster42', prize: 'Cultist King Mace' },
+                { user: 'QueenBee77', prize: 'Trident & Cyborg Class' },
+                { user: 'PandaPower', prize: '2,500 Diamonds' },
+            ];
+            
+            let currentIndex = 0;
+
+            const updateTicker = () => {
+                const winner = winners[currentIndex];
+                const tickerItem = document.createElement('div');
+                tickerItem.className = 'w-full whitespace-nowrap overflow-hidden transition-all duration-500 ease-in-out';
+                tickerItem.innerHTML = `<span class="text-[var(--neon-green)] font-semibold">${winner.user}</span> just received <span class="text-white font-bold">${winner.prize}</span>!`;
+                
+                // Clear previous item and append new one
+                $tickerContainer.innerHTML = '';
+                $tickerContainer.appendChild(tickerItem);
+
+                currentIndex = (currentIndex + 1) % winners.length;
+            };
+
+            updateTicker(); // Show first winner immediately
+            setInterval(updateTicker, 3000); // Change every 3 seconds
+        };
+
+        // --- Initialization ---
+        window.onload = () => {
+            // Set up event listeners
+            $startBtn.addEventListener('click', handleStartClick);
+            $generateBtn.addEventListener('click', handleGenerateClick);
+            $backBtn.addEventListener('click', handleBackClick);
+            $verifyBtn.addEventListener('click', handleVerifyClick);
+
+            $resourceCards.forEach(card => card.addEventListener('click', handleResourceClick));
+
+            // Initialize UI (Show Step 1)
+            goToStep(1);
+            updateSelectionUI();
+            
+            // Start animations
+            animateUserCount();
+            initializeWinnersTicker();
+        };
+
     </script>
 </body>
 </html>
