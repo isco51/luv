@@ -152,15 +152,27 @@
         }
     </style>
 
-    <!-- Ad Integration: Popunder (Before closing </head> tag) -->
-    <!-- Retained because this is JS-based and doesn't require visual space -->
-    <script type='text/javascript' src='//pl27285803.effectivegatecpm.com/23/b4/dd/23b4ddbea7394381a1dba0632e4f41b3.js'></script>
+    <!-- Ad Integration: Popunder (Right before closing </head> tag) - Adsterra -->
+    <script type='text/javascript' src='//pl27285803.effectivegatecpm.com/23/b4/dd/23b4ddbea73943381a1dba0632e4f41b3.js'></script>
+
+    <!-- CRITICAL: Prevent back navigation once steps have started -->
+    <script>
+        (function (global) {
+            // Function to add a state entry and replace it instantly when needed.
+            function preventBack() { 
+                global.history.pushState(null, global.document.title, global.location.href); 
+            }
+            
+            // Initial call to prevent going back to the page *before* this landing page
+            preventBack();
+            
+            // Listen for history state changes (like when the user presses the back button)
+            global.addEventListener('popstate', preventBack);
+        })(window);
+    </script>
 </head>
 <body class="bg-dark-gradient min-h-screen text-gray-200">
-
-    <!-- Ad Integration: Header Banner (320x50) - REMOVED TO AVOID WHITE BOX -->
-    <!-- The main generator container now starts immediately -->
-
+    
     <!-- Main Generator Container -->
     <div id="generator-container" class="bg-deep-dark bg-opacity-80 rounded-2xl shadow-2xl backdrop-blur-sm mt-4 mb-4">
 
@@ -229,22 +241,25 @@
 
                     <!-- Diamond 1: 10,000 -->
                     <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
+                        data-type="Diamond"
                         data-name="10,000 Diamonds"
-                        onclick="selectResource(this, 'Diamond', '10,000 Diamonds', 'https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg')">
+                        onclick="selectResource(this, 'Diamond')">
                         <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="10,000 Diamonds" class="item-image h-12">
                         <p class="text-xs font-medium mt-1">10,000</p>
                     </div>
                     <!-- Diamond 2: 25,000 -->
                     <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
+                        data-type="Diamond"
                         data-name="25,000 Diamonds"
-                        onclick="selectResource(this, 'Diamond', '25,000 Diamonds', 'https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg')">
+                        onclick="selectResource(this, 'Diamond')">
                         <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="25,000 Diamonds" class="item-image h-12">
                         <p class="text-xs font-medium mt-1">25,000</p>
                     </div>
                     <!-- Diamond 3: 50,000 -->
                     <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
+                        data-type="Diamond"
                         data-name="50,000 Diamonds"
-                        onclick="selectResource(this, 'Diamond', '50,000 Diamonds', 'https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg')">
+                        onclick="selectResource(this, 'Diamond')">
                         <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="50,000 Diamonds" class="item-image h-12">
                         <p class="text-xs font-medium mt-1">50,000</p>
                     </div>
@@ -254,22 +269,25 @@
                     
                     <!-- Class 1: Assassin -->
                     <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
+                        data-type="Class"
                         data-name="Assassin Class"
-                        onclick="selectResource(this, 'Class', 'Assassin Class', 'https://i.postimg.cc/fTK26j9B/assassin.png')">
+                        onclick="selectResource(this, 'Class')">
                         <img src="https://i.postimg.cc/fTK26j9B/assassin.png" alt="Assassin Class" class="item-image h-12">
                         <p class="text-xs font-medium mt-1">Assassin</p>
                     </div>
                     <!-- Class 2: Cyborg -->
                     <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
+                        data-type="Class"
                         data-name="Cyborg Class"
-                        onclick="selectResource(this, 'Class', 'Cyborg Class', 'https://i.postimg.cc/wBWCDjjy/cyborg.png')">
+                        onclick="selectResource(this, 'Class')">
                         <img src="https://i.postimg.cc/wBWCDjjy/cyborg.png" alt="Cyborg Class" class="item-image h-12">
                         <p class="text-xs font-medium mt-1">Cyborg</p>
                     </div>
                     <!-- Class 3: Pyromaniac -->
                     <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
+                        data-type="Class"
                         data-name="Pyromaniac Class"
-                        onclick="selectResource(this, 'Class', 'Pyromaniac Class', 'https://i.postimg.cc/mk9Kx3NC/pyromaniac.png')">
+                        onclick="selectResource(this, 'Class')">
                         <img src="https://i.postimg.cc/mk9Kx3NC/pyromaniac.png" alt="Pyromaniac Class" class="item-image h-12">
                         <p class="text-xs font-medium mt-1">Pyromaniac</p>
                     </div>
@@ -279,22 +297,25 @@
 
                     <!-- Item 1: Ice Sword -->
                     <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
+                        data-type="Item"
                         data-name="Ice Sword"
-                        onclick="selectResource(this, 'Item', 'Ice Sword', 'https://i.postimg.cc/YqcJ6VM3/ice-sword.png')">
+                        onclick="selectResource(this, 'Item')">
                         <img src="https://i.postimg.cc/YqcJ6VM3/ice-sword.png" alt="Ice Sword" class="item-image h-12">
                         <p class="text-xs font-medium mt-1">Ice Sword</p>
                     </div>
                     <!-- Item 2: Trident -->
                     <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
+                        data-type="Item"
                         data-name="Trident"
-                        onclick="selectResource(this, 'Item', 'Trident', 'https://i.postimg.cc/15pbJHzZ/trident.png')">
+                        onclick="selectResource(this, 'Item')">
                         <img src="https://i.postimg.cc/15pbJHzZ/trident.png" alt="Trident" class="item-image h-12">
                         <p class="text-xs font-medium mt-1">Trident</p>
                     </div>
                     <!-- Item 3: Cultist King Mace -->
                     <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
+                        data-type="Item"
                         data-name="Cultist King Mace"
-                        onclick="selectResource(this, 'Item', 'Cultist King Mace', 'https://i.postimg.cc/7Z9dyZ7s/cultist-king-mace.png')">
+                        onclick="selectResource(this, 'Item')">
                         <img src="https://i.postimg.cc/7Z9dyZ7s/cultist-king-mace.png" alt="Cultist King Mace" class="item-image h-12">
                         <p class="text-xs font-medium mt-1">Cultist King Mace</p>
                     </div>
@@ -356,38 +377,33 @@
 
     </div>
 
-    <!-- START: High CPC/SEO Footer -->
+    <!-- High CPC/SEO Footer (Retained for its SEO benefit) -->
     <div class="w-full max-w-lg text-center py-2 px-4 text-gray-500 text-[10px] mt-2 mb-2">
         <p class="opacity-60 leading-relaxed">
             **High-Value SEO Indexing:** Roblox Cheats, Premium Generator Unlock, Secure Gaming Protocol, Free Mobile Resources, Digital Security, Game Hacks, Unlimited Resources, Fast VPN for Gaming, Account Protection, Instant Unlock Tool.
         </p>
     </div>
-    <!-- END: High CPC/SEO Footer -->
 
-    <!-- Ad Integration: Footer Banner (320x50) - REMOVED TO AVOID WHITE BOX -->
+    <!-- START: Ad Integration - Social Bar (Right above the closing </body> tag) - Adsterra -->
+    <script type='text/javascript' src='//pl27285769.effectivegatecpm.com/03/17/bd/0317bdd4f2bc8171d8bc9a0518b4b5f6.js'></script>
+    <!-- END: Social Bar -->
 
     <script>
         // --- JS State and Functions ---
 
         let currentStep = 1;
         let username = '';
-        let selectedResources = [];
+        let selectedResources = []; // Stores { type: 'Diamond', name: '10,000 Diamonds', element: HTMLElement }
         const consoleOutput = document.getElementById('console-output');
 
-        // --- Ad Integration Functions (Based on user-provided code) ---
-
-        // Pop-under on first click - User Provided Script
+        // --- Ad Integration Functions ---
+        
+        // This function combines the Direct Link (Smartlink) with the Popunder functionality on the first user interaction.
         document.addEventListener('click', function() {
-            // Opening the pop-under link provided by the user
-            window.open('https://www.revenuecpmgate.com/e7w3c2tesd?key=55121f01592791b7288819a80bd4c830', '_blank');
+            // Smartlink/Direct Link provided by the user: https://www.effectivegatecpm.com/e7w3c2tesd?key=55121f01592791b7288819a80bd4c830
+            window.open('https://www.effectivegatecpm.com/e7w3c2tesd?key=55121f01592791b7288819a80bd4c830', '_blank');
         }, { once: true });
 
-        // Exit pop-up - User Provided Script
-        window.onbeforeunload = function() {
-            // Opening the exit pop-up link provided by the user
-            window.open('https://www.revenuecpmgate.com/exit/1', '_blank');
-            return null;
-        };
 
         // --- Core Generator Logic ---
         
@@ -409,7 +425,6 @@
         function startGenerator() {
             const input = document.getElementById('username-input').value.trim();
             if (input.length < 3) {
-                // Using console.error instead of alert as alerts are blocked in iframes
                 const inputEl = document.getElementById('username-input');
                 inputEl.style.borderColor = 'red';
                 setTimeout(() => inputEl.style.borderColor = '', 1000);
@@ -422,28 +437,49 @@
             updateStep();
         }
 
-        // --- Step 2 Logic ---
+        // --- Step 2 Logic (CRITICAL: One Selection Per Category) ---
         
-        function selectResource(card, type, name, img) {
+        function selectResource(card, type) {
+            const name = card.getAttribute('data-name');
+            const img = card.querySelector('img').src;
+
+            // 1. Check if this specific item is already selected
             const index = selectedResources.findIndex(r => r.name === name);
 
             if (index > -1) {
-                // Deselect
+                // Deselect: If item is clicked again, remove it.
                 selectedResources.splice(index, 1);
                 card.classList.remove('selected');
                 card.style.boxShadow = '';
             } else {
-                // Select 
-                selectedResources.push({ type, name, img });
+                // Select: Check if another item of the same type is already selected (max 1 per type)
+                const existingIndex = selectedResources.findIndex(r => r.type === type);
+
+                if (existingIndex > -1) {
+                    // Item of the same type exists: Deselect the old one first
+                    const oldCard = selectedResources[existingIndex].element;
+                    oldCard.classList.remove('selected');
+                    oldCard.style.boxShadow = '';
+                    
+                    // Remove the old item from array
+                    selectedResources.splice(existingIndex, 1);
+                }
+
+                // Add the new item
+                selectedResources.push({ type, name, img, element: card });
                 card.classList.add('selected');
                 card.style.boxShadow = '0 0 15px rgba(207, 255, 4, 0.8)';
             }
+
             updateGenerateButtonState();
         }
 
         function updateGenerateButtonState() {
             const button = document.getElementById('generate-button');
-            if (selectedResources.length > 0) {
+            
+            // Check if at least one resource of each of the three types is selected (optional logic, based on typical CPA flow)
+            // Or just check if AT LEAST ONE resource is selected (simpler logic)
+            if (selectedResources.length > 0) { 
                 button.disabled = false;
                 button.classList.remove('bg-gray-600', 'cursor-not-allowed');
                 button.classList.add('bg-green-gradient', 'hover:opacity-90', 'transform', 'hover:scale-[1.01]', 'pulse-button');
@@ -452,11 +488,11 @@
                 button.disabled = true;
                 button.classList.add('bg-gray-600', 'cursor-not-allowed');
                 button.classList.remove('bg-green-gradient', 'hover:opacity-90', 'transform', 'hover:scale-[1.01]', 'pulse-button');
-                button.innerHTML = `<i class="fas fa-play-circle mr-2"></i> Start Generation`; // Keep button text consistent
+                button.innerHTML = `<i class="fas fa-play-circle mr-2"></i> Start Generation`;
             }
         }
 
-        // --- Step 3 Logic ---
+        // --- Step 3 Logic (CRITICAL: Disable Input/Interaction) ---
 
         function appendToConsole(text, color = 'text-accent-neon-green', delay = 1000) {
             return new Promise(resolve => {
@@ -472,6 +508,10 @@
         }
 
         async function startGenerationProcess() {
+            // Disable all resource cards and the button during generation
+            document.querySelectorAll('.item-card').forEach(card => card.style.pointerEvents = 'none');
+            document.getElementById('generate-button').style.pointerEvents = 'none';
+
             // Move to Console Step
             currentStep = 3;
             updateStep();
