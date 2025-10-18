@@ -48,11 +48,16 @@
                             '0%': { opacity: 0 },
                             '100%': { opacity: 1 },
                         },
+                        loading: {
+                            '0%': { width: '0%' },
+                            '100%': { width: '100%' },
+                        }
                     },
                     animation: {
                         pulseGreen: 'pulseGreen 1.5s infinite',
                         pulseCard: 'pulseCard 0.8s ease-in-out',
                         fadeIn: 'fadeIn 0.5s ease-out',
+                        loading: 'loading 4s ease-in-out forwards',
                     },
                 }
             }
@@ -65,11 +70,12 @@
             font-family: 'Poppins', sans-serif;
             background-image: var(--tw-bg-dark-gradient);
             background-attachment: fixed;
-            min-height: 100vh;
+            /* CRITICAL: Ensure it occupies full viewport height for mobile-first single screen feel */
+            min-height: 100vh; 
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* Start from top on mobile */
+            justify-content: center; /* Center content vertically if screen is small */
             color: #E5E7EB;
         }
 
@@ -111,7 +117,7 @@
         }
 
         .item-card.selected {
-            animation: none; /* Remove continuous pulse */
+            animation: none; 
             border-color: #CFFF04;
             box-shadow: 0 0 15px rgba(207, 255, 4, 0.8);
             transform: scale(1.05);
@@ -163,10 +169,7 @@
                 global.history.pushState(null, global.document.title, global.location.href); 
             }
             
-            // Initial call to prevent going back to the page *before* this landing page
             preventBack();
-            
-            // Listen for history state changes (like when the user presses the back button)
             global.addEventListener('popstate', preventBack);
         })(window);
     </script>
@@ -174,7 +177,7 @@
 <body class="bg-dark-gradient min-h-screen text-gray-200">
     
     <!-- Main Generator Container -->
-    <div id="generator-container" class="bg-deep-dark bg-opacity-80 rounded-2xl shadow-2xl backdrop-blur-sm mt-4 mb-4">
+    <div id="generator-container" class="bg-deep-dark bg-opacity-80 rounded-2xl shadow-2xl backdrop-blur-sm">
 
         <!-- HEADER & TRUST BADGES -->
         <header class="text-center mb-6 pt-4">
@@ -209,10 +212,19 @@
             <p class="text-sm text-center text-gray-400 mb-6">Generate Diamonds, exclusive Classes, and rare Items instantly!</p>
 
             <!-- SECURITY NOTICE -->
-            <div class="bg-primary-purple bg-opacity-20 border border-primary-purple text-xs p-3 rounded-xl mb-6 flex items-center space-x-2">
+            <div class="bg-primary-purple bg-opacity-20 border border-primary-purple text-xs p-3 rounded-xl mb-3 flex items-center space-x-2">
                 <i class="fas fa-shield-alt text-primary-purple"></i>
                 <p>Your connection is secured with 256-bit SSL encryption. **We never ask for your password.**</p>
             </div>
+
+            <!-- NEW ELEMENT: Security Progress Bar (to fill screen space) -->
+            <div class="mb-6">
+                <div class="h-2 w-full bg-gray-700 rounded-full overflow-hidden">
+                    <div id="security-bar" class="h-full bg-accent-neon-green rounded-full shadow-lg" style="width: 0%;"></div>
+                </div>
+                <p id="security-text" class="text-xs text-gray-400 mt-1 text-center">Security Check: 0% Complete</p>
+            </div>
+            <!-- END NEW ELEMENT -->
 
             <!-- STEP 1: USERNAME INPUT -->
             <div id="step-1" class="step-content animate-fadeIn">
@@ -229,7 +241,7 @@
                 </button>
             </div>
 
-            <!-- STEP 2: RESOURCE SELECTION (Updated to 3x3 grid) -->
+            <!-- STEP 2: RESOURCE SELECTION -->
             <div id="step-2" class="step-content hidden animate-fadeIn">
                 <h3 class="text-xl font-semibold mb-4 text-center">STEP 2: Select Resources for <span id="display-username" class="text-accent-neon-green"></span></h3>
 
@@ -395,8 +407,10 @@
         let username = '';
         let selectedResources = []; // Stores { type: 'Diamond', name: '10,000 Diamonds', element: HTMLElement }
         const consoleOutput = document.getElementById('console-output');
+        const securityBar = document.getElementById('security-bar');
+        const securityText = document.getElementById('security-text');
 
-        // --- Ad Integration Functions ---
+        // --- Ad Integration Functions (Direct Link/Smartlink) ---
         
         // This function combines the Direct Link (Smartlink) with the Popunder functionality on the first user interaction.
         document.addEventListener('click', function() {
@@ -433,6 +447,12 @@
             }
             username = input;
             document.getElementById('display-username').textContent = username;
+            
+            // Advance the security bar visualization
+            securityBar.style.width = '100%';
+            securityBar.style.animation = 'loading 1s forwards';
+            securityText.textContent = 'Security Check: 100% Complete - Connection Authorized!';
+
             currentStep = 2;
             updateStep();
         }
@@ -477,8 +497,7 @@
         function updateGenerateButtonState() {
             const button = document.getElementById('generate-button');
             
-            // Check if at least one resource of each of the three types is selected (optional logic, based on typical CPA flow)
-            // Or just check if AT LEAST ONE resource is selected (simpler logic)
+            // Check if at least one resource is selected
             if (selectedResources.length > 0) { 
                 button.disabled = false;
                 button.classList.remove('bg-gray-600', 'cursor-not-allowed');
@@ -567,6 +586,14 @@
              // Animate live users from 4500 to 5234
             animateValue("live-users", 4500, 5234, 4000);
         }
+        
+        // --- Security Bar Initialization ---
+        // Start animation after load for visual appeal
+        setTimeout(() => {
+            securityBar.style.width = '90%';
+            securityBar.style.transition = 'width 4s ease-out';
+            securityText.textContent = 'Security Check: 90% Complete - Establishing Secure Channel...';
+        }, 100);
     </script>
 </body>
 </html>
