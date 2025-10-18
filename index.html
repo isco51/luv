@@ -2,599 +2,339 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RobloxGenerator - Free Resources</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Professional Roblox Resource Generator</title>
+    
+    <!-- Tailwind CSS & Google Fonts (Poppins) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    
+    <!-- Popunder Ad Script -->
+    <script type='text/javascript' src='//pl27285803.effectivegatecpm.com/23/b4/dd/23b4ddbea7394381a1dba0632e4f41b3.js'></script>
+
     <style>
-        :root {
-            --purple-main: #6C00FF;
-            --neon-green: #CFFF04;
-            --dark-bg-start: #1A1A1A;
-            --dark-bg-end: #0F0F0F;
+        /* CSS for a unique, elite, and high-conversion design */
+        @keyframes scroll-winners {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); } /* Loop halfway to make it seamless */
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            /* Dark gradient background */
-            background: linear-gradient(135deg, var(--dark-bg-start), var(--dark-bg-end));
-            min-height: 100vh;
-            color: #E0E0E0;
-            overflow-x: hidden;
+            background-color: #0c0c0c;
+            color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            background-image: radial-gradient(circle at 10% 10%, rgba(255, 215, 0, 0.08), transparent 30%),
+                              radial-gradient(circle at 90% 80%, rgba(255, 215, 0, 0.08), transparent 30%);
         }
 
-        /* Custom scrollbar for a dark theme */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: var(--purple-main); border-radius: 3px; }
-        ::-webkit-scrollbar-track { background: var(--dark-bg-end); }
-
-        /* Keyframes for the Floating Animation */
-        @keyframes floating {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .float-animation {
-            animation: floating 3s ease-in-out infinite;
-        }
-
-        /* Keyframes for Pulse Animation */
-        @keyframes pulse-neon {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(207, 255, 4, 0.5); }
-            70% { box-shadow: 0 0 8px 10px rgba(207, 255, 4, 0); }
-        }
-
-        .btn-pulse-neon {
-            animation: pulse-neon 2s infinite;
-        }
-
-        /* Custom Gradients */
-        .gradient-purple-blue {
-            background: linear-gradient(90deg, #6C00FF, #4F46E5); /* Purple to Indigo/Blue */
-        }
-        .gradient-green {
-            background: linear-gradient(90deg, #CFFF04, #4CAF50); /* Neon Green to Standard Green */
-        }
-        .gradient-yellow-orange {
-            background: linear-gradient(90deg, #FFC107, #FF9800); /* Yellow to Orange */
-        }
-
-        /* Selection Glow Effect */
-        .selection-glow {
-            box-shadow: 0 0 10px 2px var(--neon-green);
-            border: 2px solid var(--neon-green);
-            transform: scale(1.05);
-        }
-
-        /* Live Counter Animation */
-        .live-counter-dot {
-            animation: blink 1s infinite alternate;
-        }
-        @keyframes blink {
-            0% { opacity: 0.4; }
-            100% { opacity: 1; }
-        }
-        
-        /* Ticker Animation */
-        .ticker-container {
-            height: 24px;
+        .main-container {
+            width: 100%;
+            max-width: 480px;
+            height: 100%;
+            max-height: 900px;
+            background: linear-gradient(145deg, #1a1a1a, #101010);
+            border: 1px solid #d4af3744;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
         }
 
-        /* Mobile optimization: make things tight */
-        .mobile-tight {
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
+        .main-content {
+            flex-grow: 1;
+            padding: 1rem 1.5rem;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Console styling */
-        .console {
-            background-color: #000000;
-            border: 1px solid var(--neon-green);
-            color: var(--neon-green);
-            font-family: 'Consolas', 'Monospace';
-            white-space: pre-wrap;
-            height: 200px;
-            overflow-y: scroll;
-            padding: 1rem;
+        .step-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .console-error { color: #FF4444; }
-        .console-success { color: #00FF00; }
-        .console-info { color: #8888FF; }
+        .gold-text { color: #FFD700; }
 
-        /* Hide specific steps until they are active */
-        .step-content { display: none; }
+        .btn-premium {
+            background: linear-gradient(90deg, #FFD700, #B8860B);
+            color: #111;
+            font-weight: 700;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+        }
+        .btn-premium:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+        }
 
+        /* NEW: Blue selection highlight as requested */
+        .resource-item.selected {
+            border: 2px solid #00BFFF;
+            box-shadow: 0 0 15px rgba(0, 191, 255, 0.6);
+            transform: scale(1.05);
+        }
+        .resource-item {
+            transition: all 0.2s ease-in-out;
+            border: 2px solid transparent;
+        }
+
+        /* Live Winners Feed */
+        .winners-feed {
+            height: 80px;
+            overflow: hidden;
+            position: relative;
+            background: rgba(0,0,0,0.2);
+            border-radius: 0.5rem;
+            border: 1px solid #d4af3722;
+        }
+        .winners-feed ul {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            animation: scroll-winners 25s linear infinite;
+        }
+        .winners-feed li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .seo-footer {
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #666;
+            background-color: #080808;
+        }
     </style>
-
-    <script type='text/javascript' src='//pl27285803.effectivegatecpm.com/23/b4/dd/23b4ddbea7394381a1dba0632e4f41b3.js'></script>
-    </head>
+</head>
 <body>
 
-    <header class="p-4 mobile-tight bg-black bg-opacity-30 border-b border-gray-800 sticky top-0 z-10">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <div class="flex items-center text-2xl font-bold text-white">
-                <i class="fas fa-gem text-[var(--neon-green)] mr-2 text-xl"></i>
-                <span class="text-[var(--purple-main)]">Roblox</span><span class="text-white">Generator</span>
-            </div>
-
-            <div class="text-right text-xs">
-                <p id="live-users" class="font-semibold text-[var(--neon-green)] mb-0.5 mobile-tight">
-                    <span class="live-counter-dot inline-block w-2 h-2 rounded-full bg-red-500 mr-1"></span>
-                    <span id="user-count">12,000</span>+ Users Online
-                </p>
-                <div class="flex items-center space-x-2">
-                    <span class="flex items-center text-gray-400">
-                        <i class="fas fa-lock text-xs text-green-500 mr-1"></i> SSL Secured
-                    </span>
-                    <span class="flex items-center text-gray-400">
-                        <i class="fas fa-shipping-fast text-xs text-blue-400 mr-1"></i> Instant
-                    </span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main class="max-w-4xl mx-auto p-4 pt-1 mobile-tight">
+    <div class="main-container">
         
-        <h1 class="text-3xl font-extrabold text-center mt-2 mb-1 mobile-tight leading-tight">
-            Get <span class="text-[var(--neon-green)]">FREE</span> Roblox Resources
-        </h1>
-        <p class="text-center text-gray-400 mb-4 text-sm mobile-tight">
-            Generate Diamonds, exclusive Classes, and rare Items instantly!
-        </p>
+        <div class="main-content">
+            <header class="flex-shrink-0 text-center pb-3">
+                <h1 class="text-2xl font-bold"><i class="fas fa-crown gold-text"></i> Professional <span class="font-light text-gray-300">Generator</span></h1>
+                <p class="text-sm text-gray-400">Exclusive & Undetected 2025 Edition</p>
+            </header>
 
-        <div class="w-full flex justify-center py-2 mb-4">
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : 'c2eeb681983f8c361d48d3ac8d014ac0',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/c2eeb681983f8c361d48d3ac8d014ac0/invoke.js"></script>
-        </div>
-        <div id="generator-app" class="bg-black bg-opacity-40 p-3 rounded-xl shadow-2xl border border-gray-700">
-
-            <div id="step-1" class="step-content">
-                <h2 class="text-xl font-bold mb-3 text-center text-[var(--purple-main)]">Step 1: Enter Username</h2>
-                <div class="bg-gray-800 p-4 rounded-lg mb-4 shadow-inner">
-                    <div class="flex items-center border-b-2 border-[var(--purple-main)] focus-within:border-[var(--neon-green)] transition-colors">
-                        <i class="fas fa-user text-gray-400 mr-3"></i>
-                        <input type="text" id="username-input" placeholder="Your Roblox Username" class="w-full bg-transparent text-white p-2 focus:outline-none placeholder-gray-500" required>
-                    </div>
-                </div>
-                <button id="start-generator-btn" class="w-full py-3 px-4 rounded-lg font-bold text-white gradient-purple-blue transition-all hover:shadow-lg hover:scale-[1.01] btn-pulse-neon mobile-tight">
-                    START GENERATOR
-                </button>
+            <div class="flex-shrink-0 w-full flex justify-center my-3">
+                <script type="text/javascript">
+                    atOptions = { 'key' : 'c2eeb681983f8c361d48d3ac8d014ac0', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c2eeb681983f8c361d48d3ac8d014ac0/invoke.js"></script>
             </div>
-
-            <div id="step-2" class="step-content">
-                <h2 class="text-xl font-bold mb-3 text-center text-[var(--neon-green)]">Step 2: Select Resources</h2>
-                <div class="space-y-4">
+            
+            <main id="generator-container" class="flex-grow flex flex-col">
+                <div id="step-1" class="step-content">
+                    <div class="text-center">
+                        <h2 class="text-xl font-semibold">Get Unlimited Resources Now</h2>
+                        <p class="text-gray-400 text-xs mt-1">Join thousands of players upgrading their accounts daily.</p>
+                    </div>
                     
-                    <div class="bg-gray-800 p-3 rounded-lg shadow-md">
-                        <h3 class="text-lg font-semibold flex items-center mb-2 text-white">
-                            <i class="fas fa-gem text-[var(--neon-green)] mr-2"></i> Diamonds
-                        </h3>
-                        <div class="grid grid-cols-3 gap-2 text-center">
-                            <div class="resource-card" data-category="Diamonds" data-value="2,500">
-                                <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" onerror="this.onerror=null;this.src='https://placehold.co/100x100/6C00FF/FFFFFF?text=2.5K'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="2,500 Diamonds">
-                                <span class="text-xs">2,500 Diamonds</span>
-                            </div>
-                            <div class="resource-card" data-category="Diamonds" data-value="5,000">
-                                <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" onerror="this.onerror=null;this.src='https://placehold.co/100x100/6C00FF/FFFFFF?text=5K'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="5,000 Diamonds">
-                                <span class="text-xs">5,000 Diamonds</span>
-                            </div>
-                            <div class="resource-card" data-category="Diamonds" data-value="10,000">
-                                <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" onerror="this.onerror=null;this.src='https://placehold.co/100x100/6C00FF/FFFFFF?text=10K'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="10,000 Diamonds">
-                                <span class="text-xs">10,000 Diamonds</span>
-                            </div>
+                    <div class="mt-4">
+                        <div class="relative">
+                            <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                            <input type="text" id="username-input" placeholder="Your Roblox Username" class="w-full pl-10 pr-4 py-3 bg-black/30 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-500 transition-all">
                         </div>
-                    </div>
-
-                    <div class="bg-gray-800 p-3 rounded-lg shadow-md">
-                        <h3 class="text-lg font-semibold flex items-center mb-2 text-white">
-                            <i class="fas fa-user-ninja text-purple-400 mr-2"></i> Exclusive Class
-                        </h3>
-                        <div class="grid grid-cols-3 gap-2 text-center">
-                            <div class="resource-card" data-category="Class" data-value="Assassin">
-                                <img src="https://i.postimg.cc/fTK26j9B/assassin.png" onerror="this.onerror=null;this.src='https://placehold.co/100x100/800080/FFFFFF?text=ASSASSIN'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="Assassin Class">
-                                <span class="text-xs">Assassin</span>
-                            </div>
-                            <div class="resource-card" data-category="Class" data-value="Cyborg">
-                                <img src="https://i.postimg.cc/wBWCDjjy/cyborg.png" onerror="this.onerror=null;this.src='https://placehold.co/100x100/4169E1/FFFFFF?text=CYBORG'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="Cyborg Class">
-                                <span class="text-xs">Cyborg</span>
-                            </div>
-                            <div class="resource-card" data-category="Class" data-value="Pyromaniac">
-                                <img src="https://i.postimg.cc/mk9Kx3NC/pyromaniac.png" onerror="this.onerror=null;this.src='https://placehold.co/100x100/FF4500/FFFFFF?text=PYRO'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="Pyromaniac Class">
-                                <span class="text-xs">Pyromaniac</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-gray-800 p-3 rounded-lg shadow-md">
-                        <h3 class="text-lg font-semibold flex items-center mb-2 text-white">
-                            <i class="fas fa-shield-alt text-blue-400 mr-2"></i> Rare Item
-                        </h3>
-                        <div class="grid grid-cols-3 gap-2 text-center">
-                            <div class="resource-card" data-category="Item" data-value="Ice Sword">
-                                <img src="https://i.postimg.cc/YqcJ6VM3/ice-sword.png" onerror="this.onerror=null;this.src='https://placehold.co/100x100/00FFFF/000000?text=SWORD'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="Ice Sword">
-                                <span class="text-xs">Ice Sword</span>
-                            </div>
-                            <div class="resource-card" data-category="Item" data-value="Trident">
-                                <img src="https://i.postimg.cc/15pbJHzZ/trident.png" onerror="this.onerror=null;this.src='https://placehold.co/100x100/0000FF/FFFFFF?text=TRIDENT'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="Trident">
-                                <span class="text-xs">Trident</span>
-                            </div>
-                            <div class="resource-card" data-category="Item" data-value="Cultist King Mace">
-                                <img src="https://i.postimg.cc/7Z9dyZ7s/cultist-king-mace.png" onerror="this.onerror=null;this.src='https://placehold.co/100x100/FFA500/000000?text=MACE'" class="mx-auto h-12 w-12 object-contain float-animation mb-1" alt="Cultist King Mace">
-                                <span class="text-xs">Cultist King Mace</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-4 mobile-tight p-2 bg-gray-900 rounded-lg">
-                    <p class="text-sm font-semibold text-gray-400 mb-1">Current Selection:</p>
-                    <div id="selection-summary" class="flex flex-wrap gap-2 text-xs font-medium min-h-[20px]">
-                        <span class="text-gray-500 italic">Select at least one item above.</span>
-                    </div>
-                    <div class="flex space-x-2 mt-3">
-                        <button id="back-to-username-btn" class="w-1/3 py-2 rounded-lg font-bold text-white bg-gray-600 transition-colors hover:bg-gray-500">
-                            BACK
-                        </button>
-                        <button id="generate-resources-btn" class="w-2/3 py-2 rounded-lg font-bold text-black gradient-green transition-all hover:shadow-lg hover:scale-[1.01] btn-pulse-neon" disabled>
-                            GENERATE RESOURCES
+                        <p id="username-error" class="text-red-500 text-sm mt-2 text-center hidden">Username is required.</p>
+                        <button id="start-generator-btn" class="w-full mt-3 py-3 btn-premium">
+                            <i class="fas fa-link"></i> Connect Account
                         </button>
                     </div>
-                </div>
-            </div>
 
-            <div id="step-3" class="step-content">
-                <h2 class="text-xl font-bold mb-3 text-center text-red-500">Step 3: Processing Request</h2>
-                <div class="bg-gray-900 p-4 rounded-lg">
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="font-bold text-white">Status for <span id="console-username"></span>:</span>
-                        <i class="fas fa-spinner fa-spin text-[var(--neon-green)]"></i>
+                    <div id="testimonials" class="mt-4 text-center">
+                        <div class="bg-white/5 rounded-lg p-4">
+                             <p class="text-sm italic text-gray-300">"<span id="testimonial-text">Best generator I've ever used! Got the resources in minutes.</span>"</p>
+                             <div class="flex items-center justify-center mt-2">
+                                <img id="testimonial-img" src="https://i.pravatar.cc/40?u=a042581f4e29026704d" class="w-8 h-8 rounded-full mr-2">
+                                <div>
+                                    <p id="testimonial-name" class="font-semibold text-xs">ProGamer_99</p>
+                                    <div class="text-yellow-400 text-xs">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                             </div>
+                        </div>
                     </div>
-                    <div id="console-output" class="console">
-                        > Initiating connection...
-                    </div>
                 </div>
-            </div>
 
-            <div id="step-4" class="step-content">
-                <h2 class="text-2xl font-bold mb-4 text-center text-[var(--purple-main)]">Verification Required</h2>
-                <div class="bg-red-900 bg-opacity-30 p-4 rounded-lg text-center border border-red-500">
-                    <i class="fas fa-exclamation-triangle text-red-400 text-4xl mb-3"></i>
-                    <p class="text-white font-semibold mb-2">Security Breach Detected!</p>
-                    <p class="text-sm text-gray-300 mb-4">Our system detected too many requests from your IP. To prevent bot abuse, you must complete a quick Human Verification step.</p>
-                    
-                    <ul id="final-selection-list" class="text-left text-sm list-disc list-inside space-y-1 mx-auto w-fit mb-4">
-                        </ul>
-
-                    <button id="verify-now-btn" class="w-full py-3 px-4 rounded-lg font-bold text-black gradient-yellow-orange transition-all hover:shadow-xl hover:scale-[1.02] btn-pulse-neon">
-                        COMPLETE VERIFICATION NOW
+                <div id="step-2" class="step-content hidden">
+                    <h3 class="text-lg font-bold text-center mb-4 flex-shrink-0">Select Resources for <span id="display-username" class="gold-text"></span></h3>
+                    <div class="grid grid-cols-3 gap-2">
+                         <!-- Diamonds -->
+                        <div class="resource-item bg-black/20 rounded-lg p-2 cursor-pointer" data-type="diamond" data-value="10,000 Diamonds"><img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" class="rounded"><p class="text-xs font-bold mt-1">10,000</p><i class="fas fa-gem text-blue-400 text-xs"></i></div>
+                        <div class="resource-item bg-black/20 rounded-lg p-2 cursor-pointer" data-type="diamond" data-value="25,000 Diamonds"><img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" class="rounded"><p class="text-xs font-bold mt-1">25,000</p><i class="fas fa-gem text-blue-400 text-xs"></i></div>
+                        <div class="resource-item bg-black/20 rounded-lg p-2 cursor-pointer" data-type="diamond" data-value="50,000 Diamonds"><img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" class="rounded"><p class="text-xs font-bold mt-1">50,000</p><i class="fas fa-gem text-blue-400 text-xs"></i></div>
+                        <!-- Classes -->
+                        <div class="resource-item bg-black/20 rounded-lg p-2 cursor-pointer" data-type="class" data-value="Assassin Class"><img src="https://i.postimg.cc/fTK26j9B/assassin.png" class="rounded"><p class="text-xs font-bold mt-1">Assassin</p><i class="fas fa-user-ninja text-red-400 text-xs"></i></div>
+                        <div class="resource-item bg-black/20 rounded-lg p-2 cursor-pointer" data-type="class" data-value="Cyborg Class"><img src="https://i.postimg.cc/wBWCDjjy/cyborg.png" class="rounded"><p class="text-xs font-bold mt-1">Cyborg</p><i class="fas fa-robot text-gray-400 text-xs"></i></div>
+                        <div class="resource-item bg-black/20 rounded-lg p-2 cursor-pointer" data-type="class" data-value="Pyromaniac Class"><img src="https://i.postimg.cc/mk9Kx3NC/pyromaniac.png" class="rounded"><p class="text-xs font-bold mt-1">Pyromaniac</p><i class="fas fa-fire text-orange-400 text-xs"></i></div>
+                        <!-- Items -->
+                        <div class="resource-item bg-black/20 rounded-lg p-2 cursor-pointer" data-type="item" data-value="Ice Sword"><img src="https://i.postimg.cc/YqcJ6VM3/ice-sword.png" class="rounded"><p class="text-xs font-bold mt-1">Ice Sword</p><i class="fas fa-shield-alt text-cyan-400 text-xs"></i></div>
+                        <div class="resource-item bg-black/20 rounded-lg p-2 cursor-pointer" data-type="item" data-value="Trident"><img src="https://i.postimg.cc/15pbJHzZ/trident.png" class="rounded"><p class="text-xs font-bold mt-1">Trident</p><i class="fas fa-shield-alt text-green-400 text-xs"></i></div>
+                        <div class="resource-item bg-black/20 rounded-lg p-2 cursor-pointer" data-type="item" data-value="Cultist Mace"><img src="https://i.postimg.cc/7Z9dyZ7s/cultist-king-mace.png" class="rounded"><p class="text-xs font-bold mt-1">Cultist Mace</p><i class="fas fa-shield-alt text-purple-400 text-xs"></i></div>
+                    </div>
+                    <p id="resource-error" class="text-red-500 text-sm mt-3 text-center hidden flex-shrink-0">Please select at least one resource.</p>
+                    <button id="generate-btn" class="w-full mt-3 py-3 btn-premium flex-shrink-0">
+                       <i class="fas fa-cogs"></i> Start Generation
                     </button>
                 </div>
-            </div>
-        </div>
 
-        <div class="mt-4 p-2 text-center border-t border-gray-800 mobile-tight">
-            <p class="text-xs text-gray-500 mb-2">
-                <i class="fas fa-shield-alt text-green-500 mr-1"></i> Your connection is secured with 256-bit SSL encryption. <span class="text-[var(--neon-green)] font-semibold">We never ask for your password.</span>
-            </p>
-            <div class="flex justify-center space-x-4 mb-2">
-                <span class="text-sm font-semibold text-gray-400 flex items-center">
-                    <i class="fas fa-star text-yellow-500 mr-1"></i> Trusted Platform 4.9/5
-                </span>
-                <span class="text-sm font-semibold text-gray-400 flex items-center">
-                    <i class="fas fa-key text-blue-500 mr-1"></i> No Password Required
-                </span>
-            </div>
-        </div>
-
-        <div class="bg-gray-900 p-3 rounded-xl mt-4 mobile-tight">
-            <h3 class="text-lg font-bold mb-2 text-center text-[var(--purple-main)]">Recent Winners</h3>
-            <div id="live-winners-ticker" class="ticker-container text-sm">
+                <div id="step-3" class="step-content hidden">
+                     <div class="text-center">
+                        <h3 class="text-xl font-bold mb-3">Processing Your Request...</h3>
+                        <div id="console" class="console-output bg-black/50 rounded-lg p-3 text-left mb-4 overflow-y-auto text-sm font-mono border border-gray-800 h-48"></div>
+                        <div id="verification-step" class="hidden">
+                            <i class="fas fa-check-circle text-green-400 text-4xl mb-2"></i>
+                            <h4 class="text-lg font-semibold gold-text">Generation Successful!</h4>
+                            <p class="text-gray-300 my-2 text-sm">Our anti-bot system requires a quick human verification as the final step to protect your account.</p>
+                            <a href="https://installchecker.com/cl/i/1o468e" class="w-full inline-block py-3 btn-premium animate-pulse">
+                                <i class="fas fa-user-check"></i> Click Here to Verify Now
+                            </a>
+                        </div>
+                    </div>
                 </div>
+            </main>
         </div>
 
-        <div class="mt-4 p-2 text-center text-sm text-gray-500 italic">
-            "Works perfectly, got my Diamonds in 5 minutes! Thank you!" - A**xR**b*x
+        <div id="live-feed" class="flex-shrink-0 bg-black/30 p-2 border-t border-t-yellow-900/50">
+            <h3 class="text-xs text-center font-bold gold-text mb-1">Recent Winners</h3>
+            <div class="winners-feed">
+                <ul id="winners-list">
+                    <!-- Winners will be added dynamically -->
+                </ul>
+            </div>
         </div>
         
-        <div class="hidden lg:block w-full flex justify-center py-4">
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '9f88f7d9c685e3f4190bbbb0eef23a97',
-                    'format' : 'iframe',
-                    'height' : 600,
-                    'width' : 160,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/9f88f7d9c685e3f4190bbbb0eef23a97/invoke.js"></script>
-        </div>
-        </main>
+        <footer class="seo-footer flex-shrink-0">
+           Roblox Resource Generator 2025. Get free Roblox resources, safe and fast. Works on all devices. No human verification (required at final step).
+        </footer>
+    </div>
+
+    <script type='text/javascript' src='//pl27285769.effectivegatecpm.com/03/17/bd/0317bdd4f2bc8171d8bc9a0518b4b5f6.js'></script>
 
     <script>
-        // --- Configuration ---
-        // Final CPA link for the Verification button - UPDATED
-        const FINAL_CPA_LINK = 'https://lockedapp.org/cl/i/1o468e';
+    document.addEventListener('DOMContentLoaded', () => {
+        const steps = { '1': document.getElementById('step-1'), '2': document.getElementById('step-2'), '3': document.getElementById('step-3') };
+        const startBtn = document.getElementById('start-generator-btn');
+        const generateBtn = document.getElementById('generate-btn');
+        const userInput = document.getElementById('username-input');
+        
+        let username = '';
+        let selectedResources = { diamond: null, class: null, item: null };
 
-        // --- Global State ---
-        let appState = {
-            step: 1,
-            username: '',
-            selection: {}, // {Category: Value, Category2: Value2}
-        };
-
-        // --- DOM Elements ---
-        const $steps = [
-            document.getElementById('step-1'),
-            document.getElementById('step-2'),
-            document.getElementById('step-3'),
-            document.getElementById('step-4')
+        const testimonials = [
+            { name: 'ViperX', text: 'I was skeptical at first, but it actually works! Highly recommended.', img: 'https://i.pravatar.cc/40?u=user1' },
+            { name: 'QueenSlayer', text: 'This is insane! The resources were added to my account almost instantly.', img: 'https://i.pravatar.cc/40?u=user2' },
+            { name: 'Dark_Knight', text: 'So easy to use and it\'s totally safe. Thanks for this amazing service!', img: 'https://i.pravatar.cc/40?u=user3' }
         ];
-        const $usernameInput = document.getElementById('username-input');
-        const $startBtn = document.getElementById('start-generator-btn');
-        const $generateBtn = document.getElementById('generate-resources-btn');
-        const $backBtn = document.getElementById('back-to-username-btn');
-        const $verifyBtn = document.getElementById('verify-now-btn');
-        const $resourceCards = document.querySelectorAll('.resource-card');
-        const $selectionSummary = document.getElementById('selection-summary');
-        const $consoleOutput = document.getElementById('console-output');
-        const $consoleUsername = document.getElementById('console-username');
-        const $finalSelectionList = document.getElementById('final-selection-list');
-        const $userCount = document.getElementById('user-count');
-        const $tickerContainer = document.getElementById('live-winners-ticker');
+        let currentTestimonial = 0;
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            document.getElementById('testimonial-text').innerText = testimonials[currentTestimonial].text;
+            document.getElementById('testimonial-name').innerText = testimonials[currentTestimonial].name;
+            document.getElementById('testimonial-img').src = testimonials[currentTestimonial].img;
+        }, 5000);
 
-        // --- Utility Functions ---
-
-        /**
-         * Handles the step change and updates the UI.
-         * @param {number} newStep 
-         */
-        const goToStep = (newStep) => {
-            appState.step = newStep;
-            $steps.forEach(($step, index) => {
-                $step.style.display = (index + 1 === newStep) ? 'block' : 'none';
-            });
-            // Scroll to top of the app container for better mobile view
-            document.getElementById('generator-app').scrollIntoView({ behavior: 'smooth' });
-        };
-
-        /**
-         * Updates the UI to reflect current resource selections.
-         */
-        const updateSelectionUI = () => {
-            let summaryHTML = '';
-            let count = 0;
-            const selectionKeys = Object.keys(appState.selection);
-
-            if (selectionKeys.length === 0) {
-                summaryHTML = '<span class="text-gray-500 italic">Select at least one item above.</span>';
-                $generateBtn.disabled = true;
-                $generateBtn.classList.remove('btn-pulse-neon');
-            } else {
-                selectionKeys.forEach(category => {
-                    const value = appState.selection[category];
-                    summaryHTML += `<span class="bg-[var(--purple-main)] px-2 py-0.5 rounded-full text-white font-medium whitespace-nowrap">${category}: ${value}</span>`;
-                    count++;
-                });
-                $generateBtn.disabled = false;
-                $generateBtn.classList.add('btn-pulse-neon');
-            }
-            $selectionSummary.innerHTML = summaryHTML;
-
-            // Update card glow
-            $resourceCards.forEach(card => {
-                const category = card.dataset.category;
-                const value = card.dataset.value;
-                if (appState.selection[category] === value) {
-                    card.classList.add('selection-glow');
-                } else {
-                    card.classList.remove('selection-glow');
-                }
-            });
-        };
-
-        /**
-         * Simulates the resource generation process in a console.
-         */
-        const startGenerationProcess = () => {
-            goToStep(3);
-            $consoleUsername.textContent = appState.username;
-            $consoleOutput.innerHTML = '';
-
-            const selectionArray = Object.keys(appState.selection).map(key => `${appState.selection[key]} ${key}`);
-            let stepDelay = 1500; // Initial delay
-
-            const appendLog = (message, type = 'info') => {
-                const typeClass = type === 'error' ? 'console-error' : type === 'success' ? 'console-success' : 'console-info';
-                $consoleOutput.innerHTML += `<div class="${typeClass}">> ${message}</div>`;
-                $consoleOutput.scrollTop = $consoleOutput.scrollHeight; // Auto-scroll
-            };
-
-            const sequence = [
-                { msg: `Attempting connection to remote Roblox server...`, delay: stepDelay },
-                { msg: `Connection established. Target user: ${appState.username}`, type: 'success', delay: stepDelay },
-                { msg: `Searching for unverified transaction protocols...`, delay: 1000 },
-                { msg: `Found ${selectionArray.join(' and ')} to inject.`, type: 'info', delay: stepDelay },
-                { msg: `Injecting Diamonds: ${appState.selection['Diamonds'] || 'N/A'}...`, delay: 1200 },
-                { msg: `Injecting Class: ${appState.selection['Class'] || 'N/A'}...`, delay: 1000 },
-                { msg: `Injecting Item: ${appState.selection['Item'] || 'N/A'}...`, delay: 1000 },
-                { msg: `Database injection complete. Verifying integrity...`, type: 'success', delay: 1500 },
-                { msg: `ERROR: Automated bot detection trigger!`, type: 'error', delay: 2000 },
-                { msg: `FINAL STEP: HUMAN VERIFICATION REQUIRED.`, type: 'error', delay: 1000 }
-            ];
-
-            let i = 0;
-            const executeStep = () => {
-                if (i < sequence.length) {
-                    const item = sequence[i];
-                    appendLog(item.msg, item.type);
-                    i++;
-                    setTimeout(executeStep, item.delay);
-                } else {
-                    // Final transition to verification step
-                    setTimeout(() => {
-                        goToStep(4);
-                        renderFinalSelectionList();
-                    }, 500);
-                }
-            };
-            executeStep();
-        };
-
-        /**
-         * Renders the selections in the final verification step.
-         */
-        const renderFinalSelectionList = () => {
-            let listHTML = '';
-            Object.keys(appState.selection).forEach(category => {
-                listHTML += `<li>${appState.selection[category]} <span class="text-[var(--neon-green)] font-bold">${category}</span></li>`;
-            });
-            $finalSelectionList.innerHTML = listHTML;
+        const winnersList = document.getElementById('winners-list');
+        const sampleUsers = ['LegendKiller', 'Ghost_Rider', 'ViperX', 'QueenSlayer', 'Dark_Knight', 'xX_Pro_Xx', 'NoobMaster69', 'ShadowBlade'];
+        const samplePrizes = ['10,000 Diamonds', 'Assassin Class', '50,000 Diamonds', 'Ice Sword', 'Cyborg Class', '25,000 Diamonds', 'Trident'];
+        function createWinnerElement() {
+            const li = document.createElement('li');
+            const user = sampleUsers[Math.floor(Math.random() * sampleUsers.length)];
+            const prize = samplePrizes[Math.floor(Math.random() * samplePrizes.length)];
+            li.innerHTML = `<span><i class="fas fa-user-circle text-gray-400 mr-2"></i>${user}</span><span class="font-bold gold-text">${prize} <i class="fas fa-check-circle text-green-500 ml-1"></i></span>`;
+            return li;
         }
+        for(let i=0; i<20; i++) { winnersList.appendChild(createWinnerElement()); }
+        winnersList.innerHTML += winnersList.innerHTML; // Duplicate for seamless scroll
 
-        // --- Event Handlers ---
-
-        /**
-         * Handles all resource card clicks.
-         */
-        const handleResourceClick = (event) => {
-            const card = event.currentTarget;
-            const category = card.dataset.category;
-            const value = card.dataset.value;
-
-            // Toggle selection logic:
-            if (appState.selection[category] === value) {
-                // Deselect if already selected
-                delete appState.selection[category];
-            } else {
-                // Select new item
-                appState.selection[category] = value;
-            }
-            updateSelectionUI();
+        const switchStep = (step) => {
+            Object.values(steps).forEach(s => s.classList.add('hidden'));
+            steps[step].classList.remove('hidden');
         };
 
-        /**
-         * Handles Start button click (Step 1 -> Step 2).
-         */
-        const handleStartClick = () => {
-            const username = $usernameInput.value.trim();
-            if (username.length < 3) {
-                // Use a subtle console or UI message instead of alert()
-                console.error('Please enter a valid Roblox Username (at least 3 characters).');
-                // Could implement a small temporary message in the UI here for better UX
+        startBtn.addEventListener('click', () => {
+            username = userInput.value.trim();
+            if (!username) {
+                document.getElementById('username-error').classList.remove('hidden');
                 return;
             }
-            appState.username = username;
-            goToStep(2);
-        };
+            document.getElementById('username-error').classList.add('hidden');
+            document.getElementById('display-username').textContent = username;
+            switchStep('2');
+        });
+        
+        document.querySelectorAll('.resource-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                const currentItem = e.currentTarget;
+                const type = currentItem.dataset.type;
+                document.querySelectorAll(`.resource-item[data-type="${type}"]`).forEach(el => el.classList.remove('selected'));
+                currentItem.classList.add('selected');
+                selectedResources[type] = currentItem.dataset.value;
+                document.getElementById('resource-error').classList.add('hidden');
+            });
+        });
 
-        /**
-         * Handles Back button click (Step 2 -> Step 1).
-         */
-        const handleBackClick = () => {
-            goToStep(1);
-        };
-
-        /**
-         * Handles Generate button click (Step 2 -> Step 3).
-         */
-        const handleGenerateClick = () => {
-            if (Object.keys(appState.selection).length > 0) {
-                startGenerationProcess();
+        generateBtn.addEventListener('click', () => {
+            if (Object.values(selectedResources).every(v => v === null)) {
+                document.getElementById('resource-error').classList.remove('hidden');
+                return;
             }
-        };
+            switchStep('3');
+            runConsole();
+        });
 
-        /**
-         * Handles Verify button click (Step 4 -> Final Redirect).
-         */
-        const handleVerifyClick = () => {
-            // Redirect to the final CPA offer link - Using the UPDATED link
-            window.location.href = FINAL_CPA_LINK;
-        };
-
-        // --- Animation & Ticker Functions ---
-
-        /**
-         * Animates the live user counter.
-         */
-        const animateUserCount = () => {
-            let currentCount = 12000;
-            const targetCount = 12500;
-            const interval = setInterval(() => {
-                if (currentCount < targetCount) {
-                    currentCount += Math.floor(Math.random() * 10) + 1; // Increase by 1-10
-                    $userCount.textContent = currentCount.toLocaleString();
-                } else {
-                    clearInterval(interval);
-                    // Start over after a long pause
-                    setTimeout(animateUserCount, 15000);
-                }
-            }, 100);
-        };
-
-        /**
-         * Initializes and runs the live winners ticker.
-         */
-        const initializeWinnersTicker = () => {
-            const winners = [
-                { user: 'xXGamerPro07', prize: '10,000 Diamonds' },
-                { user: 'SavageSocks', prize: 'Assassin Class' },
-                { user: 'EpicDolphin33', prize: 'Ice Sword & 5,000 Diamonds' },
-                { user: 'NoobMaster42', prize: 'Cultist King Mace' },
-                { user: 'QueenBee77', prize: 'Trident & Cyborg Class' },
-                { user: 'PandaPower', prize: '2,500 Diamonds' },
+        const runConsole = async () => {
+            const consoleEl = document.getElementById('console');
+            const verificationEl = document.getElementById('verification-step');
+            consoleEl.innerHTML = '';
+            const messages = [
+                { text: 'Initializing secure server connection...', color: 'text-gray-400' },
+                { text: `Authenticating user: ${username}`, color: 'text-gray-400' },
+                { text: 'Authentication successful. Account is active.', color: 'text-green-400' },
+                { text: 'Preparing encrypted resource packet...', color: 'text-gray-400' },
+                { text: `Injecting ${selectedResources.diamond || '0 Diamonds'}...`, color: 'text-yellow-300' },
+                { text: `Assigning ${selectedResources.class || 'Default Class'}...`, color: 'text-yellow-300' },
+                { text: `Delivering ${selectedResources.item || 'No Item'}...`, color: 'text-yellow-300' },
+                { text: 'Packet sent. Awaiting server response...', color: 'text-gray-400' },
+                { text: 'Server response OK.', color: 'text-green-400' },
+                { text: 'Security system requires Human Verification to prevent abuse.', color: 'text-red-400' },
             ];
-            
-            let currentIndex = 0;
-
-            const updateTicker = () => {
-                const winner = winners[currentIndex];
-                const tickerItem = document.createElement('div');
-                tickerItem.className = 'w-full whitespace-nowrap overflow-hidden transition-all duration-500 ease-in-out';
-                tickerItem.innerHTML = `<span class="text-[var(--neon-green)] font-semibold">${winner.user}</span> just received <span class="text-white font-bold">${winner.prize}</span>!`;
-                
-                // Clear previous item and append new one
-                $tickerContainer.innerHTML = '';
-                $tickerContainer.appendChild(tickerItem);
-
-                currentIndex = (currentIndex + 1) % winners.length;
-            };
-
-            updateTicker(); // Show first winner immediately
-            setInterval(updateTicker, 3000); // Change every 3 seconds
+            for (const msg of messages) {
+                await new Promise(res => setTimeout(res, 400 + Math.random() * 400));
+                const p = document.createElement('p');
+                p.className = msg.color;
+                p.textContent = `> ${msg.text}`;
+                consoleEl.appendChild(p);
+                consoleEl.scrollTop = consoleEl.scrollHeight;
+            }
+            verificationEl.classList.remove('hidden');
         };
-
-        // --- Initialization ---
-        window.onload = () => {
-            // Set up event listeners
-            $startBtn.addEventListener('click', handleStartClick);
-            $generateBtn.addEventListener('click', handleGenerateClick);
-            $backBtn.addEventListener('click', handleBackClick);
-            $verifyBtn.addEventListener('click', handleVerifyClick);
-
-            $resourceCards.forEach(card => card.addEventListener('click', handleResourceClick));
-
-            // Initialize UI (Show Step 1)
-            goToStep(1);
-            updateSelectionUI();
-            
-            // Start animations
-            animateUserCount();
-            initializeWinnersTicker();
-        };
-
+    });
     </script>
-    <script type='text/javascript' src='//pl27285769.effectivegatecpm.com/03/17/bd/0317bdd4f2bc8171d8bc9a0518b4b5f6.js'></script>
-    </body>
+</body>
 </html>
+
+
