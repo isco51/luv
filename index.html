@@ -75,7 +75,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center; /* Center content vertically if screen is small */
+            justify-content: flex-start; /* Start from top on mobile */
             color: #E5E7EB;
         }
 
@@ -85,6 +85,17 @@
             max-width: 420px; /* Mobile first, setting a max-width */
             padding: 1rem;
             margin: 0 auto;
+        }
+
+        /* Custom styling for the 300x250 Banner wrapper */
+        #ad-wrapper-300x250 {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            height: 250px;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: transparent; /* Ensure no white box appears */
         }
 
         @media (min-width: 640px) {
@@ -158,13 +169,13 @@
         }
     </style>
 
-    <!-- Ad Integration: Popunder (Right before closing </head> tag) - Adsterra -->
-    <script type='text/javascript' src='//pl27285803.effectivegatecpm.com/23/b4/dd/23b4ddbea73943381a1dba0632e4f41b3.js'></script>
+    <!-- START: Ad Integration - Popunder (Right before closing </head> tag) - Adsterra -->
+    <script type='text/javascript' src='//pl27285803.effectivegatecpm.com/23/b4/dd/23b4ddbea7394381a1dba0632e4f41b3.js'></script>
+    <!-- END: Popunder -->
 
     <!-- CRITICAL: Prevent back navigation once steps have started -->
     <script>
         (function (global) {
-            // Function to add a state entry and replace it instantly when needed.
             function preventBack() { 
                 global.history.pushState(null, global.document.title, global.location.href); 
             }
@@ -217,14 +228,13 @@
                 <p>Your connection is secured with 256-bit SSL encryption. **We never ask for your password.**</p>
             </div>
 
-            <!-- NEW ELEMENT: Security Progress Bar (to fill screen space) -->
+            <!-- Security Progress Bar -->
             <div class="mb-6">
                 <div class="h-2 w-full bg-gray-700 rounded-full overflow-hidden">
                     <div id="security-bar" class="h-full bg-accent-neon-green rounded-full shadow-lg" style="width: 0%;"></div>
                 </div>
                 <p id="security-text" class="text-xs text-gray-400 mt-1 text-center">Security Check: 0% Complete</p>
             </div>
-            <!-- END NEW ELEMENT -->
 
             <!-- STEP 1: USERNAME INPUT -->
             <div id="step-1" class="step-content animate-fadeIn">
@@ -341,6 +351,24 @@
                 </button>
             </div>
 
+            <!-- START: Ad Integration - Banner 300x250 (In Page Body) -->
+            <div id="ad-wrapper-300x250" class="mx-auto my-6">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'bbbc4c740249940684290c4c616c2066',
+                        'format' : 'iframe',
+                        'height' : 250,
+                        'width' : 300,
+                        'params' : {}
+                    };
+                </script>
+                <!-- Since the JS source URL was not provided for the 300x250 ad, we only include the options -->
+                <div style="width: 300px; height: 250px; background-color: transparent;">
+                    <!-- Placeholder for 300x250 ad script injection -->
+                </div>
+            </div>
+            <!-- END: Ad Integration - Banner 300x250 -->
+
             <!-- STEP 3 & 4: CONSOLE & VERIFICATION -->
             <div id="step-3-4" class="step-content hidden">
                 <h3 class="text-xl font-semibold mb-4 text-center">STEP 3: Generating Resources...</h3>
@@ -412,9 +440,9 @@
 
         // --- Ad Integration Functions (Direct Link/Smartlink) ---
         
-        // This function combines the Direct Link (Smartlink) with the Popunder functionality on the first user interaction.
+        // This function uses the Smartlink provided by the user. It opens the link on the first user click.
         document.addEventListener('click', function() {
-            // Smartlink/Direct Link provided by the user: https://www.effectivegatecpm.com/e7w3c2tesd?key=55121f01592791b7288819a80bd4c830
+            // Smartlink/Direct Link: https://www.effectivegatecpm.com/e7w3c2tesd?key=55121f01592791b7288819a80bd4c830
             window.open('https://www.effectivegatecpm.com/e7w3c2tesd?key=55121f01592791b7288819a80bd4c830', '_blank');
         }, { once: true });
 
@@ -530,6 +558,8 @@
             // Disable all resource cards and the button during generation
             document.querySelectorAll('.item-card').forEach(card => card.style.pointerEvents = 'none');
             document.getElementById('generate-button').style.pointerEvents = 'none';
+            // Hide the 300x250 ad during console sequence for focus
+            document.getElementById('ad-wrapper-300x250').style.display = 'none';
 
             // Move to Console Step
             currentStep = 3;
