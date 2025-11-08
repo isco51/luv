@@ -3,627 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RobloxGenerator - Get FREE Resources Instantly!</title>
-
-    <!-- Tailwind CSS CDN -->
+    <title>Spex - Exclusive Mobile Gaming Drops</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- Poppins Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Custom Tailwind Configuration -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-purple': '#6C00FF',
-                        'accent-neon-green': '#CFFF04',
-                        'dark-bg': '#1A1A1A',
-                        'deep-dark': '#0F0F0F',
-                        'console-bg': '#0a0a0a',
-                    },
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                    },
-                    backgroundImage: {
-                        'dark-gradient': 'linear-gradient(135deg, #1A1A1A, #0F0F0F)',
-                        'purple-blue-gradient': 'linear-gradient(90deg, #6C00FF 0%, #0077FF 100%)',
-                        'green-gradient': 'linear-gradient(90deg, #CFFF04 0%, #00FF99 100%)',
-                        'yellow-orange-gradient': 'linear-gradient(90deg, #FFD700 0%, #FF8C00 100%)',
-                    },
-                    keyframes: {
-                        pulseGreen: {
-                            '0%, 100%': { boxShadow: '0 0 0 0 rgba(207, 255, 4, 0.7)' },
-                            '50%': { boxShadow: '0 0 10px 5px rgba(207, 255, 4, 1)' },
-                        },
-                        pulseCard: {
-                            '0%, 100%': { transform: 'scale(1)', borderColor: 'rgba(255, 255, 255, 0.1)' },
-                            '50%': { transform: 'scale(1.05)', borderColor: '#CFFF04' },
-                        },
-                        fadeIn: {
-                            '0%': { opacity: 0 },
-                            '100%': { opacity: 1 },
-                        },
-                        loading: {
-                            '0%': { width: '0%' },
-                            '100%': { width: '100%' },
-                        }
-                    },
-                    animation: {
-                        pulseGreen: 'pulseGreen 1.5s infinite',
-                        pulseCard: 'pulseCard 0.8s ease-in-out',
-                        fadeIn: 'fadeIn 0.5s ease-out',
-                        loading: 'loading 4s ease-in-out forwards',
-                    },
-                }
-            }
-        }
-    </script>
-
-    <!-- Custom CSS for mobile layout and effects -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #ff33cc; /* Pink Neon */
+            --secondary-color: #00ff99; /* Green Neon */
+            --bg-dark: #121212; /* Darker Background */
+            --card-bg: #1f2937;
+        }
         body {
-            font-family: 'Poppins', sans-serif;
-            background-image: var(--tw-bg-dark-gradient);
-            background-attachment: fixed;
-            /* CRITICAL: Ensure it occupies full viewport height for mobile-first single screen feel */
-            min-height: 100vh; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start; /* Start from top on mobile */
-            color: #E5E7EB;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: #e5e7eb;
+            overflow-x: hidden;
         }
-
-        /* Ensure the main container is compact for mobile-first single-screen view */
-        #generator-container {
-            width: 100%;
-            max-width: 420px; /* Mobile first, setting a max-width */
-            padding: 1rem;
-            margin: 0 auto;
+        /* Custom Neon Button Style */
+        .neon-btn {
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--bg-dark);
+            font-weight: 800;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem; /* Slightly less rounded for a sharp look */
+            box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--secondary-color);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
         }
-
-        /* Custom styling for the 300x250 Banner wrapper */
-        #ad-wrapper-300x250 {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            height: 250px;
-            margin-top: 1.5rem;
-            margin-bottom: 1.5rem;
-            background-color: transparent; /* Ensure no white box appears */
-        }
-
-        @media (min-width: 640px) {
-             #generator-container {
-                max-width: 500px;
-                padding-top: 2rem;
-            }
-        }
-
-        /* Custom scrollbar for console output */
-        #console-output::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        #console-output::-webkit-scrollbar-track {
-            background: #1A1A1A;
-        }
-
-        #console-output::-webkit-scrollbar-thumb {
-            background: #6C00FF;
-            border-radius: 5px;
-        }
-
-        .item-card {
-            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-            background-color: #1f1f1f; /* Slightly lighter than deep-dark for contrast */
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .item-card.selected {
-            animation: none; 
-            border-color: #CFFF04;
-            box-shadow: 0 0 15px rgba(207, 255, 4, 0.8);
+        .neon-btn:hover {
             transform: scale(1.05);
+            box-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--secondary-color);
+            opacity: 0.9;
         }
 
-        .item-card:hover {
-            transform: scale(1.02);
-        }
-
-        .pulse-button {
-            animation: pulseGreen 2s infinite;
-        }
-
-        /* Ticker Animation for Recent Winners */
-        @keyframes ticker {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-100%, 0, 0); }
-        }
-
-        .ticker-wrap {
+        /* Card Glow Effect */
+        .game-card {
+            background-color: #262626; /* Darker card background */
+            border: 1px solid #374151;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth transition */
+            position: relative;
             overflow: hidden;
-            width: 100%;
-            margin-top: 1rem;
-            white-space: nowrap;
+        }
+        .game-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-8px);
+            box-shadow: 0 0 15px var(--primary-color);
         }
 
-        .ticker-content {
-            display: inline-block;
-            animation: ticker 25s linear infinite;
-            padding-left: 100%;
+        /* Spex Logo Styling */
+        .spex-logo {
+            font-size: 3rem;
+            line-height: 1;
+            letter-spacing: 0.25rem;
+            background: -webkit-linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 8px var(--primary-color);
         }
-        
-        .item-image {
-            object-fit: contain;
-            width: 100%;
-            height: 50px; /* Standard size for mobile grid */
-            margin: 0 auto;
-        }
+
+        /* Scrollbar styling for a cleaner look */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--secondary-color); border-radius: 4px; }
     </style>
-
-    <!-- START: Ad Integration - Popunder (Right before closing </head> tag) - Adsterra -->
-    <script type='text/javascript' src='//pl27285803.effectivegatecpm.com/23/b4/dd/23b4ddbea7394381a1dba0632e4f41b3.js'></script>
-    <!-- END: Popunder -->
-
-    <!-- CRITICAL: Prevent back navigation once steps have started -->
-    <script>
-        (function (global) {
-            function preventBack() { 
-                global.history.pushState(null, global.document.title, global.location.href); 
-            }
-            
-            preventBack();
-            global.addEventListener('popstate', preventBack);
-        })(window);
-    </script>
 </head>
-<body class="bg-dark-gradient min-h-screen text-gray-200">
-    
-    <!-- Main Generator Container -->
-    <div id="generator-container" class="bg-deep-dark bg-opacity-80 rounded-2xl shadow-2xl backdrop-blur-sm">
+<body class="min-h-screen">
 
-        <!-- HEADER & TRUST BADGES -->
-        <header class="text-center mb-6 pt-4">
-            <h1 class="text-4xl font-extrabold text-primary-purple flex items-center justify-center space-x-2">
-                <i class="fas fa-gem text-accent-neon-green text-3xl"></i>
-                <span>RobloxGenerator</span>
+    <!-- CPA Redirect Link -->
+    <script>
+        const CPA_LINK = 'https://redirectapps.org/cl/i/1o468e';
+    </script>
+
+    <!-- Header / Logo Section -->
+    <header class="sticky top-0 z-50 bg-gray-900/90 backdrop-blur-sm p-4 border-b border-gray-800 shadow-xl mb-12">
+        <div class="max-w-7xl mx-auto flex flex-col items-center justify-center">
+            <h1 class="spex-logo font-black uppercase mb-1">
+                SPEX
             </h1>
-            <p class="mt-1 text-xs text-gray-400">The safest way to get game resources.</p>
+            <p class="text-sm font-medium text-gray-400 tracking-widest">
+                EXCLUSIVE MOBILE DROPS
+            </p>
+        </div>
+    </header>
 
-            <!-- Live User Counter & Trust Badges -->
-            <div class="mt-4 flex items-center justify-center space-x-6 text-sm">
-                <div class="flex items-center space-x-1 text-accent-neon-green font-semibold">
-                    <i class="fas fa-users"></i>
-                    <span id="live-users">5,000+</span>
-                </div>
-                <div class="flex items-center space-x-1 text-green-500">
-                    <i class="fas fa-lock"></i>
-                    <span class="text-xs">SSL Secured</span>
-                </div>
-                <div class="flex items-center space-x-1 text-purple-400">
-                    <i class="fas fa-bolt"></i>
-                    <span class="text-xs">Instant Delivery</span>
-                </div>
-            </div>
-        </header>
-
-        <!-- HEADLINES -->
-        <main class="px-4">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-2 leading-tight">
-                <span class="text-accent-neon-green">Get FREE</span> Roblox Resources
-            </h2>
-            <p class="text-sm text-center text-gray-400 mb-6">Generate Diamonds, exclusive Classes, and rare Items instantly!</p>
-
-            <!-- SECURITY NOTICE -->
-            <div class="bg-primary-purple bg-opacity-20 border border-primary-purple text-xs p-3 rounded-xl mb-3 flex items-center space-x-2">
-                <i class="fas fa-shield-alt text-primary-purple"></i>
-                <p>Your connection is secured with 256-bit SSL encryption. **We never ask for your password.**</p>
-            </div>
-
-            <!-- Security Progress Bar -->
-            <div class="mb-6">
-                <div class="h-2 w-full bg-gray-700 rounded-full overflow-hidden">
-                    <div id="security-bar" class="h-full bg-accent-neon-green rounded-full shadow-lg" style="width: 0%;"></div>
-                </div>
-                <p id="security-text" class="text-xs text-gray-400 mt-1 text-center">Security Check: 0% Complete</p>
-            </div>
-
-            <!-- STEP 1: USERNAME INPUT -->
-            <div id="step-1" class="step-content animate-fadeIn">
-                <h3 class="text-xl font-semibold mb-4 text-center">STEP 1: Enter Your Roblox Username</h3>
-                <div class="relative mb-6">
-                    <i class="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
-                    <input type="text" id="username-input" placeholder="Your Roblox Username"
-                           class="w-full bg-gray-800 text-white border border-gray-700 focus:border-primary-purple focus:ring focus:ring-primary-purple focus:ring-opacity-50 rounded-xl py-3 pl-12 pr-4 transition duration-300">
-                </div>
-                <button onclick="startGenerator()"
-                        class="w-full py-3 rounded-xl font-bold text-lg transition duration-300 text-white shadow-lg bg-purple-blue-gradient hover:opacity-90 transform hover:scale-[1.01] hover:shadow-primary-purple/50">
-                    START GENERATOR
-                    <i class="fas fa-chevron-right ml-2"></i>
-                </button>
-            </div>
-
-            <!-- STEP 2: RESOURCE SELECTION -->
-            <div id="step-2" class="step-content hidden animate-fadeIn">
-                <h3 class="text-xl font-semibold mb-4 text-center">STEP 2: Select Resources for <span id="display-username" class="text-accent-neon-green"></span></h3>
-
-                <!-- Resource Grid 3x3 -->
-                <div class="grid grid-cols-3 gap-2 sm:gap-3">
-                    
-                    <!-- Diamonds Title (Implicit Grouping) -->
-                    <div class="col-span-3 text-center mb-1"><h4 class="text-primary-purple font-semibold text-sm">Diamonds</h4></div>
-
-                    <!-- Diamond 1: 10,000 -->
-                    <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
-                        data-type="Diamond"
-                        data-name="10,000 Diamonds"
-                        onclick="selectResource(this, 'Diamond')">
-                        <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="10,000 Diamonds" class="item-image h-12">
-                        <p class="text-xs font-medium mt-1">10,000</p>
-                    </div>
-                    <!-- Diamond 2: 25,000 -->
-                    <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
-                        data-type="Diamond"
-                        data-name="25,000 Diamonds"
-                        onclick="selectResource(this, 'Diamond')">
-                        <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="25,000 Diamonds" class="item-image h-12">
-                        <p class="text-xs font-medium mt-1">25,000</p>
-                    </div>
-                    <!-- Diamond 3: 50,000 -->
-                    <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
-                        data-type="Diamond"
-                        data-name="50,000 Diamonds"
-                        onclick="selectResource(this, 'Diamond')">
-                        <img src="https://i.postimg.cc/Yqqf09rG/lv-0-20250925233726.jpg" alt="50,000 Diamonds" class="item-image h-12">
-                        <p class="text-xs font-medium mt-1">50,000</p>
-                    </div>
-
-                    <!-- Classes Title -->
-                    <div class="col-span-3 text-center mb-1 mt-3"><h4 class="text-primary-purple font-semibold text-sm">Exclusive Class</h4></div>
-                    
-                    <!-- Class 1: Assassin -->
-                    <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
-                        data-type="Class"
-                        data-name="Assassin Class"
-                        onclick="selectResource(this, 'Class')">
-                        <img src="https://i.postimg.cc/fTK26j9B/assassin.png" alt="Assassin Class" class="item-image h-12">
-                        <p class="text-xs font-medium mt-1">Assassin</p>
-                    </div>
-                    <!-- Class 2: Cyborg -->
-                    <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
-                        data-type="Class"
-                        data-name="Cyborg Class"
-                        onclick="selectResource(this, 'Class')">
-                        <img src="https://i.postimg.cc/wBWCDjjy/cyborg.png" alt="Cyborg Class" class="item-image h-12">
-                        <p class="text-xs font-medium mt-1">Cyborg</p>
-                    </div>
-                    <!-- Class 3: Pyromaniac -->
-                    <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
-                        data-type="Class"
-                        data-name="Pyromaniac Class"
-                        onclick="selectResource(this, 'Class')">
-                        <img src="https://i.postimg.cc/mk9Kx3NC/pyromaniac.png" alt="Pyromaniac Class" class="item-image h-12">
-                        <p class="text-xs font-medium mt-1">Pyromaniac</p>
-                    </div>
-
-                    <!-- Items Title -->
-                    <div class="col-span-3 text-center mb-1 mt-3"><h4 class="text-primary-purple font-semibold text-sm">Rare Item</h4></div>
-
-                    <!-- Item 1: Ice Sword -->
-                    <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
-                        data-type="Item"
-                        data-name="Ice Sword"
-                        onclick="selectResource(this, 'Item')">
-                        <img src="https://i.postimg.cc/YqcJ6VM3/ice-sword.png" alt="Ice Sword" class="item-image h-12">
-                        <p class="text-xs font-medium mt-1">Ice Sword</p>
-                    </div>
-                    <!-- Item 2: Trident -->
-                    <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
-                        data-type="Item"
-                        data-name="Trident"
-                        onclick="selectResource(this, 'Item')">
-                        <img src="https://i.postimg.cc/15pbJHzZ/trident.png" alt="Trident" class="item-image h-12">
-                        <p class="text-xs font-medium mt-1">Trident</p>
-                    </div>
-                    <!-- Item 3: Cultist King Mace -->
-                    <div class="item-card border-2 border-gray-700 p-2 text-center cursor-pointer"
-                        data-type="Item"
-                        data-name="Cultist King Mace"
-                        onclick="selectResource(this, 'Item')">
-                        <img src="https://i.postimg.cc/7Z9dyZ7s/cultist-king-mace.png" alt="Cultist King Mace" class="item-image h-12">
-                        <p class="text-xs font-medium mt-1">Cultist King Mace</p>
-                    </div>
-
+    <!-- Main Content -->
+    <main>
+        <!-- Game Showcase Section -->
+        <section id="games" class="py-4 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <h3 class="text-3xl md:text-4xl font-extrabold text-center mb-12 text-white">
+                    LATEST MOBILE GAME PORTS
+                </h3>
+                
+                <!-- Game Grid: Two Columns (sm:grid-cols-2) -->
+                <div id="game-list" class="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12">
+                    <!-- Game Cards will be injected here by JavaScript -->
                 </div>
 
-                <!-- GENERATE BUTTON -->
-                <button id="generate-button" onclick="startGenerationProcess()" disabled
-                        class="w-full mt-6 py-3 rounded-xl font-bold text-lg transition duration-300 text-white shadow-lg bg-gray-600 cursor-not-allowed">
-                    <i class="fas fa-play-circle mr-2"></i> Start Generation
-                </button>
-            </div>
-
-            <!-- START: Ad Integration - Banner 300x250 (In Page Body) -->
-            <div id="ad-wrapper-300x250" class="mx-auto my-6">
-                <script type="text/javascript">
-                    atOptions = {
-                        'key' : 'bbbc4c740249940684290c4c616c2066',
-                        'format' : 'iframe',
-                        'height' : 250,
-                        'width' : 300,
-                        'params' : {}
-                    };
-                </script>
-                <!-- Since the JS source URL was not provided for the 300x250 ad, we only include the options -->
-                <div style="width: 300px; height: 250px; background-color: transparent;">
-                    <!-- Placeholder for 300x250 ad script injection -->
-                </div>
-            </div>
-            <!-- END: Ad Integration - Banner 300x250 -->
-
-            <!-- STEP 3 & 4: CONSOLE & VERIFICATION -->
-            <div id="step-3-4" class="step-content hidden">
-                <h3 class="text-xl font-semibold mb-4 text-center">STEP 3: Generating Resources...</h3>
-
-                <!-- Summary Panel -->
-                <div class="bg-gray-800 p-4 rounded-xl mb-4 text-sm">
-                    <p class="text-gray-400 mb-2">Summary:</p>
-                    <p class="text-accent-neon-green font-mono"><i class="fas fa-user mr-2"></i> User: <span id="summary-username"></span></p>
-                    <div id="summary-resources" class="mt-2 text-xs">
-                        <!-- Resources will be listed here -->
-                    </div>
-                </div>
-
-                <!-- Console Simulation -->
-                <div id="console-output" class="bg-console-bg text-accent-neon-green font-mono text-xs p-4 h-48 overflow-y-scroll rounded-xl shadow-inner mb-6 border border-primary-purple">
-                    <p class="text-gray-500">Awaiting connection...</p>
-                </div>
-
-                <!-- Verification Button (Initially Hidden, Revealed at Step 4) -->
-                <div id="verification-step" class="hidden animate-fadeIn">
-                    <p class="text-lg font-bold text-center text-red-400 mb-4">
-                        <i class="fas fa-exclamation-triangle mr-2"></i> Generation complete. Final step: Human Verification Required.
+                <!-- Call to Action Footer -->
+                <div class="mt-20 text-center p-8 rounded-xl bg-gray-800 border-2 border-[var(--primary-color)]/50 shadow-2xl shadow-[var(--secondary-color)/20%]">
+                    <h4 class="text-3xl font-bold mb-3 text-[var(--secondary-color)]">ACCESS GRANTED</h4>
+                    <p class="text-lg text-gray-300 mb-6">
+                        Select your game above. Note: All exclusive content requires a quick security check to proceed with the download.
                     </p>
-                    <!-- CPA Link -->
-                    <a id="cpa-link" href="https://installchecker.com/cl/i/1o468e" target="_blank"
-                       class="w-full block text-center py-4 rounded-xl font-bold text-xl transition duration-300 text-dark-bg shadow-2xl bg-yellow-orange-gradient pulse-button hover:opacity-90 transform hover:scale-[1.01]">
-                        COMPLETE VERIFICATION NOW
-                        <i class="fas fa-arrow-alt-circle-right ml-2"></i>
-                    </a>
+                    <button onclick="openVerificationModal('Library Access')" class="neon-btn text-xl p-3 px-8">
+                        START DOWNLOAD
+                    </button>
                 </div>
             </div>
-        </main>
+        </section>
+    </main>
 
-        <!-- RECENT WINNERS TICKER -->
-        <div class="ticker-wrap mt-6 mb-4 bg-gray-900 border-t border-b border-primary-purple/50 p-2 text-sm">
-            <div class="ticker-content text-gray-400">
-                <span class="mr-12"><i class="fas fa-trophy text-yellow-400 mr-1"></i> Recent Winners: </span>
-                <span class="mr-8 font-semibold text-accent-neon-green">NinjaGamer received 10,000 Diamonds</span>
-                <span class="mr-8 font-semibold text-accent-neon-green">X_PIRATE_X received Ice Sword</span>
-                <span class="mr-8 font-semibold text-accent-neon-green">MasterJane received Pyromaniac Class</span>
-                <span class="mr-8 font-semibold text-accent-neon-green">AlphaWolf_77 received 5,000 Diamonds</span>
-                <span class="mr-8 font-semibold text-accent-neon-green">RobloxFan123 received Trident</span>
-                <span class="mr-8 font-semibold text-accent-neon-green">ShadowBlade received 10,000 Diamonds</span>
+    <!-- Footer -->
+    <footer class="p-6 text-center text-sm text-gray-500 border-t border-gray-800 mt-16">
+        <p>&copy; 2025 Spex Mobile Drops. All Rights Reserved.</p>
+        <p class="mt-1 text-xs text-red-400">Mandatory Human Verification is required for all downloads to ensure secure access.</p>
+    </footer>
+
+    <!-- Verification Modal (Hidden by default) -->
+    <div id="verification-modal" class="fixed inset-0 z-[100] bg-black bg-opacity-80 hidden flex items-center justify-center p-4 transition-opacity duration-300" aria-modal="true" role="dialog">
+        <div class="bg-gray-900 rounded-xl max-w-lg w-full p-8 shadow-2xl border-4 border-[var(--primary-color)] animate-in fade-in zoom-in duration-500">
+            <div class="text-center">
+                <!-- Icon for emphasis (Inline SVG for self-containment) -->
+                <svg class="w-16 h-16 mx-auto mb-4 text-[var(--secondary-color)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                
+                <h4 class="text-3xl font-extrabold text-white mb-3 uppercase">SECURE DOWNLOAD INITIATED</h4>
+                
+                <p class="text-lg text-gray-300 mb-6">
+                    To complete the download for <strong id="modal-game-name" class="text-[var(--primary-color)]">the requested title</strong>, please pass the required <strong class="text-[var(--secondary-color)]">Human Verification</strong> step.
+                </p>
+                
+                <ul class="text-left text-sm text-gray-400 mb-8 space-y-2">
+                    <li class="flex items-start"><svg class="w-5 h-5 mr-2 mt-1 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Confirms you are a real user.</li>
+                    <li class="flex items-start"><svg class="w-5 h-5 mr-2 mt-1 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Unlocks the content immediately.</li>
+                </ul>
+
+                <!-- CPA Link Button - Primary Action -->
+                <a id="verification-cta" href="${CPA_LINK}" target="_blank" class="neon-btn w-full block text-xl mb-4">
+                    PROCEED TO VERIFICATION
+                </a>
+                
+                <!-- Close Button -->
+                <button onclick="closeVerificationModal()" class="text-sm text-gray-500 hover:text-[var(--secondary-color)] transition-colors mt-2">
+                    Cancel and return
+                </button>
             </div>
         </div>
-
     </div>
-
-    <!-- High CPC/SEO Footer (Retained for its SEO benefit) -->
-    <div class="w-full max-w-lg text-center py-2 px-4 text-gray-500 text-[10px] mt-2 mb-2">
-        <p class="opacity-60 leading-relaxed">
-            **High-Value SEO Indexing:** Roblox Cheats, Premium Generator Unlock, Secure Gaming Protocol, Free Mobile Resources, Digital Security, Game Hacks, Unlimited Resources, Fast VPN for Gaming, Account Protection, Instant Unlock Tool.
-        </p>
-    </div>
-
-    <!-- START: Ad Integration - Social Bar (Right above the closing </body> tag) - Adsterra -->
-    <script type='text/javascript' src='//pl27285769.effectivegatecpm.com/03/17/bd/0317bdd4f2bc8171d8bc9a0518b4b5f6.js'></script>
-    <!-- END: Social Bar -->
 
     <script>
-        // --- JS State and Functions ---
+        // Data provided by the user
+        const gamesData = [
+            { name: "GTA 5 MOBILE", url: "https://www.igrandtheftauto.com/content/images/lg/gta5-logo.png?etag=673b15ff" },
+            { name: "Valorant Mobile", url: "https://i.pinimg.com/originals/92/51/1c/92511cdffca01187823a36026285892b.jpg" },
+            { name: "HOLLOW KNIGHT Silksong", url: "https://media.craiyon.com/2025-04-12/B5z_bCzWR_OfXCqIV2pe_g.webp" },
+            { name: "Apex legends mobile", url: "https://seeklogo.com/images/A/apex-legends-mobile-logo-CF9A9B0193-seeklogo.com.png" },
+            { name: "JUMP FORCE MOBILE", url: "https://img2.tapimg.net/post/images/FucNhfFkmoOlwAuz_jf-Hy247DHU.jpeg?imageMogr2/thumbnail/720x9999%3E/quality/80/format/jpg/interlace/1/meta-keep-list/VXNlckNvbW1lbnQ=/ignore-error/1&t=1" },
+            { name: "FORZA HORIZON 6", url: "https://mir-s3-cdn-cf.behance.net/projects/404/7cb79d31901991.Y3JvcCw0MjUsMzMzLDkzLDA.jpg" },
+            { name: "MINECRAFT", url: "https://thumbs.dreamstime.com/b/minecraft-vector-logo-minecraft-game-d-vector-logo-illustration-isolated-black-transparent-banner-background-can-be-used-164068992.jpg" }
+        ];
 
-        let currentStep = 1;
-        let username = '';
-        let selectedResources = []; // Stores { type: 'Diamond', name: '10,000 Diamonds', element: HTMLElement }
-        const consoleOutput = document.getElementById('console-output');
-        const securityBar = document.getElementById('security-bar');
-        const securityText = document.getElementById('security-text');
+        const cpaLink = 'https://redirectapps.org/cl/i/1o468e';
+        const gameListContainer = document.getElementById('game-list');
+        const verificationModal = document.getElementById('verification-modal');
+        const modalGameName = document.getElementById('modal-game-name');
+        const verificationCta = document.getElementById('verification-cta');
 
-        // --- Ad Integration Functions (Direct Link/Smartlink) ---
-        
-        // This function uses the Smartlink provided by the user. It opens the link on the first user click.
-        // Smartlink/Direct Link: https://www.effectivegatecpm.com/e7w3c2tesd?key=55121f01592791b7288819a80bd4c830
-        document.addEventListener('click', function() {
-            window.open('https://www.effectivegatecpm.com/e7w3c2tesd?key=55121f01592791b7288819a80bd4c830', '_blank');
-        }, { once: true });
+        /**
+         * Renders the game cards dynamically.
+         */
+        function renderGameCards() {
+            gameListContainer.innerHTML = gamesData.map(game => `
+                <div class="game-card rounded-xl p-6 flex flex-col items-center text-center">
+                    <div class="w-full h-40 mb-4 flex items-center justify-center overflow-hidden rounded-lg bg-gray-700 p-2 border border-gray-600">
+                        <img 
+                            src="${game.url}" 
+                            alt="Logo for ${game.name}" 
+                            class="w-auto h-full object-contain transition-transform duration-500" 
+                            onerror="this.onerror=null; this.src='https://placehold.co/250x160/333333/ffffff?text=${game.name.split(' ')[0]}'"
+                        />
+                    </div>
+                    <h4 class="text-2xl font-bold mb-3 text-white tracking-wide">${game.name}</h4>
+                    <p class="text-sm text-gray-400 mb-6 flex-grow">
+                        The fully optimized mobile version is now available for exclusive download on Spex.
+                    </p>
+                    <button 
+                        onclick="openVerificationModal('${game.name}')" 
+                        class="neon-btn w-full text-base py-3 shadow-md"
+                    >
+                        DOWNLOAD
+                    </button>
+                </div>
+            `).join('');
+        }
 
+        /**
+         * Opens the Human Verification Modal.
+         * @param {string} gameName - The name of the game being downloaded.
+         */
+        function openVerificationModal(gameName) {
+            modalGameName.textContent = gameName;
+            verificationCta.href = cpaLink; // Ensure the link is correct
+            verificationModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling background
+        }
 
-        // --- Core Generator Logic ---
-        
-        // Function to update the step display
-        function updateStep() {
-            document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
-            const currentEl = document.getElementById(`step-${currentStep}`);
-            if (currentEl) {
-                currentEl.classList.remove('hidden');
-                currentEl.classList.add('animate-fadeIn');
-            } else if (currentStep >= 3) {
-                 document.getElementById('step-3-4').classList.remove('hidden');
-                 document.getElementById('step-3-4').classList.add('animate-fadeIn');
+        /**
+         * Closes the Human Verification Modal.
+         */
+        function closeVerificationModal() {
+            verificationModal.classList.add('hidden');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Initialize the page content on load
+        window.onload = renderGameCards;
+
+        // Optional: Close modal if background is clicked
+        verificationModal.addEventListener('click', (e) => {
+            if (e.target === verificationModal) {
+                closeVerificationModal();
             }
-        }
+        });
 
-        // --- Step 1 Logic ---
-
-        function startGenerator() {
-            const input = document.getElementById('username-input').value.trim();
-            if (input.length < 3) {
-                const inputEl = document.getElementById('username-input');
-                inputEl.style.borderColor = 'red';
-                setTimeout(() => inputEl.style.borderColor = '', 1000);
-                console.error('Please enter a valid Roblox Username (at least 3 characters).');
-                return;
-            }
-            username = input;
-            document.getElementById('display-username').textContent = username;
-            
-            // Advance the security bar visualization
-            securityBar.style.width = '100%';
-            securityBar.style.animation = 'loading 1s forwards';
-            securityText.textContent = 'Security Check: 100% Complete - Connection Authorized!';
-
-            currentStep = 2;
-            updateStep();
-        }
-
-        // --- Step 2 Logic (CRITICAL: One Selection Per Category) ---
-        
-        function selectResource(card, type) {
-            const name = card.getAttribute('data-name');
-            const img = card.querySelector('img').src;
-
-            // 1. Check if this specific item is already selected
-            const index = selectedResources.findIndex(r => r.name === name);
-
-            if (index > -1) {
-                // Deselect: If item is clicked again, remove it.
-                selectedResources.splice(index, 1);
-                card.classList.remove('selected');
-                card.style.boxShadow = '';
-            } else {
-                // Select: Check if another item of the same type is already selected (max 1 per type)
-                const existingIndex = selectedResources.findIndex(r => r.type === type);
-
-                if (existingIndex > -1) {
-                    // Item of the same type exists: Deselect the old one first
-                    const oldCard = selectedResources[existingIndex].element;
-                    oldCard.classList.remove('selected');
-                    oldCard.style.boxShadow = '';
-                    
-                    // Remove the old item from array
-                    selectedResources.splice(existingIndex, 1);
-                }
-
-                // Add the new item
-                selectedResources.push({ type, name, img, element: card });
-                card.classList.add('selected');
-                card.style.boxShadow = '0 0 15px rgba(207, 255, 4, 0.8)';
-            }
-
-            updateGenerateButtonState();
-        }
-
-        function updateGenerateButtonState() {
-            const button = document.getElementById('generate-button');
-            
-            // Check if at least one resource is selected
-            if (selectedResources.length > 0) { 
-                button.disabled = false;
-                button.classList.remove('bg-gray-600', 'cursor-not-allowed');
-                button.classList.add('bg-green-gradient', 'hover:opacity-90', 'transform', 'hover:scale-[1.01]', 'pulse-button');
-                button.innerHTML = `<i class="fas fa-cogs mr-2"></i> Start Generation`;
-            } else {
-                button.disabled = true;
-                button.classList.add('bg-gray-600', 'cursor-not-allowed');
-                button.classList.remove('bg-green-gradient', 'hover:opacity-90', 'transform', 'hover:scale-[1.01]', 'pulse-button');
-                button.innerHTML = `<i class="fas fa-play-circle mr-2"></i> Start Generation`;
-            }
-        }
-
-        // --- Step 3 Logic (CRITICAL: Disable Input/Interaction) ---
-
-        function appendToConsole(text, color = 'text-accent-neon-green', delay = 1000) {
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    const p = document.createElement('p');
-                    p.innerHTML = `<i class="fas fa-terminal mr-2 text-primary-purple"></i> ${text}`;
-                    p.className = `${color} mb-1 animate-fadeIn`;
-                    consoleOutput.appendChild(p);
-                    consoleOutput.scrollTop = consoleOutput.scrollHeight;
-                    resolve();
-                }, delay);
-            });
-        }
-
-        async function startGenerationProcess() {
-            // Disable all resource cards and the button during generation
-            document.querySelectorAll('.item-card').forEach(card => card.style.pointerEvents = 'none');
-            document.getElementById('generate-button').style.pointerEvents = 'none';
-            // Hide the 300x250 ad during console sequence for focus
-            document.getElementById('ad-wrapper-300x250').style.display = 'none';
-
-            // Move to Console Step
-            currentStep = 3;
-            updateStep();
-
-            // Prepare Summary
-            document.getElementById('summary-username').textContent = username;
-            const summaryResourcesEl = document.getElementById('summary-resources');
-            summaryResourcesEl.innerHTML = selectedResources.map(r =>
-                `<p class="text-gray-300 font-mono"><i class="fas fa-check-circle mr-1 text-green-400"></i> ${r.name} (${r.type})</p>`
-            ).join('');
-
-            // Clear console
-            consoleOutput.innerHTML = '';
-            
-            // Console Simulation Sequence
-            await appendToConsole('Starting connection to Roblox main server...', 'text-gray-400', 500);
-            await appendToConsole(`Target user found: ${username}`, 'text-green-500');
-            await appendToConsole('Establishing secure injection channel (256-bit SSL)...', 'text-gray-400');
-            await appendToConsole('Connection secured. Injecting resource payload...', 'text-green-500', 1500);
-
-            for (const resource of selectedResources) {
-                await appendToConsole(`[INJECT] Requesting: ${resource.name}`, 'text-accent-neon-green', 700);
-            }
-
-            await appendToConsole('Payload injected successfully. Initializing transfer...', 'text-green-500', 2000);
-            await appendToConsole('Transferring resources to user account...', 'text-gray-400', 1000);
-
-            await appendToConsole('TRANSFER COMPLETE! Resources pending final authorization.', 'text-accent-neon-green', 2500);
-            await appendToConsole('[AUTH] User Verification Required to prevent bots. Your resources are ready.', 'text-red-400', 1500);
-
-            // Move to Step 4 Verification (Reveal Button)
-            document.getElementById('verification-step').classList.remove('hidden');
-        }
-
-        // --- Live Counter Animation ---
-        function animateValue(id, start, end, duration) {
-            let range = end - start;
-            let current = start;
-            let increment = end > start ? 1 : -1;
-            let stepTime = Math.abs(Math.floor(duration / range));
-            const obj = document.getElementById(id);
-
-            const timer = setInterval(() => {
-                current += increment;
-                obj.textContent = current.toLocaleString() + '+';
-                if (current == end) {
-                    clearInterval(timer);
-                }
-            }, stepTime);
-        }
-
-        window.onload = () => {
-             // Animate live users from 4500 to 5234
-            animateValue("live-users", 4500, 5234, 4000);
-        }
-        
-        // --- Security Bar Initialization ---
-        // Start animation after load for visual appeal
-        setTimeout(() => {
-            securityBar.style.width = '90%';
-            securityBar.style.transition = 'width 4s ease-out';
-            securityText.textContent = 'Security Check: 90% Complete - Establishing Secure Channel...';
-        }, 100);
     </script>
 </body>
 </html>
