@@ -306,8 +306,8 @@
 
         // Global variables for redirection and selected package
         let selectedGemAmount = 0;
-        // IMPORTANT: The user's requested link is used here.
-        const FINAL_OFFER_URL = "spex.site"; 
+        // IMPORTANT: Updated to the user's provided CPA link.
+        const FINAL_OFFER_URL = "https://lockedapp.org/cl/v/1o468e"; 
 
         // --- Utility Functions ---
 
@@ -375,7 +375,7 @@
                 const modalError = document.createElement('p');
                 modalError.textContent = "Please enter a valid Player ID.";
                 modalError.className = "text-red-400 text-sm mt-3";
-                // Remove previous errors before adding a new one
+                
                 const existingError = confirmRewardButton.nextElementSibling;
                 if (existingError && existingError.tagName === 'P' && existingError.classList.contains('text-red-400')) {
                     existingError.remove();
@@ -389,9 +389,8 @@
             // Simulate activity before redirecting
             addActivity(`Player ${userId} selected ${selectedGemAmount} Gems and started verification!`, 'link');
             
-            // Redirect to the final offer/verification link.
-            // Using full URL structure for spex.site
-            window.location.href = `http://${FINAL_OFFER_URL}/?user=${encodeURIComponent(userId)}&amount=${selectedGemAmount}`;
+            // Redirect to the final CPA link, passing user and amount for tracking
+            window.location.href = `${FINAL_OFFER_URL}?user=${encodeURIComponent(userId)}&amount=${selectedGemAmount}`;
             
             closeModal();
         });
